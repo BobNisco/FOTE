@@ -5,20 +5,20 @@ package fote.entry;
  * @author Bob Nisco
  */
 public class Attachment extends Entry {
-    private User owner;
+    private Integer owner;
     private String fileName;
     
     public Attachment() {
-        this.owner = new User();
+        this.owner = -1;
         this.fileName = "";
     }
 
-    public Attachment(User owner, String fileName) {
+    public Attachment(Integer owner, String fileName) {
         this.owner = owner;
         this.fileName = fileName;
     }
 
-    public User getOwner() {
+    public Integer getOwner() {
         return owner;
     }
 
@@ -26,7 +26,7 @@ public class Attachment extends Entry {
         return fileName;
     }
 
-    public void setOwner(User owner) {
+    public void setOwner(Integer owner) {
         this.owner = owner;
     }
 

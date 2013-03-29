@@ -1,29 +1,35 @@
 package fote.entry;
 
+import java.util.ArrayList;
+
 /**
  * This class implements an Entry
  * @author Bob Nisco
  */
 public class Proposal extends Entry {
     private String expirationDate, subject, description;
-    private int priority;
-    private String[] options;
-    private int[] voteCount;
+    private Integer priority, author;
+    private ArrayList<String> options;
+    private ArrayList<Integer> voteCount;
     
     public Proposal() {
         this.expirationDate = "";
         this.subject = "";
         this.description = "";
         this.priority = 0;
-        this.options = new String[5];
-        this.voteCount = new int[5];
+        this.author = -1;
+        this.options = new ArrayList<String>();
+        this.voteCount = new ArrayList<Integer>();
     }
 
-    public Proposal(String expirationDate, String subject, String description, int priority, String[] options, int[] voteCount) {
+    public Proposal(String expirationDate, String subject, String description, 
+            Integer priority, Integer author, ArrayList<String> options, 
+            ArrayList<Integer> voteCount) {
         this.expirationDate = expirationDate;
         this.subject = subject;
         this.description = description;
         this.priority = priority;
+        this.author = author;
         this.options = options;
         this.voteCount = voteCount;
     }
@@ -40,15 +46,15 @@ public class Proposal extends Entry {
         return description;
     }
 
-    public int getPriority() {
+    public Integer getPriority() {
         return priority;
     }
 
-    public String[] getOptions() {
+    public ArrayList<String> getOptions() {
         return options;
     }
 
-    public int[] getVoteCount() {
+    public ArrayList<Integer> getVoteCount() {
         return voteCount;
     }
 
@@ -64,15 +70,23 @@ public class Proposal extends Entry {
         this.description = description;
     }
 
-    public void setPriority(int priority) {
+    public void setPriority(Integer priority) {
         this.priority = priority;
     }
 
-    public void setOptions(String[] options) {
+    public void setOptions(ArrayList<String> options) {
         this.options = options;
     }
 
-    public void setVoteCount(int[] voteCount) {
+    public void setVoteCount(ArrayList<Integer> voteCount) {
         this.voteCount = voteCount;
+    }
+
+    public Integer getAuthor() {
+        return author;
+    }
+
+    public void setAuthor(Integer author) {
+        this.author = author;
     }
 }

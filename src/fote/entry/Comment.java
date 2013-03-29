@@ -6,15 +6,15 @@ package fote.entry;
  */
 public class Comment extends Entry {
     private String text;
-    private User author;
+    private Integer author;
     
     public Comment() {
         super();
         this.text = "";
-        this.author = new User();
+        this.author = -1;
     }
 
-    public Comment(String text, User author) {
+    public Comment(String text, Integer author) {
         super();
         this.text = text;
         this.author = author;
@@ -24,7 +24,7 @@ public class Comment extends Entry {
         return text;
     }
 
-    public User getAuthor() {
+    public Integer getAuthor() {
         return author;
     }
 
@@ -32,7 +32,7 @@ public class Comment extends Entry {
         this.text = text;
     }
 
-    public void setAuthor(User author) {
+    public void setAuthor(Integer author) {
         this.author = author;
     }
 }

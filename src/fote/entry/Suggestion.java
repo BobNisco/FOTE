@@ -6,16 +6,16 @@ package fote.entry;
  */
 public class Suggestion extends Entry {
     private String subject, description;
-    private User author;
+    private Integer author;
     
     public Suggestion() {
         super();
         this.subject = "";
         this.description = "";
-        this.author = new User();
+        this.author = -1;
     }
     
-    public Suggestion(String subject, String description, User author) {
+    public Suggestion(String subject, String description, Integer author) {
         super();
         this.subject = subject;
         this.description = description;
@@ -38,11 +38,11 @@ public class Suggestion extends Entry {
         this.description = description;
     }
 
-    public User getAuthor() {
+    public Integer getAuthor() {
         return author;
     }
 
-    public void setAuthor(User author) {
+    public void setAuthor(Integer author) {
         this.author = author;
     }
 }
