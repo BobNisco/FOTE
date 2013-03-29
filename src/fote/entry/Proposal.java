@@ -1,19 +1,21 @@
 package fote.entry;
 
 import java.util.ArrayList;
+import java.util.Date;
 
 /**
  * This class implements an Entry
  * @author Bob Nisco
  */
 public class Proposal extends Entry {
-    private String expirationDate, subject, description;
+    private String subject, description;
     private Integer priority, author;
     private ArrayList<String> options;
     private ArrayList<Integer> voteCount, comments, attachments;
+    private Date expirationDate;
     
     public Proposal() {
-        this.expirationDate = "";
+        this.expirationDate = new Date();
         this.subject = "";
         this.description = "";
         this.priority = 0;
@@ -24,7 +26,7 @@ public class Proposal extends Entry {
         this.attachments = new ArrayList<Integer>();
     }
 
-    public Proposal(String expirationDate, String subject, String description, 
+    public Proposal(Date expirationDate, String subject, String description, 
             Integer priority, Integer author, ArrayList<String> options, 
             ArrayList<Integer> voteCount, ArrayList<Integer> comments, 
             ArrayList<Integer> attachments) {
@@ -39,7 +41,7 @@ public class Proposal extends Entry {
         this.attachments = attachments;
     }
 
-    public String getExpirationDate() {
+    public Date getExpirationDate() {
         return expirationDate;
     }
 
@@ -63,7 +65,7 @@ public class Proposal extends Entry {
         return voteCount;
     }
 
-    public void setExpirationDate(String expirationDate) {
+    public void setExpirationDate(Date expirationDate) {
         this.expirationDate = expirationDate;
     }
 
