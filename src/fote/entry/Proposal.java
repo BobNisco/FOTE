@@ -14,6 +14,9 @@ public class Proposal extends Entry {
     private ArrayList<Integer> voteCount, comments, attachments;
     private Date expirationDate;
     
+    /**
+     *
+     */
     public Proposal() {
         this.expirationDate = new Date();
         this.subject = "";
@@ -26,6 +29,18 @@ public class Proposal extends Entry {
         this.attachments = new ArrayList<Integer>();
     }
 
+    /**
+     *
+     * @param expirationDate
+     * @param subject
+     * @param description
+     * @param priority
+     * @param author
+     * @param options
+     * @param voteCount
+     * @param comments
+     * @param attachments
+     */
     public Proposal(Date expirationDate, String subject, String description, 
             Integer priority, Integer author, ArrayList<String> options, 
             ArrayList<Integer> voteCount, ArrayList<Integer> comments, 
@@ -41,75 +56,177 @@ public class Proposal extends Entry {
         this.attachments = attachments;
     }
 
+    /**
+     *
+     * @return the expiration date of this proposal
+     */
     public Date getExpirationDate() {
         return expirationDate;
     }
 
+    /**
+     *
+     * @return the subject of this proposal
+     */
     public String getSubject() {
         return subject;
     }
 
+    /**
+     *
+     * @return the description of this proposal
+     */
     public String getDescription() {
         return description;
     }
 
+    /**
+     *
+     * @return the priority of this proposal
+     */
     public Integer getPriority() {
         return priority;
     }
 
+    /**
+     *
+     * @return an ArrayList of the options of this proposal
+     */
     public ArrayList<String> getOptions() {
         return options;
     }
 
+    /**
+     *
+     * @return an ArrayList of the votes of this proposal
+     */
     public ArrayList<Integer> getVoteCount() {
         return voteCount;
     }
 
+    /**
+     *
+     * @param expirationDate the new expirationDate value
+     */
     public void setExpirationDate(Date expirationDate) {
         this.expirationDate = expirationDate;
     }
 
+    /**
+     *
+     * @param subject the new Subject value
+     */
     public void setSubject(String subject) {
         this.subject = subject;
     }
 
+    /**
+     *
+     * @param description the new description
+     */
     public void setDescription(String description) {
         this.description = description;
     }
 
+    /**
+     *
+     * @param priority the new priority value
+     */
     public void setPriority(Integer priority) {
         this.priority = priority;
     }
 
+    /**
+     *
+     * @param options the new options
+     */
     public void setOptions(ArrayList<String> options) {
         this.options = options;
     }
 
+    /**
+     *
+     * @param voteCount the new voteCounts
+     */
     public void setVoteCount(ArrayList<Integer> voteCount) {
         this.voteCount = voteCount;
     }
 
+    /**
+     *
+     * @return the authorID of this proposal
+     */
     public Integer getAuthor() {
         return author;
     }
 
+    /**
+     *
+     * @param author the new Author ID
+     */
     public void setAuthor(Integer author) {
         this.author = author;
     }
 
+    /**
+     *
+     * @return an ArrayList of the commentIDs of this proposal
+     */
     public ArrayList<Integer> getComments() {
         return comments;
     }
 
+    /**
+     *
+     * @return an ArrayList of the attachmentIDs of this proposal
+     */
     public ArrayList<Integer> getAttachments() {
         return attachments;
     }
 
+    /**
+     *
+     * @param comments the new comments value
+     */
     public void setComments(ArrayList<Integer> comments) {
         this.comments = comments;
     }
 
+    /**
+     *
+     * @param attachments the new attachments value
+     */
     public void setAttachments(ArrayList<Integer> attachments) {
         this.attachments = attachments;
+    }
+    
+    /**
+     *
+     * @return a string representation of this Proposal
+     */
+    @Override
+    public String toString() {
+        String result = "Subject: " + this.getSubject() +
+                " Description: " + this.getDescription() +
+                " Priority: " + this.getPriority() +
+                " AuthorID: " + this.getAuthor() +
+                " ExpirateDate: " + this.getExpirationDate().toString() +
+                " Options: ";
+        for (String option : this.getOptions()) {
+            result += option + ", ";
+        }
+        result += " VoteCountIDs: ";
+        for (Integer vc : this.getVoteCount()) {
+            result += vc + ", ";
+        }
+        result += " CommentIDs: ";
+        for (Integer comment : this.getComments()) {
+            result += comment + ", ";
+        }
+        result += " AttachmentIDs: ";
+        for (Integer attachment : this.getAttachments()) {
+            result += attachment + ", ";
+        }
+        return result;
     }
 }

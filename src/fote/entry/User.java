@@ -35,6 +35,7 @@ public class User extends Entry {
         this.lastName = lastName;
     }
     
+    @Override
     public String toString() {
         return "First Name: " + this.getFirstName() +
                " Last Name: " + this.getLastName();

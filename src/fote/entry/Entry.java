@@ -98,5 +98,17 @@ public abstract class Entry {
         
         return new Date(key.getTime());
     }
+    
+    /**
+     *
+     * @return a string representation of this Entry
+     */
+    @Override
+    public String toString() {
+        return "Key: " + this.getKey() +
+               " ID: " + this.getId() +
+               " UpdateDate: " + this.getUpdateDate() +
+               " CreateDate: " + this.getCreateDate();
+     }
 
 }
