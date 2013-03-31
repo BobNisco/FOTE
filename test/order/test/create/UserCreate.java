@@ -55,7 +55,7 @@ public class UserCreate {
          for(User user : users) {
             if(!MongoHelper.save(user, "users"))
                 TestHelper.failed("save failed");
-            System.out.println("saved user id: " + user.getId() + " " + user.getFirstName() + " " + user.getLastName());
+            System.out.println("saved user id: " + user.getId() + " " + user.toString());
          } 
          TestHelper.passed();
      }

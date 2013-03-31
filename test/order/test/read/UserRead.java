@@ -64,7 +64,7 @@ public class UserRead {
          int count = 0;
          for(Entry entry : queryUsers) {
              User user = (User) entry;
-             System.out.println("retrieved user id: " + user.getId() + " " + user.getFirstName() + " " + user.getLastName());
+             System.out.println("retrieved user id: " + user.getId() + " " + user.toString());
              
              count++;
          }
