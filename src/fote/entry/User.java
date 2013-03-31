@@ -34,4 +34,9 @@ public class User extends Entry {
     public void setLastName(String lastName) {
         this.lastName = lastName;
     }
+    
+    public String toString() {
+        return "First Name: " + this.getFirstName() +
+               " Last Name: " + this.getLastName();
+    }
 }
