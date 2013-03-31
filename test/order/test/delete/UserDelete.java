@@ -2,10 +2,10 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-package order.test.create;
+package order.test.delete;
 
-import fote.util.MongoHelper;
 import fote.entry.User;
+import fote.util.MongoHelper;
 import order.test.util.TestHelper;
 import org.junit.After;
 import org.junit.AfterClass;
@@ -18,14 +18,14 @@ import static org.junit.Assert.*;
  *
  * @author Evan
  */
-public class UserCreate {
+public class UserDelete {
     private User[] users = {
       new User("Evan", "Van Dam"),
       new User("Bob", "Nisco"),
       new User("Jason", "Parraga")
     };
     
-    public UserCreate() {
+    public UserDelete() {
     }
     
     @BeforeClass
@@ -41,6 +41,11 @@ public class UserCreate {
         TestHelper.signon(this);
         MongoHelper.setDB("fote");
         MongoHelper.getCollection("users").drop();
+        
+        for(User user : users) {
+            if(!MongoHelper.save(user, "users"))
+                TestHelper.failed("user save failed!");
+        }
     }
     
     @After
@@ -49,14 +54,18 @@ public class UserCreate {
     }
     // TODO add test methods here.
     // The methods must be annotated with annotation @Test. For example:
-    
+    //
      @Test
      public void test() {
          for(User user : users) {
-            if(!MongoHelper.save(user, "users"))
-                TestHelper.failed("save failed");
-            System.out.println("saved user id: " + user.getId() + " " + user.getFirstName() + " " + user.getLastName());
-         } 
+            if(!MongoHelper.delete(user, "users"))
+                TestHelper.failed("delete failed");
+
+            if(MongoHelper.fetch(user, "users") != null)
+                TestHelper.failed("user was not deleted");
+
+            System.out.println("Deleted user id: " + user.getId());
+         }
          TestHelper.passed();
      }
 }
