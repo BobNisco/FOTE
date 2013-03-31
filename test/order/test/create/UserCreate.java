@@ -1,18 +1,13 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package order.test.create;
 
-import fote.util.MongoHelper;
 import fote.entry.User;
+import fote.util.MongoHelper;
 import order.test.util.TestHelper;
 import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
-import static org.junit.Assert.*;
 
 /**
  *
@@ -47,8 +42,6 @@ public class UserCreate {
     public void tearDown() {
         TestHelper.signoff(this);
     }
-    // TODO add test methods here.
-    // The methods must be annotated with annotation @Test. For example:
     
      @Test
      public void test() {

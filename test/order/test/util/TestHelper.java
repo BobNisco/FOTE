@@ -27,8 +27,9 @@ public class TestHelper {
     }
     
     public static void asserting(Boolean condition) {
-        if(!condition)
+        if (!condition) {
             System.out.println("FAILED ***");
+        }
         
         assert(condition);
     }

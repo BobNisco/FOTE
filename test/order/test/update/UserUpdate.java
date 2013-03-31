@@ -1,7 +1,3 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package order.test.update;
 
 import fote.entry.User;
@@ -12,7 +8,6 @@ import org.junit.AfterClass;
 import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
-import static org.junit.Assert.*;
 
 /**
  *
@@ -43,9 +38,7 @@ public class UserUpdate {
     public void tearDown() {
         TestHelper.signoff(this);
     }
-    // TODO add test methods here.
-    // The methods must be annotated with annotation @Test. For example:
-    //
+    
      @Test
      public void test() {
          User user = (User) MongoHelper.fetch(myUser, "users");
@@ -67,7 +60,5 @@ public class UserUpdate {
          System.out.println("updated user id: " + user.getId());
          
          TestHelper.passed();
-         
-         
      }
 }
