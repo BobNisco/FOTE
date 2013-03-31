@@ -11,7 +11,8 @@ public class Proposal extends Entry {
     private String subject, description;
     private Integer priority, author;
     private ArrayList<String> options;
-    private ArrayList<Integer> voteCount, comments, attachments;
+    private ArrayList<Integer> comments, attachments;
+    private ArrayList<Vote> votes;
     private Date expirationDate;
     
     /**
@@ -24,7 +25,7 @@ public class Proposal extends Entry {
         this.priority = 0;
         this.author = -1;
         this.options = new ArrayList<String>();
-        this.voteCount = new ArrayList<Integer>();
+        this.votes = new ArrayList<Vote>();
         this.comments = new ArrayList<Integer>();
         this.attachments = new ArrayList<Integer>();
     }
@@ -43,7 +44,7 @@ public class Proposal extends Entry {
      */
     public Proposal(Date expirationDate, String subject, String description, 
             Integer priority, Integer author, ArrayList<String> options, 
-            ArrayList<Integer> voteCount, ArrayList<Integer> comments, 
+            ArrayList<Vote> votes, ArrayList<Integer> comments, 
             ArrayList<Integer> attachments) {
         this.expirationDate = expirationDate;
         this.subject = subject;
@@ -51,7 +52,7 @@ public class Proposal extends Entry {
         this.priority = priority;
         this.author = author;
         this.options = options;
-        this.voteCount = voteCount;
+        this.votes = votes;
         this.comments = comments;
         this.attachments = attachments;
     }
@@ -100,8 +101,8 @@ public class Proposal extends Entry {
      *
      * @return an ArrayList of the votes of this proposal
      */
-    public ArrayList<Integer> getVoteCount() {
-        return voteCount;
+    public ArrayList<Vote> getVotes() {
+        return votes;
     }
 
     /**
@@ -146,10 +147,10 @@ public class Proposal extends Entry {
 
     /**
      *
-     * @param voteCount the new voteCounts
+     * @param voteCount the new votes
      */
-    public void setVoteCount(ArrayList<Integer> voteCount) {
-        this.voteCount = voteCount;
+    public void setVotes(ArrayList<Vote> voteCount) {
+        this.votes = voteCount;
     }
 
     /**
@@ -216,8 +217,8 @@ public class Proposal extends Entry {
             result += option + ", ";
         }
         result += " VoteCountIDs: ";
-        for (Integer vc : this.getVoteCount()) {
-            result += vc + ", ";
+        for (Vote vote : this.getVotes()) {
+            result += vote.toString() + ", ";
         }
         result += " CommentIDs: ";
         for (Integer comment : this.getComments()) {
