@@ -2,7 +2,6 @@ package order.test.update;
 
 import fote.entry.Attachment;
 import fote.entry.Suggestion;
-import fote.entry.User;
 import fote.util.MongoHelper;
 import java.util.ArrayList;
 import order.test.util.TestHelper;

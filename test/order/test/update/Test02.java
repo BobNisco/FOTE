@@ -13,9 +13,9 @@ import org.junit.Test;
  *
  * @author Evan
  */
-public class UserUpdate {
+public class Test02 {
     private User myUser = new User();
-    public UserUpdate() {
+    public Test02() {
     }
     
     @BeforeClass

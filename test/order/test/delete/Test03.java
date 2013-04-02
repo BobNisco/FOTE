@@ -1,6 +1,6 @@
 package order.test.delete;
 
-import fote.entry.User;
+import fote.entry.Comment;
 import fote.util.MongoHelper;
 import order.test.util.TestHelper;
 import org.junit.After;
@@ -11,16 +11,14 @@ import org.junit.Test;
 
 /**
  *
- * @author Evan
+ * @author Jason
  */
-public class UserDelete {
-    private User[] users = {
-      new User("Evan", "Van Dam"),
-      new User("Bob", "Nisco"),
-      new User("Jason", "Parraga")
-    };
+public class Test03 {
     
-    public UserDelete() {
+    private Comment comment = new Comment("This is a comment", 1);
+    
+    public Test03() {
+        
     }
     
     @BeforeClass
@@ -36,10 +34,10 @@ public class UserDelete {
         TestHelper.signon(this);
         MongoHelper.setDB("fote");
         MongoHelper.getCollection("users").drop();
-        
-        for(User user : users) {
-            if(!MongoHelper.save(user, "users"))
-                TestHelper.failed("user save failed!");
+        MongoHelper.getCollection("suggestions").drop();
+       
+        if(!MongoHelper.save(comment, "comments")) {
+            TestHelper.failed("comments save failed!");
         }
     }
     
@@ -50,15 +48,16 @@ public class UserDelete {
     
      @Test
      public void test() {
-         for(User user : users) {
-            if(!MongoHelper.delete(user, "users"))
-                TestHelper.failed("delete failed");
+        if (!MongoHelper.delete(comment, "comments")) {
+            TestHelper.failed("delete failed");
+        }
 
-            if(MongoHelper.fetch(user, "users") != null)
-                TestHelper.failed("user was not deleted");
+        if (MongoHelper.fetch(comment, "comments") != null) {
+            TestHelper.failed("comment was not deleted");
+        }
 
-            System.out.println("Deleted user id: " + user.getId());
-         }
+        System.out.println("Deleted suggestion id: " + comment.getId());
+            
          TestHelper.passed();
      }
 }

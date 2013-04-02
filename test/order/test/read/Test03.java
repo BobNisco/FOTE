@@ -1,7 +1,7 @@
 package order.test.read;
 
+import fote.entry.Comment;
 import fote.entry.Entry;
-import fote.entry.User;
 import fote.util.MongoHelper;
 import order.test.util.TestHelper;
 import org.junit.After;
@@ -12,16 +12,12 @@ import org.junit.Test;
 
 /**
  *
- * @author Evan
+ * @author Jason
  */
-public class UserRead {
-    private User[] users = {
-      new User("Evan", "Van Dam"),
-      new User("Bob", "Nisco"),
-      new User("Jason", "Parraga")
-    };
+public class Test03 {
+    private Comment comment = new Comment("This is a comment", 1);
     
-    public UserRead() {
+    public Test03() {
     }
     
     @BeforeClass
@@ -36,13 +32,11 @@ public class UserRead {
     public void setUp() {
         TestHelper.signon(this);
         MongoHelper.setDB("fote");
-        MongoHelper.getCollection("users").drop();
+        MongoHelper.getCollection("comments").drop();
         
-        for(User user : users) {
-            if(!MongoHelper.save(user, "users"))
-                TestHelper.failed("save user failed");
-            
-        }
+        if (!MongoHelper.save(comment, "comments")) {
+            TestHelper.failed("save comment failed");
+        }   
     }
     
     @After
@@ -53,14 +47,17 @@ public class UserRead {
      @Test
      public void test() {
          MongoHelper.setDB("fote");
-         Iterable<Entry> queryUsers = MongoHelper.query("{id:{$gte:0}}", User.class, "users");
+         Iterable<Entry> queryComments = MongoHelper.query("{id:{$gte:0}}", 
+                 Comment.class, "comments");
+         
          int count = 0;
-         for(Entry entry : queryUsers) {
-             User user = (User) entry;
-             System.out.println("retrieved user id: " + user.getId() + " " + user.toString());
+         for(Entry entry : queryComments) {
+             Comment comment = (Comment) entry;
+             System.out.println("retrieved comment id: " + comment.getId()
+                     + " " + comment.toString());
              
              count++;
          }
-         TestHelper.asserting(count == users.length);
+         TestHelper.asserting(count == 1);
      }
 }

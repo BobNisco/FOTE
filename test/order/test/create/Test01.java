@@ -1,9 +1,7 @@
 package order.test.create;
 
-import fote.entry.Suggestion;
 import fote.entry.User;
 import fote.util.MongoHelper;
-import java.util.ArrayList;
 import order.test.util.TestHelper;
 import org.junit.After;
 import org.junit.AfterClass;
@@ -12,16 +10,17 @@ import org.junit.BeforeClass;
 import org.junit.Test;
 
 /**
- * This class tests an insert of a Suggestion into the MongoDB persistence layer
- * @author Bob Nisco
+ *
+ * @author Evan
  */
 public class Test01 {
-    private Suggestion suggestion = new Suggestion("Test Suggestion", 
-            "Test Description", 0, new ArrayList<Integer>(),  
-            new ArrayList<Integer>());
+    private User[] users = {
+      new User("Evan", "Van Dam"),
+      new User("Bob", "Nisco"),
+      new User("Jason", "Parraga")
+    };
     
     public Test01() {
-        
     }
     
     @BeforeClass
@@ -37,26 +36,20 @@ public class Test01 {
         TestHelper.signon(this);
         MongoHelper.setDB("fote");
         MongoHelper.getCollection("users").drop();
-        MongoHelper.getCollection("suggestions").drop();
-        // Put in a test user beforehand
-        User user = new User("Linus", "Torvalds");
-        if (!MongoHelper.save(user, "users")) {
-            TestHelper.failed("save failed");
-        }
     }
     
     @After
     public void tearDown() {
         TestHelper.signoff(this);
     }
-
+    
      @Test
      public void test() {
-        if (!MongoHelper.save(suggestion, "suggestions")) {
-            TestHelper.failed("save failed");
-        }
-        System.out.println("saved suggestion with ID: " + suggestion.getId() + 
-                " " + suggestion.toString());
-        TestHelper.passed();
+         for(User user : users) {
+            if(!MongoHelper.save(user, "users"))
+                TestHelper.failed("save failed");
+            System.out.println("saved user id: " + user.getId() + " " + user.toString());
+         } 
+         TestHelper.passed();
      }
 }
