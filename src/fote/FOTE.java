@@ -5,6 +5,7 @@
 package fote;
 
 import fote.gui.Login;
+import fote.util.MongoHelper;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.UIManager;
@@ -22,8 +23,8 @@ public class FOTE {
     public static void main(String[] args) {
         try {
             UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
+            MongoHelper.setDB("fote");
             Login login = new Login();
-            login.setVisible(true);
         } catch (ClassNotFoundException ex) {
             Logger.getLogger(FOTE.class.getName()).log(Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
