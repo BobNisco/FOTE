@@ -5,7 +5,7 @@ package fote.entry;
  * @author Bob Nisco
  */
 public class User extends Entry {
-    private String firstName, lastName, maristID;
+    private String firstName, lastName, maristID, password;
 
     /**
      *
@@ -15,6 +15,7 @@ public class User extends Entry {
         this.firstName = "";
         this.lastName = "";
         this.maristID = "";
+        this.password = "";
     }
 
     /**
@@ -22,11 +23,12 @@ public class User extends Entry {
      * @param firstName
      * @param lastName
      */
-    public User(String firstName, String lastName, String maristID) {
+    public User(String firstName, String lastName, String maristID, String password) {
         super();
         this.firstName = firstName;
         this.lastName = lastName;
         this.maristID = maristID;
+        this.password = password;
     }
 
     /**
@@ -52,6 +54,14 @@ public class User extends Entry {
     public String getMaristID() {
         return maristID;
     }
+    
+    /**
+     * Should encrypt this later...
+     * @return the user's password
+     */
+    public String getPassword() {
+        return password;
+    }
 
     /**
      *
@@ -75,6 +85,14 @@ public class User extends Entry {
      */
     public void setMaristID(String maristID) {
         this.maristID = maristID;
+    }
+    
+    /**
+     *
+     * @param password a new password for this user
+     */
+    public void setPassword(String password) {
+        this.password = password;
     }
     
     
