@@ -8,12 +8,13 @@ package fote.gui;
  *
  * @author Bob Nisco
  */
-public class CreateSuggestion extends javax.swing.JFrame {
+public class CreateSuggestion extends javax.swing.JDialog {
 
     /**
      * Creates new form Logout
      */
-    public CreateSuggestion() {
+    public CreateSuggestion(java.awt.Frame parent, boolean modal) {
+        super(parent,modal);
         initComponents();
         this.setTitle("Create Suggestion");
     }
@@ -36,7 +37,7 @@ public class CreateSuggestion extends javax.swing.JFrame {
         jButton2 = new javax.swing.JButton();
         jButton3 = new javax.swing.JButton();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
         jLabel1.setText("Subject:");
 
@@ -127,7 +128,7 @@ public class CreateSuggestion extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new CreateSuggestion().setVisible(true);
+//                new CreateSuggestion().setVisible(true);
             }
         });
     }

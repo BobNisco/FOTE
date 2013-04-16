@@ -27,6 +27,9 @@ public class FOTE {
     public static void main(String[] args) {
         // Set the DB to fote 
         MongoHelper.setDB("fote");
+        // add user to logon...
+        MongoHelper.getCollection("users").drop();
+        MongoHelper.save(new User("Evan", "Van Dam", "evan.vandam1", "admin"), "users");
         new Login().setVisible(true);
     }
 }
