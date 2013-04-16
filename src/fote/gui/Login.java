@@ -140,8 +140,7 @@ public class Login extends javax.swing.JFrame {
             else{
                 System.out.println(user.getMaristID());
                 FOTE.setUser(user);
-                MainFrame mf = new MainFrame();
-                mf.setVisible(true);
+                new MainFrame().setVisible(true);
                 this.setVisible(false);
             }
         }
