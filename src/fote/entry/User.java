@@ -5,7 +5,7 @@ package fote.entry;
  * @author Bob Nisco
  */
 public class User extends Entry {
-    private String firstName, lastName;
+    private String firstName, lastName, maristID, password;
 
     /**
      *
@@ -14,6 +14,8 @@ public class User extends Entry {
         super();
         this.firstName = "";
         this.lastName = "";
+        this.maristID = "";
+        this.password = "";
     }
 
     /**
@@ -21,10 +23,12 @@ public class User extends Entry {
      * @param firstName
      * @param lastName
      */
-    public User(String firstName, String lastName) {
+    public User(String firstName, String lastName, String maristID, String password) {
         super();
         this.firstName = firstName;
         this.lastName = lastName;
+        this.maristID = maristID;
+        this.password = password;
     }
 
     /**
@@ -41,6 +45,22 @@ public class User extends Entry {
      */
     public String getLastName() {
         return lastName;
+    }
+    
+    /**
+     *
+     * @return the user's marist ID
+     */
+    public String getMaristID() {
+        return maristID;
+    }
+    
+    /**
+     * Should encrypt this later...
+     * @return the user's password
+     */
+    public String getPassword() {
+        return password;
     }
 
     /**
@@ -61,11 +81,29 @@ public class User extends Entry {
     
     /**
      *
+     * @param maristID a new maristID for this user
+     */
+    public void setMaristID(String maristID) {
+        this.maristID = maristID;
+    }
+    
+    /**
+     *
+     * @param password a new password for this user
+     */
+    public void setPassword(String password) {
+        this.password = password;
+    }
+    
+    
+    /**
+     *
      * @return a String representation of this user
      */
     @Override
     public String toString() {
         return "First Name: " + this.getFirstName() +
-               " Last Name: " + this.getLastName();
+               "\nLast Name: " + this.getLastName() +
+                "\nMarist ID: " + this.getMaristID();
     }
 }

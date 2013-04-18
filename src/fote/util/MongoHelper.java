@@ -118,7 +118,6 @@ public class MongoHelper {
      */
     public static Iterable<Entry> query(String criteria, Class clss, String collectionName) {
         MongoCollection collection = getCollection(collectionName);
-        
         return collection.find(criteria).as(clss);
     }  
     
