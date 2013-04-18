@@ -1,7 +1,6 @@
 package fote.model;
 
 import fote.entry.Entry;
-import fote.entry.Proposal;
 import fote.util.MongoHelper;
 
 /**
