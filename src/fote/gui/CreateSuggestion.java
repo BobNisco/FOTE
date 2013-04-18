@@ -16,6 +16,7 @@ public class CreateSuggestion extends javax.swing.JDialog {
     public CreateSuggestion(java.awt.Frame parent, boolean modal) {
         super(parent,modal);
         initComponents();
+        this.setLocationRelativeTo(null);
         this.setTitle("Create Suggestion");
     }
 
@@ -128,7 +129,6 @@ public class CreateSuggestion extends javax.swing.JDialog {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-//                new CreateSuggestion().setVisible(true);
             }
         });
     }

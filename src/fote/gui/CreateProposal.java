@@ -19,6 +19,7 @@ public class CreateProposal extends javax.swing.JDialog {
     public CreateProposal(java.awt.Frame parent, boolean modal) {
         super(parent,modal);
         initComponents();
+        this.setLocationRelativeTo(null);
         this.setTitle("Create Proposal");
     }
 
