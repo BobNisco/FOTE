@@ -4,6 +4,10 @@
  */
 package fote.gui;
 
+import fote.controller.ProposalLogic;
+import fote.controller.SuggestionLogic;
+import java.util.Date;
+
 /**
  *
  * @author Bob Nisco
@@ -49,6 +53,11 @@ public class CreateSuggestion extends javax.swing.JDialog {
         jScrollPane1.setViewportView(jTextArea1);
 
         jButton1.setText("Create Suggestion");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
 
         jButton2.setText("Cancel");
         jButton2.addActionListener(new java.awt.event.ActionListener() {
@@ -121,6 +130,19 @@ public class CreateSuggestion extends javax.swing.JDialog {
         jTextArea1.setText("");
         jTextField1.setText("");
     }//GEN-LAST:event_jButton3ActionPerformed
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        String subject = jTextField1.getText();
+        String description = jTextArea1.getText();
+
+        boolean success = SuggestionLogic.createSuggestion(subject, description);
+
+        if (success) {
+            System.out.println("Successfully added a suggestion.");
+        } else {
+            System.out.println("There was an error. Please try again.");
+        }
+    }//GEN-LAST:event_jButton1ActionPerformed
 
     /**
      * @param args the command line arguments

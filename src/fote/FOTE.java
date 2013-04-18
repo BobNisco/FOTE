@@ -21,7 +21,8 @@ public class FOTE {
         FOTE.user = user;
     }
     
-    public static User getUser(){
+    public static User getUser() {
+        System.out.println(FOTE.user.toString());
         return FOTE.user;
     }
     

@@ -28,9 +28,16 @@ public class SuggestionLogic {
     }
     
     public static boolean isValidSuggestion(Suggestion s) {
+        if (s.getSubject().isEmpty()) {
+            return false;
+        }
+        if (s.getDescription().isEmpty()) {
+            return false;
+        }
         if (!UserModel.isValidUser(s.getAuthor())) {
             return false;
         }
+        System.out.println("This is a valid suggestion");
         return true;
     }
 }

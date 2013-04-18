@@ -21,12 +21,14 @@ public class UserModel extends BaseModel {
     }
     
     private static boolean handleIsValidUser(Integer u) {
-        if (u <= 0) {
+        if (u < 0) {
+            System.err.println("Not a valid user");
             return false;
         } else {
             UserModel userModel = new UserModel();
-            Iterable<Entry> userQuery = userModel.query("{id:"+ u +"}");
+            Iterable<Entry> userQuery = userModel.query("{id:" + u + "}");
             if (!userQuery.iterator().hasNext()) {
+                System.err.println("Not a valid user");
                 return false;
             }
         }
