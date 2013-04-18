@@ -6,6 +6,7 @@ package fote.gui;
 
 import fote.entry.Entry;
 import fote.entry.Proposal;
+import fote.model.ProposalModel;
 import fote.util.MongoHelper;
 import java.util.List;
 import javax.swing.table.DefaultTableModel;
@@ -231,9 +232,9 @@ public class MainFrame extends javax.swing.JFrame {
        loadProposals();
     }//GEN-LAST:event_jButton2ActionPerformed
 
-    private void loadProposals(){
-        Iterable<Entry> proposalQuery = MongoHelper.query("{id:{$gte: 0}}",
-                 Proposal.class, "proposals");
+    private void loadProposals() {
+        ProposalModel proposalModel = new ProposalModel();
+        Iterable<Entry> proposalQuery = proposalModel.query("{id:{$gte: 0}}");
 
         DefaultTableModel model = (DefaultTableModel) jTable3.getModel();
         model.setRowCount(0);
