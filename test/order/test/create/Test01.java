@@ -15,9 +15,10 @@ import org.junit.Test;
  */
 public class Test01 {
     private User[] users = {
-      new User("Evan", "Van Dam"),
-      new User("Bob", "Nisco"),
-      new User("Jason", "Parraga")
+      // Put in some dummy data
+      new User("Evan", "Van Dam", "evan@marist.edu", "password123"),
+      new User("Bob", "Nisco", "bob@marist.edu", "password123"),
+      new User("Jason", "Parraga", "jason@marist.edu", "password123")
     };
     
     public Test01() {
