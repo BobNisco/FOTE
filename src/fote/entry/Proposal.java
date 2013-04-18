@@ -57,7 +57,7 @@ public class Proposal extends Entry {
         this.attachments = attachments;
     }
     
-    public String getPriorityLevel(Integer level) {
+    public static String getPriorityLevel(Integer level) {
         String result = "";
         if (level == 1) {
             result = "Backlog";
@@ -73,7 +73,7 @@ public class Proposal extends Entry {
         return result;
     }
     
-    public Integer getPriorityLevel(String level) {
+    public static Integer getPriorityLevel(String level) {
         Integer result = 0;
         level = level.toLowerCase();
         if (level .equals("backlog")) {

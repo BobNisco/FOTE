@@ -214,22 +214,26 @@ public class CreateProposal extends javax.swing.JDialog {
     }//GEN-LAST:event_jButton2ActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        String subject = jTextField1.getText();
-        String description = jTextArea1.getText();
-        String options = jTextField2.getText();
-        Integer priority = Integer.parseInt(jComboBox4.getSelectedItem().toString());
-        int month = Integer.valueOf(jComboBox1.getSelectedItem().toString());
-        int day = Integer.valueOf(jComboBox2.getSelectedItem().toString());
-        int year = Integer.valueOf(jComboBox3.getSelectedItem().toString());
-        Date expiration = new Date(year, month, day);
-        
-        boolean success = ProposalLogic.createProposal(expiration, subject, description, priority, options);
-        
-        if(success){
-            System.out.println("we win!");
-        }
-        else{
-            System.out.println("FUCK");
+        try {
+            String subject = jTextField1.getText();
+            String description = jTextArea1.getText();
+            String options = jTextField2.getText();
+            String priority = jComboBox4.getSelectedItem().toString();
+            int month = Integer.valueOf(jComboBox1.getSelectedItem().toString());
+            int day = Integer.valueOf(jComboBox2.getSelectedItem().toString());
+            int year = Integer.valueOf(jComboBox3.getSelectedItem().toString());
+            Date expiration = new Date(year, month, day);
+
+            boolean success = ProposalLogic.createProposal(expiration, subject, description, priority, options);
+
+            if (success){
+                System.out.println("we win!");
+            }
+            else {
+                System.out.println("FUCK");
+            }
+        } catch (java.lang.NumberFormatException e) {
+            // TODO : Show error on input
         }
         
         
