@@ -1,5 +1,6 @@
 package fote.gui;
 
+import fote.controller.ProposalLogic;
 import fote.entry.Entry;
 import fote.entry.Proposal;
 import fote.entry.Suggestion;
@@ -236,6 +237,7 @@ public class MainFrame extends javax.swing.JFrame {
     private void loadProposals() {
         ProposalModel proposalModel = new ProposalModel();
         Iterable<Entry> proposalQuery = proposalModel.query("{id:{$gte: 0}}");
+        String selectedStatus = jComboBox2.getSelectedItem().toString();
 
         DefaultTableModel model = (DefaultTableModel) jTable3.getModel();
         model.setRowCount(0);
@@ -243,14 +245,21 @@ public class MainFrame extends javax.swing.JFrame {
         UserModel userModel = new UserModel();
         for (Entry entry : proposalQuery){
             Proposal proposal = (Proposal) entry;
-            Iterable<Entry> userQuery = userModel.query("{id:"+proposal.getAuthor()+"}");
-            if(userQuery.iterator().hasNext()) {
-                User author = (User) userQuery.iterator().next();
-                String name = author.getFirstName() + " " + author.getLastName();
-                model.addRow(new String[]{proposal.getSubject(), name, proposal.getExpirationDate().toString() , "proposal status"});
-            }
+            String status;
+            if(ProposalLogic.isExpired(proposal))
+                status = "expired";
             else
-                System.out.println("author not found, row not added");
+                status = "active";
+            if(selectedStatus.equalsIgnoreCase("all") || selectedStatus.equalsIgnoreCase(status)) {
+                Iterable<Entry> userQuery = userModel.query("{id:"+proposal.getAuthor()+"}");
+                if(userQuery.iterator().hasNext()) {
+                    User author = (User) userQuery.iterator().next();
+                    String name = author.getFirstName() + " " + author.getLastName();
+                    model.addRow(new String[]{proposal.getSubject(), name, proposal.getExpirationDate().toString() , status});
+                }
+                else
+                    System.out.println("author not found, row not added");
+            }
         }
     }
 

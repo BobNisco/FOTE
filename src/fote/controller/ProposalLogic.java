@@ -50,5 +50,10 @@ public class ProposalLogic {
         }
         return true;
     }
+    
+    public static boolean isExpired(Proposal p) {
+        Date now = new Date();
+        return p.getExpirationDate().before(now);
+    }
 }
 
