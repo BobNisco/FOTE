@@ -8,8 +8,8 @@ import java.util.Date;
  * @author Bob Nisco
  */
 public class Proposal extends Entry {
-    private String subject, description;
-    private Integer priority, author;
+    private String subject, description, priority;
+    private Integer author;
     private ArrayList<String> options;
     private ArrayList<Integer> comments, attachments;
     private ArrayList<Vote> votes;
@@ -22,7 +22,7 @@ public class Proposal extends Entry {
         this.expirationDate = new Date();
         this.subject = "";
         this.description = "";
-        this.priority = 0;
+        this.priority = "";
         this.author = -1;
         this.options = new ArrayList<String>();
         this.votes = new ArrayList<Vote>();
@@ -43,7 +43,7 @@ public class Proposal extends Entry {
      * @param attachments
      */
     public Proposal(Date expirationDate, String subject, String description, 
-            Integer priority, Integer author, ArrayList<String> options, 
+            String priority, Integer author, ArrayList<String> options, 
             ArrayList<Vote> votes, ArrayList<Integer> comments, 
             ArrayList<Integer> attachments) {
         this.expirationDate = expirationDate;
@@ -85,7 +85,7 @@ public class Proposal extends Entry {
      *
      * @return the priority of this proposal
      */
-    public Integer getPriority() {
+    public String getPriority() {
         return priority;
     }
 
@@ -133,7 +133,7 @@ public class Proposal extends Entry {
      *
      * @param priority the new priority value
      */
-    public void setPriority(Integer priority) {
+    public void setPriority(String priority) {
         this.priority = priority;
     }
 
