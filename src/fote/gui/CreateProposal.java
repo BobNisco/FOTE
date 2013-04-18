@@ -212,7 +212,7 @@ public class CreateProposal extends javax.swing.JDialog {
         String subject = jTextField1.getText();
         String description = jTextArea1.getText();
         String options = jTextField2.getText();
-        String priority = jComboBox4.getSelectedItem().toString();
+        Integer priority = Integer.parseInt(jComboBox4.getSelectedItem().toString());
         int month = Integer.valueOf(jComboBox1.getSelectedItem().toString());
         int day = Integer.valueOf(jComboBox2.getSelectedItem().toString());
         int year = Integer.valueOf(jComboBox3.getSelectedItem().toString());

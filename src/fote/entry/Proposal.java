@@ -8,8 +8,8 @@ import java.util.Date;
  * @author Bob Nisco
  */
 public class Proposal extends Entry {
-    private String subject, description, priority;
-    private Integer author;
+    private String subject, description;
+    private Integer priority, author;
     private ArrayList<String> options;
     private ArrayList<Integer> comments, attachments;
     private ArrayList<Vote> votes;
@@ -22,7 +22,7 @@ public class Proposal extends Entry {
         this.expirationDate = new Date();
         this.subject = "";
         this.description = "";
-        this.priority = "";
+        this.priority = -1;
         this.author = -1;
         this.options = new ArrayList<String>();
         this.votes = new ArrayList<Vote>();
@@ -43,7 +43,7 @@ public class Proposal extends Entry {
      * @param attachments
      */
     public Proposal(Date expirationDate, String subject, String description, 
-            String priority, Integer author, ArrayList<String> options, 
+            Integer priority, Integer author, ArrayList<String> options, 
             ArrayList<Vote> votes, ArrayList<Integer> comments, 
             ArrayList<Integer> attachments) {
         this.expirationDate = expirationDate;
@@ -55,6 +55,39 @@ public class Proposal extends Entry {
         this.votes = votes;
         this.comments = comments;
         this.attachments = attachments;
+    }
+    
+    public String getPriorityLevel(Integer level) {
+        String result = "";
+        if (level == 1) {
+            result = "Backlog";
+        } else if (level == 2) {
+            result = "Low";
+        } else if (level == 3) {
+            result = "Moderate";
+        } else if (level == 4) {
+            result = "Important";
+        } else if (level == 5) {
+            result = "Urgent";
+        }
+        return result;
+    }
+    
+    public Integer getPriorityLevel(String level) {
+        Integer result = 0;
+        level = level.toLowerCase();
+        if (level .equals("backlog")) {
+            result = 1;
+        } else if (level.equals("low")) {
+            result = 2;
+        } else if (level.equals("moderate")) {
+            result = 3;
+        } else if (level.equals("important")) {
+            result = 4;
+        } else if (level.equals("urgent")) {
+            result = 5;
+        }
+        return result;
     }
 
     /**
@@ -85,7 +118,7 @@ public class Proposal extends Entry {
      *
      * @return the priority of this proposal
      */
-    public String getPriority() {
+    public Integer getPriority() {
         return priority;
     }
 
@@ -133,7 +166,7 @@ public class Proposal extends Entry {
      *
      * @param priority the new priority value
      */
-    public void setPriority(String priority) {
+    public void setPriority(Integer priority) {
         this.priority = priority;
     }
 

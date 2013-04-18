@@ -17,7 +17,7 @@ import fote.FOTE;
  */
 public class ProposalLogic {
     //TODO Make this accept all the date shit too so that we can tell people they suck if they dont enter valid info
-    public static boolean createProposal(Date expiration, String subject, String description, String priority, String s){
+    public static boolean createProposal(Date expiration, String subject, String description, Integer priority, String s){
         ArrayList<String> options = new ArrayList<String>();
         ArrayList<Vote> votes = new ArrayList<Vote>();
         ArrayList<Integer> comments = new ArrayList<Integer>();
