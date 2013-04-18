@@ -1,14 +1,9 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package fote.gui;
 
+import fote.FOTE;
 import fote.entry.Entry;
 import fote.entry.User;
-import fote.FOTE;
 import fote.model.UserModel;
-import fote.util.MongoHelper;
 
 /**
  *
@@ -169,7 +164,6 @@ public class Login extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton3ActionPerformed
 
     private void jPasswordField1KeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jPasswordField1KeyPressed
-        // TODO add your handling code here:
         if (evt.getKeyCode() == java.awt.event.KeyEvent.VK_ENTER) {
             this.jButton1ActionPerformed(null);
         }

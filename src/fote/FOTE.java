@@ -1,7 +1,3 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package fote;
 
 import fote.entry.Proposal;
@@ -13,7 +9,7 @@ import java.util.ArrayList;
 import java.util.Date;
 /**
  *
- * @author bobnisco
+ * @author Bob Nisco
  */
 public class FOTE {
 
