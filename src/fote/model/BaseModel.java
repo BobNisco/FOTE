@@ -8,7 +8,7 @@ import fote.util.MongoHelper;
  *
  * @author Bob Nisco
  */
-public class BaseModel {
+public abstract class BaseModel {
 
     private String document;
     private Class clss;

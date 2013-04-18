@@ -7,7 +7,6 @@ package fote.gui;
 import fote.entry.Entry;
 import fote.entry.Proposal;
 import fote.model.ProposalModel;
-import fote.util.MongoHelper;
 import java.util.List;
 import javax.swing.table.DefaultTableModel;
 
