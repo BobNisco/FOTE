@@ -127,11 +127,11 @@ public class MainFrame extends javax.swing.JFrame {
 
         jLabel3.setText("Priority:");
 
-        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "all", "high", "medium", "low" }));
+        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "All", "Urgent", "Important", "Moderate", "Low", "Backlog" }));
 
         jLabel4.setText("Status:");
 
-        jComboBox2.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "all", "active", "expired" }));
+        jComboBox2.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "All", "Active", "Expired" }));
 
         jLabel5.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jLabel5.setText("Filters:");
@@ -253,7 +253,7 @@ public class MainFrame extends javax.swing.JFrame {
                 System.out.println("author not found, row not added");
         }
     }
-    
+
     private void loadSuggestions() {
         SuggestionModel suggestionModel = new SuggestionModel();
         Iterable<Entry> suggestionQuery = suggestionModel.query("{id:{$gte: 0}}");
@@ -274,7 +274,7 @@ public class MainFrame extends javax.swing.JFrame {
                 System.out.println("author not found, row not added");
         }
     }
-    
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;

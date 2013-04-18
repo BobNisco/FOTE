@@ -106,7 +106,12 @@ public class CreateProposal extends javax.swing.JDialog {
 
         jLabel7.setText("Priority:");
 
-        jComboBox4.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Urgent", "Important", "Moderate", "Low" }));
+        jComboBox4.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Urgent", "Important", "Moderate", "Low", "Backlog" }));
+        jComboBox4.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jComboBox4ActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -233,6 +238,10 @@ public class CreateProposal extends javax.swing.JDialog {
     private void jComboBox3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBox3ActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jComboBox3ActionPerformed
+
+    private void jComboBox4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBox4ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jComboBox4ActionPerformed
 
     /**
      * @param args the command line arguments
