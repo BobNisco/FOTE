@@ -7,7 +7,9 @@ package fote.gui;
 import fote.entry.Entry;
 import fote.entry.User;
 import fote.FOTE;
+import fote.model.UserModel;
 import fote.util.MongoHelper;
+
 /**
  *
  * @author Jason
@@ -128,28 +130,27 @@ public class Login extends javax.swing.JFrame {
         String maristID = jTextField1.getText();
         String password = new String(jPasswordField1.getPassword());
         
-        Iterable<Entry> userQuery = MongoHelper.query("{maristID: '" + maristID + "',password: '" + password + "'}", 
-                 User.class, "users");
+        UserModel userModel = new UserModel();
+        Iterable<Entry> userQuery = userModel.query("{maristID: '" + maristID + 
+                "',password: '" + password + "'}");
 
-        if (userQuery.iterator().hasNext()){
+        if (userQuery.iterator().hasNext()) {
             User user = (User) userQuery.iterator().next();
-            if(userQuery.iterator().hasNext()){
+            if (userQuery.iterator().hasNext()) {
                 System.out.println("More than one user found, exiting");
                 this.dispose();
-            }
-            else{
+            } else {
                 System.out.println(user.getMaristID());
                 FOTE.setUser(user);
                 new MainFrame().setVisible(true);
                 this.setVisible(false);
             }
-        }
-        else{
+        } else {
             System.out.println("No users found");
             jTextField1.setText("");
             jPasswordField1.setText("");
         }
-        
+
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
@@ -160,7 +161,6 @@ public class Login extends javax.swing.JFrame {
         jTextField1.setText("");
         jPasswordField1.setText("");
     }//GEN-LAST:event_jButton3ActionPerformed
-
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
