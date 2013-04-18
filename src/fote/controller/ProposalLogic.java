@@ -45,14 +45,8 @@ public class ProposalLogic {
         if (p.getDescription().isEmpty()) {
             return false;
         }
-        if (p.getAuthor() <= 0) {
+        if (!UserModel.isValidUser(p.getAuthor())) {
             return false;
-        } else {
-            UserModel userModel = new UserModel();
-            Iterable<Entry> userQuery = userModel.query("{id:"+ p.getAuthor() +"}");
-            if (!userQuery.iterator().hasNext()) {
-                return false;
-            }
         }
         return true;
     }
