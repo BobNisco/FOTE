@@ -2,7 +2,11 @@ package fote.gui;
 
 import fote.entry.Entry;
 import fote.entry.Proposal;
+import fote.entry.Suggestion;
+import fote.entry.User;
 import fote.model.ProposalModel;
+import fote.model.SuggestionModel;
+import fote.model.UserModel;
 import java.util.List;
 import javax.swing.table.DefaultTableModel;
 
@@ -19,6 +23,7 @@ public class MainFrame extends javax.swing.JFrame {
     public MainFrame() {
         initComponents();
         loadProposals();
+        loadSuggestions();
 
         this.setLocationRelativeTo(null);
         this.setTitle("FOTE");
@@ -225,6 +230,7 @@ public class MainFrame extends javax.swing.JFrame {
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
        loadProposals();
+       loadSuggestions();
     }//GEN-LAST:event_jButton2ActionPerformed
 
     private void loadProposals() {
@@ -234,11 +240,41 @@ public class MainFrame extends javax.swing.JFrame {
         DefaultTableModel model = (DefaultTableModel) jTable3.getModel();
         model.setRowCount(0);
 
+        UserModel userModel = new UserModel();
         for (Entry entry : proposalQuery){
             Proposal proposal = (Proposal) entry;
-            model.addRow(new String[]{proposal.getSubject(), "author model", proposal.getExpirationDate().toString() , "proposal status"});
+            Iterable<Entry> userQuery = userModel.query("{id:"+proposal.getAuthor()+"}");
+            if(userQuery.iterator().hasNext()) {
+                User author = (User) userQuery.iterator().next();
+                String name = author.getFirstName() + " " + author.getLastName();
+                model.addRow(new String[]{proposal.getSubject(), name, proposal.getExpirationDate().toString() , "proposal status"});
+            }
+            else
+                System.out.println("author not found, row not added");
         }
     }
+    
+    private void loadSuggestions() {
+        SuggestionModel suggestionModel = new SuggestionModel();
+        Iterable<Entry> suggestionQuery = suggestionModel.query("{id:{$gte: 0}}");
+
+        DefaultTableModel model = (DefaultTableModel) jTable2.getModel();
+        model.setRowCount(0);
+
+        UserModel userModel = new UserModel();
+        for (Entry entry : suggestionQuery){
+            Suggestion suggestion = (Suggestion) entry;
+            Iterable<Entry> userQuery = userModel.query("{id:"+suggestion.getAuthor()+"}");
+            if(userQuery.iterator().hasNext()){
+                User author = (User) userQuery.iterator().next();
+                String name = author.getFirstName() + " " + author.getLastName();
+                model.addRow(new String[]{suggestion.getSubject(), name, suggestion.getCreateDate().toString() , "suggestion status"});
+            }
+            else
+                System.out.println("author not found, row not added");
+        }
+    }
+    
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;

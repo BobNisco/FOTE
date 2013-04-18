@@ -1,6 +1,7 @@
 package fote;
 
 import fote.entry.Proposal;
+import fote.entry.Suggestion;
 import fote.entry.User;
 import fote.entry.Vote;
 import fote.gui.Login;
@@ -29,7 +30,7 @@ public class FOTE {
         MongoHelper.setDB("fote");
         // add user to logon...
         MongoHelper.getCollection("users").drop();
-        MongoHelper.save(new User("Evan", "Van Dam", "evan.vandam1", "admin"), "users");
+        MongoHelper.save(new User("Test", "Name", "admin", "admin"), "users");
         MongoHelper.getCollection("proposals").drop();
         MongoHelper.save(new Proposal(new Date(), "Test subject", "Test description", new Integer(5), new Integer(0), new ArrayList<String>(), new ArrayList<Vote>(), new ArrayList<Integer>(), new ArrayList<Integer>()), "proposals");
         MongoHelper.save(new Proposal(new Date(), "Test subject1", "Test description", new Integer(5), new Integer(0), new ArrayList<String>(), new ArrayList<Vote>(), new ArrayList<Integer>(), new ArrayList<Integer>()), "proposals");
@@ -37,6 +38,8 @@ public class FOTE {
         MongoHelper.save(new Proposal(new Date(), "Test subject3", "Test description", new Integer(5), new Integer(0), new ArrayList<String>(), new ArrayList<Vote>(), new ArrayList<Integer>(), new ArrayList<Integer>()), "proposals");
         MongoHelper.save(new Proposal(new Date(), "Test subject4", "Test description", new Integer(5), new Integer(0), new ArrayList<String>(), new ArrayList<Vote>(), new ArrayList<Integer>(), new ArrayList<Integer>()), "proposals");
         MongoHelper.save(new Proposal(new Date(), "Test subject5", "Test description", new Integer(5), new Integer(0), new ArrayList<String>(), new ArrayList<Vote>(), new ArrayList<Integer>(), new ArrayList<Integer>()), "proposals");
+        MongoHelper.getCollection("suggestions").drop();
+        MongoHelper.save(new Suggestion("test subject", "test description", 0, new ArrayList<Integer>(), new ArrayList<Integer>()), "suggestions");
         new Login().setVisible(true);
     }
 }
