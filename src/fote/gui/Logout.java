@@ -15,6 +15,7 @@ public class Logout extends javax.swing.JDialog {
         super(parent, modal);
         initComponents();
         this.setTitle("Logout");
+        this.setLocationRelativeTo(null);
     }
 
     /**
@@ -35,6 +36,11 @@ public class Logout extends javax.swing.JDialog {
         jLabel1.setText("Are you sure you want to logout?");
 
         jButton1.setText("Logout");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
 
         jButton2.setText("Cancel");
         jButton2.addActionListener(new java.awt.event.ActionListener() {
@@ -76,6 +82,10 @@ public class Logout extends javax.swing.JDialog {
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         this.dispose();
     }//GEN-LAST:event_jButton2ActionPerformed
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        System.exit(0);
+    }//GEN-LAST:event_jButton1ActionPerformed
 
     /**
      * @param args the command line arguments

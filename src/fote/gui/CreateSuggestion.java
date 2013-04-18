@@ -16,6 +16,7 @@ public class CreateSuggestion extends javax.swing.JDialog {
     public CreateSuggestion(java.awt.Frame parent, boolean modal) {
         super(parent,modal);
         initComponents();
+        this.setLocationRelativeTo(null);
         this.setTitle("Create Suggestion");
     }
 
