@@ -6,6 +6,8 @@ package fote.gui;
 
 import java.util.Date;
 import fote.controller.ProposalLogic;
+import java.util.ArrayList;
+import java.util.Arrays;
 
 /**
  *
@@ -217,7 +219,10 @@ public class CreateProposal extends javax.swing.JDialog {
         try {
             String subject = jTextField1.getText();
             String description = jTextArea1.getText();
-            String options = jTextField2.getText();
+            ArrayList<String> options = new ArrayList(Arrays.asList(jTextField2.getText().split(",")));
+            for(String option : options) {
+                option = option.trim();
+            }
             String priority = jComboBox4.getSelectedItem().toString();
             int month = Integer.valueOf(jComboBox1.getSelectedItem().toString());
             int day = Integer.valueOf(jComboBox2.getSelectedItem().toString());
