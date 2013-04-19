@@ -20,6 +20,7 @@ public class ViewSuggestion extends javax.swing.JDialog {
         super(parent, modal);
         this.setTitle("Suggestion");
         initComponents();
+        this.setLocationRelativeTo(null);
     }
     
     public ViewSuggestion(java.awt.Frame parent, boolean modal, Suggestion sug) {
@@ -27,6 +28,7 @@ public class ViewSuggestion extends javax.swing.JDialog {
         this.setTitle("Suggestion");
         initComponents();
         setViewSuggestion(sug);
+        this.setLocationRelativeTo(null);
     }
     
     private void setViewSuggestion(Suggestion s) {

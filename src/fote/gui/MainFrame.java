@@ -278,6 +278,7 @@ public class MainFrame extends javax.swing.JFrame {
         JTable jtable = (JTable) evt.getSource();
         System.out.println("Selection: " + selection);
         System.out.println(proposals.get(selection).toString());
+        new ViewProposal(this, true, (Proposal) proposals.get(selection)).setVisible(true);
     }//GEN-LAST:event_jTable3MouseReleased
 
     private void jTable2MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTable2MousePressed

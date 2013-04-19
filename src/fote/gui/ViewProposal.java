@@ -4,6 +4,9 @@
  */
 package fote.gui;
 
+import fote.entry.Proposal;
+import fote.model.UserModel;
+
 /**
  *
  * @author Evan
@@ -17,6 +20,24 @@ public class ViewProposal extends javax.swing.JDialog {
         super(parent, modal);
         this.setTitle("Proposal");
         initComponents();
+        this.setLocationRelativeTo(null);
+    }
+    
+    public ViewProposal(java.awt.Frame parent, boolean modal, Proposal proposal) {
+        super(parent, modal);
+        this.setTitle("Proposal");
+        initComponents();
+        setViewProposal(proposal);
+        this.setLocationRelativeTo(null);
+    }
+    
+    private void setViewProposal(Proposal proposal) {
+        UserModel userModel = new UserModel();
+        jTextField2.setText(userModel.getUser(proposal.getAuthor()).getFullName());
+        jTextField7.setText(Proposal.getPriorityLevel(proposal.getPriority()));
+        jTextField1.setText(proposal.getSubject());
+        jTextField4.setText(proposal.getDescription());
+        jTextField3.setText(proposal.getExpirationDate().toString());
     }
 
     /**
@@ -96,6 +117,7 @@ public class ViewProposal extends javax.swing.JDialog {
 
         jRadioButton3.setText("Option 3");
 
+        jTextField4.setEditable(false);
         jTextField4.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jTextField4ActionPerformed(evt);
