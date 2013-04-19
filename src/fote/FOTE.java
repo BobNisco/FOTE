@@ -5,6 +5,7 @@ import fote.entry.Suggestion;
 import fote.entry.User;
 import fote.entry.Vote;
 import fote.gui.Login;
+import fote.gui.MainFrame;
 import fote.util.MongoHelper;
 import java.util.ArrayList;
 import java.util.Date;
@@ -16,6 +17,7 @@ public class FOTE {
 
     // The user which has logged in
     private static User user;
+    private static MainFrame mf;
     
     public static void setUser(User user){
         FOTE.user = user;
@@ -24,6 +26,14 @@ public class FOTE {
     public static User getUser() {
         System.out.println(FOTE.user.toString());
         return FOTE.user;
+    }
+    
+    public static MainFrame getMainFrame() {
+        return FOTE.mf;
+    }
+    
+    public static void setMainFrame(MainFrame mf) {
+        FOTE.mf = mf;
     }
     
     public static void main(String[] args) {
@@ -41,6 +51,7 @@ public class FOTE {
         MongoHelper.save(new Proposal(new Date(), "Test subject5", "Test description", 1, new Integer(0), new ArrayList<String>(), new ArrayList<Vote>(), new ArrayList<Integer>(), new ArrayList<Integer>()), "proposals");
         MongoHelper.getCollection("suggestions").drop();
         MongoHelper.save(new Suggestion("test subject", "test description", 0, new ArrayList<Integer>(), new ArrayList<Integer>()), "suggestions");
-        new Login().setVisible(true);
+        setMainFrame(new MainFrame());
+        new Login(FOTE.getMainFrame(), true).setVisible(true);
     }
 }

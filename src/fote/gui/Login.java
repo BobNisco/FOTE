@@ -9,12 +9,13 @@ import fote.model.UserModel;
  *
  * @author Jason
  */
-public class Login extends javax.swing.JFrame {
+public class Login extends javax.swing.JDialog {
 
     /**
      * Creates new form Login
      */
-    public Login() {
+    public Login(java.awt.Frame parent, boolean modal) {
+        super(parent,modal);
         initComponents();
         this.setLocationRelativeTo(null);
     }
@@ -37,7 +38,7 @@ public class Login extends javax.swing.JFrame {
         jButton3 = new javax.swing.JButton();
         jPasswordField1 = new javax.swing.JPasswordField();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
         jLabel1.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
         jLabel1.setText("FOTE Login");
@@ -144,7 +145,7 @@ public class Login extends javax.swing.JFrame {
             } else {
                 System.out.println(user.getMaristID());
                 FOTE.setUser(user);
-                new MainFrame().setVisible(true);
+                FOTE.getMainFrame().setVisible(true);
                 this.setVisible(false);
             }
         } else {

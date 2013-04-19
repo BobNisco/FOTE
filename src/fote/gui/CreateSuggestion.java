@@ -4,9 +4,8 @@
  */
 package fote.gui;
 
-import fote.controller.ProposalLogic;
+import fote.FOTE;
 import fote.controller.SuggestionLogic;
-import java.util.Date;
 
 /**
  *
@@ -139,6 +138,8 @@ public class CreateSuggestion extends javax.swing.JDialog {
 
         if (success) {
             System.out.println("Successfully added a suggestion.");
+            FOTE.getMainFrame().loadSuggestions();
+            this.dispose();
         } else {
             System.out.println("There was an error. Please try again.");
         }

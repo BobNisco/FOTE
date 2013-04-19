@@ -235,7 +235,7 @@ public class MainFrame extends javax.swing.JFrame {
        loadSuggestions();
     }//GEN-LAST:event_jButton2ActionPerformed
 
-    private void loadProposals() {
+    public void loadProposals() {
         ProposalModel proposalModel = new ProposalModel();
         String selectedStatus = jComboBox2.getSelectedItem().toString();
         String statusQuery = "";
@@ -257,11 +257,9 @@ public class MainFrame extends javax.swing.JFrame {
         UserModel userModel = new UserModel();
         for (Entry entry : proposalQuery){
             Proposal proposal = (Proposal) entry;
-            String status;
+            String status = "active";
             if(ProposalLogic.isExpired(proposal))
                 status = "expired";
-            else
-                status = "active";
             Iterable<Entry> userQuery = userModel.query("{id:"+proposal.getAuthor()+"}");
             if(userQuery.iterator().hasNext()) {
                 User author = (User) userQuery.iterator().next();
@@ -273,7 +271,7 @@ public class MainFrame extends javax.swing.JFrame {
         }
     }
 
-    private void loadSuggestions() {
+    public void loadSuggestions() {
         SuggestionModel suggestionModel = new SuggestionModel();
         Iterable<Entry> suggestionQuery = suggestionModel.query("{id:{$gte: 0}}");
 

@@ -4,6 +4,7 @@
  */
 package fote.gui;
 
+import fote.FOTE;
 import java.util.Date;
 import fote.controller.ProposalLogic;
 import java.util.ArrayList;
@@ -233,6 +234,8 @@ public class CreateProposal extends javax.swing.JDialog {
 
             if (success){
                 System.out.println("we win!");
+                FOTE.getMainFrame().loadProposals();
+                this.dispose();
             }
             else {
                 System.out.println("FUCK");
