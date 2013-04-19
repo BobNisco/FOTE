@@ -240,11 +240,7 @@
         <Property name="text" type="java.lang.String" value="Exit"/>
       </Properties>
       <Events>
-<<<<<<< HEAD
-        <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="jButton1MouseClicked"/>
-=======
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButton1ActionPerformed"/>
->>>>>>> a1f1e7ba6104fd173707bf25852ef8b29f752e8b
       </Events>
     </Component>
     <Component class="javax.swing.JButton" name="jButton2">
