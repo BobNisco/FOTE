@@ -238,13 +238,18 @@ public class MainFrame extends javax.swing.JFrame {
     private void loadProposals() {
         ProposalModel proposalModel = new ProposalModel();
         String selectedStatus = jComboBox2.getSelectedItem().toString();
-        Iterable<Entry> proposalQuery;
-        if(selectedStatus.equalsIgnoreCase("all"))
-            proposalQuery = proposalModel.query("{id:{$gte: 0}}");
-        else if(selectedStatus.equalsIgnoreCase("active"))
-            proposalQuery = proposalModel.query("{id:{$gte: 0}, expirationTime: {$gte:"+new Date().getTime()+"}}");
-        else
-            proposalQuery = proposalModel.query("{id:{$gte: 0}, expirationTime: {$lt:"+new Date().getTime()+"}}");
+        String statusQuery = "";
+        if(selectedStatus.equalsIgnoreCase("active"))
+            statusQuery = ", expirationTime: {$gte:"+new Date().getTime()+"}";
+        else if(selectedStatus.equalsIgnoreCase("expired"))
+            statusQuery = "expirationTime: {$lt:"+new Date().getTime()+"}";
+        
+        int selectedPriority = Proposal.getPriorityLevel(jComboBox1.getSelectedItem().toString());
+        String priorityQuery = "";
+        if(selectedPriority > 0)
+            priorityQuery = ", priority: " + selectedPriority;
+        
+        Iterable<Entry> proposalQuery = proposalModel.query("{id:{$gte: 0}"+statusQuery+priorityQuery+"}");
         
         DefaultTableModel model = (DefaultTableModel) jTable3.getModel();
         model.setRowCount(0);
