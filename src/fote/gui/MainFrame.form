@@ -281,14 +281,19 @@
     <Component class="javax.swing.JComboBox" name="jComboBox1">
       <Properties>
         <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
-          <StringArray count="4">
-            <StringItem index="0" value="all"/>
-            <StringItem index="1" value="high"/>
-            <StringItem index="2" value="medium"/>
-            <StringItem index="3" value="low"/>
+          <StringArray count="6">
+            <StringItem index="0" value="All"/>
+            <StringItem index="1" value="Urgent"/>
+            <StringItem index="2" value="Important"/>
+            <StringItem index="3" value="Moderate"/>
+            <StringItem index="4" value="Low"/>
+            <StringItem index="5" value="Backlog"/>
           </StringArray>
         </Property>
       </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jComboBox1ActionPerformed"/>
+      </Events>
     </Component>
     <Component class="javax.swing.JLabel" name="jLabel4">
       <Properties>
@@ -299,9 +304,9 @@
       <Properties>
         <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
           <StringArray count="3">
-            <StringItem index="0" value="all"/>
-            <StringItem index="1" value="active"/>
-            <StringItem index="2" value="expired"/>
+            <StringItem index="0" value="All"/>
+            <StringItem index="1" value="Active"/>
+            <StringItem index="2" value="Expired"/>
           </StringArray>
         </Property>
       </Properties>

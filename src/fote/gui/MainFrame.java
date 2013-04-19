@@ -130,6 +130,11 @@ public class MainFrame extends javax.swing.JFrame {
         jLabel3.setText("Priority:");
 
         jComboBox1.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "All", "Urgent", "Important", "Moderate", "Low", "Backlog" }));
+        jComboBox1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jComboBox1ActionPerformed(evt);
+            }
+        });
 
         jLabel4.setText("Status:");
 
@@ -234,6 +239,11 @@ public class MainFrame extends javax.swing.JFrame {
        loadProposals();
        loadSuggestions();
     }//GEN-LAST:event_jButton2ActionPerformed
+
+    private void jComboBox1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBox1ActionPerformed
+        loadProposals();
+        loadSuggestions();
+    }//GEN-LAST:event_jComboBox1ActionPerformed
 
     public void loadProposals() {
         ProposalModel proposalModel = new ProposalModel();
