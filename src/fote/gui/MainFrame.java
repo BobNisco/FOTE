@@ -8,6 +8,7 @@ import fote.entry.User;
 import fote.model.ProposalModel;
 import fote.model.SuggestionModel;
 import fote.model.UserModel;
+import java.util.Date;
 import java.util.List;
 import javax.swing.table.DefaultTableModel;
 
@@ -236,9 +237,15 @@ public class MainFrame extends javax.swing.JFrame {
 
     private void loadProposals() {
         ProposalModel proposalModel = new ProposalModel();
-        Iterable<Entry> proposalQuery = proposalModel.query("{id:{$gte: 0}}");
         String selectedStatus = jComboBox2.getSelectedItem().toString();
-
+        Iterable<Entry> proposalQuery;
+        if(selectedStatus.equalsIgnoreCase("all"))
+            proposalQuery = proposalModel.query("{id:{$gte: 0}}");
+        else if(selectedStatus.equalsIgnoreCase("active"))
+            proposalQuery = proposalModel.query("{id:{$gte: 0}, expirationTime: {$gte:"+new Date().getTime()+"}}");
+        else
+            proposalQuery = proposalModel.query("{id:{$gte: 0}, expirationTime: {$lt:"+new Date().getTime()+"}}");
+        
         DefaultTableModel model = (DefaultTableModel) jTable3.getModel();
         model.setRowCount(0);
 
@@ -250,16 +257,14 @@ public class MainFrame extends javax.swing.JFrame {
                 status = "expired";
             else
                 status = "active";
-            if(selectedStatus.equalsIgnoreCase("all") || selectedStatus.equalsIgnoreCase(status)) {
-                Iterable<Entry> userQuery = userModel.query("{id:"+proposal.getAuthor()+"}");
-                if(userQuery.iterator().hasNext()) {
-                    User author = (User) userQuery.iterator().next();
-                    String name = author.getFirstName() + " " + author.getLastName();
-                    model.addRow(new String[]{proposal.getSubject(), name, proposal.getExpirationDate().toString() , status});
-                }
-                else
-                    System.out.println("author not found, row not added");
+            Iterable<Entry> userQuery = userModel.query("{id:"+proposal.getAuthor()+"}");
+            if(userQuery.iterator().hasNext()) {
+                User author = (User) userQuery.iterator().next();
+                String name = author.getFirstName() + " " + author.getLastName();
+                model.addRow(new String[]{proposal.getSubject(), name, proposal.getExpirationDate().toString() , status});
             }
+            else
+                System.out.println("author not found, row not added");
         }
     }
 

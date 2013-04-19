@@ -14,6 +14,7 @@ public class Proposal extends Entry {
     private ArrayList<Integer> comments, attachments;
     private ArrayList<Vote> votes;
     private Date expirationDate;
+    private long expirationTime;
     
     /**
      *
@@ -28,6 +29,7 @@ public class Proposal extends Entry {
         this.votes = new ArrayList<Vote>();
         this.comments = new ArrayList<Integer>();
         this.attachments = new ArrayList<Integer>();
+        this.expirationTime = this.expirationDate.getTime();
     }
 
     /**
@@ -55,6 +57,7 @@ public class Proposal extends Entry {
         this.votes = votes;
         this.comments = comments;
         this.attachments = attachments;
+        this.expirationTime = this.expirationDate.getTime();
     }
     
     public static String getPriorityLevel(Integer level) {
@@ -96,6 +99,14 @@ public class Proposal extends Entry {
      */
     public Date getExpirationDate() {
         return expirationDate;
+    }
+    
+    /**
+     *
+     * @return the expiration time since epoch of this proposal
+     */
+    public long getExpirationTime() {
+        return expirationTime;
     }
 
     /**
@@ -144,6 +155,7 @@ public class Proposal extends Entry {
      */
     public void setExpirationDate(Date expirationDate) {
         this.expirationDate = expirationDate;
+        this.expirationTime = this.expirationDate.getTime();
     }
 
     /**
@@ -233,7 +245,7 @@ public class Proposal extends Entry {
     public void setAttachments(ArrayList<Integer> attachments) {
         this.attachments = attachments;
     }
-    
+        
     /**
      *
      * @return a string representation of this Proposal
