@@ -1,5 +1,6 @@
 package fote.gui;
 
+import fote.FOTE;
 import fote.controller.ProposalLogic;
 import fote.entry.Entry;
 import fote.entry.Proposal;
@@ -8,8 +9,10 @@ import fote.entry.User;
 import fote.model.ProposalModel;
 import fote.model.SuggestionModel;
 import fote.model.UserModel;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 
 /**
@@ -18,12 +21,16 @@ import javax.swing.table.DefaultTableModel;
  */
 public class MainFrame extends javax.swing.JFrame {
 
-    List<Proposal> proposals;
+    ArrayList<Proposal> proposals;
+    ArrayList<Suggestion> suggestions;
+    int selection;
     /**
      * Creates new form MainFrame
      */
     public MainFrame() {
         initComponents();
+        this.proposals = new ArrayList<Proposal>();
+        this.suggestions = new ArrayList<Suggestion>();
         loadProposals();
         loadSuggestions();
 
@@ -74,6 +81,14 @@ public class MainFrame extends javax.swing.JFrame {
             }
         ));
         jTable2.setColumnSelectionAllowed(true);
+        jTable2.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                jTable2MousePressed(evt);
+            }
+            public void mouseReleased(java.awt.event.MouseEvent evt) {
+                jTable2MouseReleased(evt);
+            }
+        });
         jScrollPane2.setViewportView(jTable2);
         jTable2.getColumnModel().getSelectionModel().setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
 
@@ -88,6 +103,14 @@ public class MainFrame extends javax.swing.JFrame {
                 "Subject", "Author", "Date", "Status"
             }
         ));
+        jTable3.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                jTable3MousePressed(evt);
+            }
+            public void mouseReleased(java.awt.event.MouseEvent evt) {
+                jTable3MouseReleased(evt);
+            }
+        });
         jScrollPane3.setViewportView(jTable3);
         jTable3.getColumnModel().getSelectionModel().setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
 
@@ -245,19 +268,47 @@ public class MainFrame extends javax.swing.JFrame {
         loadSuggestions();
     }//GEN-LAST:event_jComboBox1ActionPerformed
 
+    private void jTable3MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTable3MousePressed
+        JTable jtable = (JTable) evt.getSource();
+        selection = jtable.getSelectedRow();
+        jtable.clearSelection();
+    }//GEN-LAST:event_jTable3MousePressed
+
+    private void jTable3MouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTable3MouseReleased
+        JTable jtable = (JTable) evt.getSource();
+        System.out.println("Selection: " + selection);
+        System.out.println(proposals.get(selection).toString());
+    }//GEN-LAST:event_jTable3MouseReleased
+
+    private void jTable2MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTable2MousePressed
+        JTable jtable = (JTable) evt.getSource();
+        selection = jtable.getSelectedRow();
+        jtable.clearSelection();
+    }//GEN-LAST:event_jTable2MousePressed
+
+    private void jTable2MouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTable2MouseReleased
+        JTable jtable = (JTable) evt.getSource();
+        System.out.println("Selection: " + selection);
+        System.out.println(suggestions.get(selection).toString());
+        new ViewSuggestion(this, true, (Suggestion) suggestions.get(selection)).setVisible(true);
+    }//GEN-LAST:event_jTable2MouseReleased
+
     public void loadProposals() {
+        this.proposals.clear();
         ProposalModel proposalModel = new ProposalModel();
         String selectedStatus = jComboBox2.getSelectedItem().toString();
         String statusQuery = "";
-        if(selectedStatus.equalsIgnoreCase("active"))
+        if (selectedStatus.equalsIgnoreCase("active")) { 
             statusQuery = ", expirationTime: {$gte:"+new Date().getTime()+"}";
-        else if(selectedStatus.equalsIgnoreCase("expired"))
+        } else if(selectedStatus.equalsIgnoreCase("expired")) {
             statusQuery = "expirationTime: {$lt:"+new Date().getTime()+"}";
+        }
         
         int selectedPriority = Proposal.getPriorityLevel(jComboBox1.getSelectedItem().toString());
         String priorityQuery = "";
-        if(selectedPriority > 0)
+        if(selectedPriority > 0) {
             priorityQuery = ", priority: " + selectedPriority;
+        }
         
         Iterable<Entry> proposalQuery = proposalModel.query("{id:{$gte: 0}"+statusQuery+priorityQuery+"}");
         
@@ -266,22 +317,26 @@ public class MainFrame extends javax.swing.JFrame {
 
         UserModel userModel = new UserModel();
         for (Entry entry : proposalQuery){
+            this.proposals.add((Proposal) entry);
             Proposal proposal = (Proposal) entry;
             String status = "active";
-            if(ProposalLogic.isExpired(proposal))
+            if (ProposalLogic.isExpired(proposal)) {
                 status = "expired";
+            }
             Iterable<Entry> userQuery = userModel.query("{id:"+proposal.getAuthor()+"}");
             if(userQuery.iterator().hasNext()) {
                 User author = (User) userQuery.iterator().next();
                 String name = author.getFirstName() + " " + author.getLastName();
                 model.addRow(new String[]{proposal.getSubject(), name, proposal.getExpirationDate().toString() , status});
             }
-            else
+            else {
                 System.out.println("author not found, row not added");
+            }
         }
     }
 
     public void loadSuggestions() {
+        this.suggestions.clear();
         SuggestionModel suggestionModel = new SuggestionModel();
         Iterable<Entry> suggestionQuery = suggestionModel.query("{id:{$gte: 0}}");
 
@@ -290,15 +345,16 @@ public class MainFrame extends javax.swing.JFrame {
 
         UserModel userModel = new UserModel();
         for (Entry entry : suggestionQuery){
+            this.suggestions.add((Suggestion) entry);
             Suggestion suggestion = (Suggestion) entry;
             Iterable<Entry> userQuery = userModel.query("{id:"+suggestion.getAuthor()+"}");
             if(userQuery.iterator().hasNext()){
                 User author = (User) userQuery.iterator().next();
                 String name = author.getFirstName() + " " + author.getLastName();
                 model.addRow(new String[]{suggestion.getSubject(), name, suggestion.getCreateDate().toString() , "suggestion status"});
-            }
-            else
+            } else {
                 System.out.println("author not found, row not added");
+            }
         }
     }
 

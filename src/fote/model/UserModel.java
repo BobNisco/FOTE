@@ -34,4 +34,16 @@ public class UserModel extends BaseModel {
         }
         return true;
     }
+    
+    public User getUser(Integer i) {
+        User result = new User();
+        Iterable<Entry> userQuery = this.query("{id:" + i + "}");
+        
+        if (userQuery.iterator().hasNext()) {
+            for (Entry user : userQuery) {
+                result = (User) user;
+            }
+        }
+        return result;
+    }
 }

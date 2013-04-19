@@ -95,6 +95,10 @@ public class User extends Entry {
         this.password = password;
     }
     
+    public String getFullName() {
+        return this.getFirstName() + " " + this.getLastName();
+    }
+    
     
     /**
      *

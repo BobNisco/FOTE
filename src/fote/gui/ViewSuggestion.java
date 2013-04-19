@@ -4,6 +4,9 @@
  */
 package fote.gui;
 
+import fote.entry.Suggestion;
+import fote.model.UserModel;
+
 /**
  *
  * @author Evan
@@ -17,6 +20,20 @@ public class ViewSuggestion extends javax.swing.JDialog {
         super(parent, modal);
         this.setTitle("Suggestion");
         initComponents();
+    }
+    
+    public ViewSuggestion(java.awt.Frame parent, boolean modal, Suggestion sug) {
+        super(parent, modal);
+        this.setTitle("Suggestion");
+        initComponents();
+        setViewSuggestion(sug);
+    }
+    
+    private void setViewSuggestion(Suggestion s) {
+        UserModel userModel = new UserModel();
+        jTextField1.setText(userModel.getUser(s.getAuthor()).getFullName());
+        jTextField2.setText(s.getSubject());
+        jTextArea1.setText(s.getDescription());
     }
 
     /**
