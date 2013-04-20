@@ -5,9 +5,11 @@
 package fote.controller;
 
 import fote.FOTE;
+import fote.entry.Comment;
 import fote.entry.Entry;
 import fote.entry.Proposal;
 import fote.entry.Vote;
+import fote.model.CommentModel;
 import fote.model.UserModel;
 import fote.util.MongoHelper;
 import java.util.ArrayList;
@@ -23,7 +25,7 @@ public class ProposalLogic {
         Integer priorityNum = Proposal.getPriorityLevel(priority);
         ArrayList<Vote> votes = new ArrayList<Vote>();
         ArrayList<Integer> comments = new ArrayList<Integer>();
-        ArrayList<Integer> attachments = new ArrayList<Integer>();
+        ArrayList<String> attachments = new ArrayList<String>();
         int userID = FOTE.getUser().getId();
         Proposal proposal = new Proposal(expiration, subject, description, priorityNum, new Integer(userID), options, votes, comments, attachments);
         if (isValidProposal(proposal)) {
@@ -53,6 +55,18 @@ public class ProposalLogic {
     public static boolean isExpired(Proposal p) {
         Date now = new Date();
         return p.getExpirationDate().before(now);
+    }
+    
+    public static ArrayList<Comment> getComments(Proposal p){
+        ArrayList<Comment> comments = new ArrayList<Comment>();
+        CommentModel commentModel = new CommentModel();
+        Iterable<Entry> commentsQuery = commentModel.query("{author:{$in:#}}", p.getComments());
+        
+        for (Entry entry : commentsQuery){
+            Comment comment = (Comment) entry;
+            comments.add(comment);
+        }
+        return comments;
     }
 }
 

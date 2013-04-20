@@ -4,23 +4,25 @@
  */
 package fote.gui;
 
+import fote.controller.ProposalLogic;
 import fote.entry.Comment;
-import fote.entry.Entry;
 import fote.entry.Proposal;
-import fote.entry.Suggestion;
-import fote.model.CommentModel;
-import fote.model.SuggestionModel;
-import fote.model.UserModel;
-import fote.util.MongoHelper;
+import fote.model.UserModel;import fote.util.MongoHelper;
+import java.io.File;
+
+
+import javax.swing.JFileChooser;
 import java.util.ArrayList;
 import javax.swing.DefaultComboBoxModel;
-import javax.swing.table.DefaultTableModel;
+import javax.swing.JOptionPane;
 
 /**
  *
  * @author Evan
  */
 public class ViewProposal extends javax.swing.JDialog {
+    
+    private Proposal proposal;
     
     public ViewProposal(java.awt.Frame parent, boolean modal, Proposal proposal) {
         super(parent, modal);
@@ -30,7 +32,16 @@ public class ViewProposal extends javax.swing.JDialog {
         this.setLocationRelativeTo(null);
     }
     
+    private void setProposal(Proposal p){
+        this.proposal = p;
+    }
+    
+    private Proposal getProposal(){
+        return this.proposal;
+    }
+    
     private void setViewProposal(Proposal proposal) {
+        setProposal(proposal);
         UserModel userModel = new UserModel();
         jTextField2.setText(userModel.getUser(proposal.getAuthor()).getFullName());
         jTextField7.setText(Proposal.getPriorityLevel(proposal.getPriority()));
@@ -38,14 +49,8 @@ public class ViewProposal extends javax.swing.JDialog {
         jTextField4.setText(proposal.getDescription());
         jTextField3.setText(proposal.getExpirationDate().toString());
         jComboBox1.setModel(new DefaultComboBoxModel(proposal.getOptions().toArray(new String[proposal.getOptions().size()])));
-        ArrayList<Comment> comments = new ArrayList<Comment>();
-        CommentModel commentModel = new CommentModel();
-        Iterable<Entry> commentsQuery = commentModel.query("{author:{$in:#}}", proposal.getComments());
-        
-        for (Entry entry : commentsQuery){
-            Comment comment = (Comment) entry;
-            comments.add(comment);
-        }
+        jComboBox2.setModel(new DefaultComboBoxModel(proposal.getAttachments().toArray(new String[proposal.getAttachments().size()])));
+        ArrayList<Comment> comments = ProposalLogic.getComments(proposal);
     }
 
     /**
@@ -80,9 +85,9 @@ public class ViewProposal extends javax.swing.JDialog {
         jButton3 = new javax.swing.JButton();
         jLabel10 = new javax.swing.JLabel();
         jButton4 = new javax.swing.JButton();
-        jLabel12 = new javax.swing.JLabel();
         jButton5 = new javax.swing.JButton();
         jComboBox1 = new javax.swing.JComboBox();
+        jComboBox2 = new javax.swing.JComboBox();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
@@ -161,8 +166,11 @@ public class ViewProposal extends javax.swing.JDialog {
         jLabel10.setText("Attachments:");
 
         jButton4.setText("New Attachment");
-
-        jLabel12.setText("file1.txt");
+        jButton4.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton4ActionPerformed(evt);
+            }
+        });
 
         jButton5.setText("Download");
         jButton5.addActionListener(new java.awt.event.ActionListener() {
@@ -175,6 +183,13 @@ public class ViewProposal extends javax.swing.JDialog {
         jComboBox1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jComboBox1ActionPerformed(evt);
+            }
+        });
+
+        jComboBox2.setModel(new javax.swing.DefaultComboBoxModel(new String[] { ""}));
+        jComboBox2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jComboBox2ActionPerformed(evt);
             }
         });
 
@@ -231,9 +246,9 @@ public class ViewProposal extends javax.swing.JDialog {
                             .addComponent(jButton4)
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(jLabel10)
-                                .addGap(18, 18, 18)
-                                .addComponent(jLabel12, javax.swing.GroupLayout.PREFERRED_SIZE, 92, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(18, 18, 18)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(jComboBox2, javax.swing.GroupLayout.PREFERRED_SIZE, 108, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                 .addComponent(jLabel6)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, 125, javax.swing.GroupLayout.PREFERRED_SIZE)))
@@ -274,8 +289,8 @@ public class ViewProposal extends javax.swing.JDialog {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel10)
                     .addComponent(jLabel6)
-                    .addComponent(jLabel12)
-                    .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jComboBox2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jButton5)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -316,7 +331,22 @@ public class ViewProposal extends javax.swing.JDialog {
     }//GEN-LAST:event_jButton3ActionPerformed
 
     private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
-        // TODO add your handling code here:
+        if (jComboBox2.getSelectedItem() != null){
+            JFileChooser filechooser = new JFileChooser();
+                filechooser.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
+              //In response to a button click:
+                int result = filechooser.showOpenDialog(null);
+                if (result == JFileChooser.APPROVE_OPTION) {
+                   String path = filechooser.getCurrentDirectory().toString()
+                    + File.separatorChar + filechooser.getSelectedFile().getName();
+                   String fileName = jComboBox2.getSelectedItem().toString();
+                   MongoHelper.download(fileName, path);
+
+                if (result == JFileChooser.CANCEL_OPTION) {
+                    // Disregard
+                    }
+                }
+        }
     }//GEN-LAST:event_jButton5ActionPerformed
 
     private void jComboBox1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBox1ActionPerformed
@@ -326,6 +356,37 @@ public class ViewProposal extends javax.swing.JDialog {
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         this.dispose();
     }//GEN-LAST:event_jButton2ActionPerformed
+
+    private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
+        JFileChooser filechooser = new JFileChooser();
+        filechooser.setFileSelectionMode(JFileChooser.FILES_ONLY);
+      //In response to a button click:
+        int result = filechooser.showOpenDialog(null);
+        if (result == JFileChooser.APPROVE_OPTION) {
+           String path = filechooser.getCurrentDirectory().toString()
+            + File.separatorChar + filechooser.getSelectedFile().getName();
+           String fileName = filechooser.getSelectedFile().getName() + "-" + String.valueOf(getProposal().getId());
+           if(MongoHelper.upload(path, fileName)){
+               getProposal().getAttachments().add(fileName);
+               JOptionPane.showMessageDialog(this,
+                   "Attachment successfully uploaded");
+               setViewProposal(getProposal());  
+           }
+           else{
+               JOptionPane.showMessageDialog(this,
+                "Attachment failed to upload",
+                "Error",
+                JOptionPane.ERROR_MESSAGE);
+           }
+        if (result == JFileChooser.CANCEL_OPTION) {
+            // Disregard
+            }
+        }
+    }//GEN-LAST:event_jButton4ActionPerformed
+
+    private void jComboBox2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBox2ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jComboBox2ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -368,10 +429,10 @@ public class ViewProposal extends javax.swing.JDialog {
     private javax.swing.JButton jButton4;
     private javax.swing.JButton jButton5;
     private javax.swing.JComboBox jComboBox1;
+    private javax.swing.JComboBox jComboBox2;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
-    private javax.swing.JLabel jLabel12;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;

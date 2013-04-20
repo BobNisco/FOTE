@@ -11,7 +11,8 @@ public class Proposal extends Entry {
     private String subject, description;
     private Integer priority, author;
     private ArrayList<String> options;
-    private ArrayList<Integer> comments, attachments;
+    private ArrayList<Integer> comments; 
+    private ArrayList<String> attachments;
     private ArrayList<Vote> votes;
     private Date expirationDate;
     private long expirationTime;
@@ -28,7 +29,7 @@ public class Proposal extends Entry {
         this.options = new ArrayList<String>();
         this.votes = new ArrayList<Vote>();
         this.comments = new ArrayList<Integer>();
-        this.attachments = new ArrayList<Integer>();
+        this.attachments = new ArrayList<String>();
         this.expirationTime = this.expirationDate.getTime();
     }
 
@@ -47,7 +48,7 @@ public class Proposal extends Entry {
     public Proposal(Date expirationDate, String subject, String description, 
             Integer priority, Integer author, ArrayList<String> options, 
             ArrayList<Vote> votes, ArrayList<Integer> comments, 
-            ArrayList<Integer> attachments) {
+            ArrayList<String> attachments) {
         this.expirationDate = expirationDate;
         this.subject = subject;
         this.description = description;
@@ -226,7 +227,7 @@ public class Proposal extends Entry {
      *
      * @return an ArrayList of the attachmentIDs of this proposal
      */
-    public ArrayList<Integer> getAttachments() {
+    public ArrayList<String> getAttachments() {
         return attachments;
     }
 
@@ -242,7 +243,7 @@ public class Proposal extends Entry {
      *
      * @param attachments the new attachments value
      */
-    public void setAttachments(ArrayList<Integer> attachments) {
+    public void setAttachments(ArrayList<String> attachments) {
         this.attachments = attachments;
     }
         
@@ -270,7 +271,7 @@ public class Proposal extends Entry {
             result += comment + ", ";
         }
         result += " AttachmentIDs: ";
-        for (Integer attachment : this.getAttachments()) {
+        for (String attachment : this.getAttachments()) {
             result += attachment + ", ";
         }
         return result;

@@ -53,12 +53,12 @@ public class FOTE {
         ArrayList<Integer> comments = new ArrayList<Integer>();
         comments.add(new Integer(1));
         comments.add(new Integer(2));
-        MongoHelper.save(new Proposal(new Date(), "Test subject", "Test description", 5, new Integer(0), options, new ArrayList<Vote>(), comments, new ArrayList<Integer>()), "proposals");
-        MongoHelper.save(new Proposal(new Date(), "Test subject1", "Test description", 4, new Integer(0), options, new ArrayList<Vote>(), comments, new ArrayList<Integer>()), "proposals");
-        MongoHelper.save(new Proposal(new Date(), "Test subject2", "Test description", 3, new Integer(0), options, new ArrayList<Vote>(), comments, new ArrayList<Integer>()), "proposals");
-        MongoHelper.save(new Proposal(new Date(), "Test subject3", "Test description", 2, new Integer(0), options, new ArrayList<Vote>(), comments, new ArrayList<Integer>()), "proposals");
-        MongoHelper.save(new Proposal(new Date(), "Test subject4", "Test description", 1, new Integer(0), options, new ArrayList<Vote>(), comments, new ArrayList<Integer>()), "proposals");
-        MongoHelper.save(new Proposal(new Date(), "Test subject5", "Test description", 1, new Integer(0), options, new ArrayList<Vote>(), new ArrayList<Integer>(), new ArrayList<Integer>()), "proposals");
+        MongoHelper.save(new Proposal(new Date(), "Test subject", "Test description", 5, new Integer(0), options, new ArrayList<Vote>(), comments, new ArrayList<String>()), "proposals");
+        MongoHelper.save(new Proposal(new Date(), "Test subject1", "Test description", 4, new Integer(0), options, new ArrayList<Vote>(), comments, new ArrayList<String>()), "proposals");
+        MongoHelper.save(new Proposal(new Date(), "Test subject2", "Test description", 3, new Integer(0), options, new ArrayList<Vote>(), comments, new ArrayList<String>()), "proposals");
+        MongoHelper.save(new Proposal(new Date(), "Test subject3", "Test description", 2, new Integer(0), options, new ArrayList<Vote>(), comments, new ArrayList<String>()), "proposals");
+        MongoHelper.save(new Proposal(new Date(), "Test subject4", "Test description", 1, new Integer(0), options, new ArrayList<Vote>(), comments, new ArrayList<String>()), "proposals");
+        MongoHelper.save(new Proposal(new Date(), "Test subject5", "Test description", 1, new Integer(0), options, new ArrayList<Vote>(), new ArrayList<Integer>(), new ArrayList<String>()), "proposals");
         MongoHelper.getCollection("suggestions").drop();
         MongoHelper.save(new Suggestion("test subject", "test description", 0, new ArrayList<Integer>(), new ArrayList<Integer>()), "suggestions");
         setMainFrame(new MainFrame());

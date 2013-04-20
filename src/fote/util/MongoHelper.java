@@ -1,11 +1,19 @@
 package fote.util; 
 
 import com.mongodb.DB;
+import com.mongodb.DBCursor;
 import com.mongodb.Mongo;
 import com.mongodb.WriteResult;
+import com.mongodb.gridfs.GridFS;
+import com.mongodb.gridfs.GridFSDBFile;
+import com.mongodb.gridfs.GridFSInputFile;
 import java.util.Date;
 import fote.entry.Entry;
+import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import org.jongo.Jongo;
 import org.jongo.MongoCollection;
 
@@ -54,6 +62,38 @@ public class MongoHelper {
             jongo = new Jongo(getDB());
                     
         return jongo;
+    }
+    
+    
+    public static Boolean upload(String fileLocation, String fileName){
+ 
+        GridFS gfs = new GridFS(getDB(), "attachments");
+	File imageFile = new File(fileLocation);
+                        
+        GridFSInputFile gfsFile;
+        try {
+            gfsFile = gfs.createFile(imageFile);
+            gfsFile.setFilename(fileName);
+            gfsFile.save();
+            return true;
+        } catch (IOException ex) {
+            Logger.getLogger(MongoHelper.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return false;
+    }
+    
+    public static Boolean download(String fileName, String path){
+         GridFS gfs = new GridFS(getDB(), "attachments");
+	 // get image file by it's filename
+        GridFSDBFile imageForOutput = gfs.findOne(fileName);
+        try {
+            // save it into a new image file
+            imageForOutput.writeTo(path + "\\" + fileName);
+            return true;
+        } catch (IOException ex) {
+            Logger.getLogger(MongoHelper.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return false;
     }
     
     /**
