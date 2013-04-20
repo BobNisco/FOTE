@@ -5,6 +5,7 @@ import com.mongodb.Mongo;
 import com.mongodb.WriteResult;
 import java.util.Date;
 import fote.entry.Entry;
+import java.util.ArrayList;
 import org.jongo.Jongo;
 import org.jongo.MongoCollection;
 
@@ -119,6 +120,18 @@ public class MongoHelper {
     public static Iterable<Entry> query(String criteria, Class clss, String collectionName) {
         MongoCollection collection = getCollection(collectionName);
         return collection.find(criteria).as(clss);
+    }  
+    
+    /**
+     * Queries a collection.
+     * @param criteria Mongo template
+     * @param clss Class
+     * @param collectionName Collection name
+     * @return Iterable which has zero or more entries
+     */
+    public static Iterable<Entry> query(String criteria, ArrayList<Integer> numbers, Class clss, String collectionName) {
+        MongoCollection collection = getCollection(collectionName);
+        return collection.find(criteria, numbers).as(clss);
     }  
     
     /**

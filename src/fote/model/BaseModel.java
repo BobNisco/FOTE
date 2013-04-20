@@ -2,6 +2,7 @@ package fote.model;
 
 import fote.entry.Entry;
 import fote.util.MongoHelper;
+import java.util.ArrayList;
 
 /**
  *
@@ -19,6 +20,11 @@ public abstract class BaseModel {
 
     public Iterable<Entry> query(String queryString) {
         Iterable<Entry> resultSet = MongoHelper.query(queryString, clss, document);
+        return resultSet;
+    }
+    
+    public Iterable<Entry> query(String queryString, ArrayList<Integer> numbers) {
+        Iterable<Entry> resultSet = MongoHelper.query(queryString, numbers, clss, document);
         return resultSet;
     }
 }
