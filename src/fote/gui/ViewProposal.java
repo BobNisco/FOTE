@@ -45,7 +45,9 @@ public class ViewProposal extends javax.swing.JDialog {
         setProposal(proposal);
         UserModel userModel = new UserModel();
         jTextField2.setText(userModel.getUser(proposal.getAuthor()).getFullName());
+        jTextField6.setText(proposal.getCreateDate().toString());
         jTextField7.setText(Proposal.getPriorityLevel(proposal.getPriority()));
+        jTextField9.setText(proposal.getUpdateDate().toString());
         jTextField1.setText(proposal.getSubject());
         jTextField4.setText(proposal.getDescription());
         jTextField3.setText(proposal.getExpirationDate().toString());
