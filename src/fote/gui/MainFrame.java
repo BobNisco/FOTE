@@ -302,7 +302,7 @@ public class MainFrame extends javax.swing.JFrame {
         if (selectedStatus.equalsIgnoreCase("active")) { 
             statusQuery = ", expirationTime: {$gte:"+new Date().getTime()+"}";
         } else if(selectedStatus.equalsIgnoreCase("expired")) {
-            statusQuery = "expirationTime: {$lt:"+new Date().getTime()+"}";
+            statusQuery = ", expirationTime: {$lt:"+new Date().getTime()+"}";
         }
         
         int selectedPriority = Proposal.getPriorityLevel(jComboBox1.getSelectedItem().toString());
