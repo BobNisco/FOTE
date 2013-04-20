@@ -162,6 +162,11 @@ public class MainFrame extends javax.swing.JFrame {
         jLabel4.setText("Status:");
 
         jComboBox2.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "All", "Active", "Expired" }));
+        jComboBox2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jComboBox2ActionPerformed(evt);
+            }
+        });
 
         jLabel5.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jLabel5.setText("Filters:");
@@ -293,6 +298,11 @@ public class MainFrame extends javax.swing.JFrame {
         System.out.println(suggestions.get(selection).toString());
         new ViewSuggestion(this, true, (Suggestion) suggestions.get(selection)).setVisible(true);
     }//GEN-LAST:event_jTable2MouseReleased
+
+    private void jComboBox2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBox2ActionPerformed
+        loadProposals();
+        loadSuggestions();
+    }//GEN-LAST:event_jComboBox2ActionPerformed
 
     public void loadProposals() {
         this.proposals.clear();
