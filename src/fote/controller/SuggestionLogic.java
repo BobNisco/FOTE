@@ -1,9 +1,11 @@
 package fote.controller;
 
 import fote.FOTE;
+import fote.entry.Comment;
 import fote.entry.Suggestion;
 import fote.model.UserModel;
 import fote.util.MongoHelper;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -39,5 +41,13 @@ public class SuggestionLogic {
         }
         System.out.println("This is a valid suggestion");
         return true;
+    }
+    
+    public static boolean addComment(Suggestion sug, String commentText) {
+        Comment comment = new Comment(commentText, FOTE.getUser().getId());
+        MongoHelper.save(comment, "comments");
+        comment = (Comment) MongoHelper.fetch(comment, "comments");
+        sug.getComments().add(comment.getId());
+        return MongoHelper.save(sug, "suggestions");
     }
 }

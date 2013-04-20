@@ -4,8 +4,10 @@
  */
 package fote.gui;
 
+import fote.controller.SuggestionLogic;
 import fote.entry.Suggestion;
 import fote.model.UserModel;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -13,6 +15,8 @@ import fote.model.UserModel;
  */
 public class ViewSuggestion extends javax.swing.JDialog {
 
+    private Suggestion sug;
+    
     /**
      * Creates new form ViewSuggestion
      */
@@ -27,6 +31,7 @@ public class ViewSuggestion extends javax.swing.JDialog {
         super(parent, modal);
         this.setTitle("Suggestion");
         initComponents();
+        this.sug = sug;
         setViewSuggestion(sug);
         this.setLocationRelativeTo(null);
     }
@@ -84,6 +89,11 @@ public class ViewSuggestion extends javax.swing.JDialog {
         jLabel4.setText("Comment:");
 
         jButton1.setText("Comment");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
 
         jButton2.setText("Cancel");
         jButton2.addActionListener(new java.awt.event.ActionListener() {
@@ -205,6 +215,12 @@ public class ViewSuggestion extends javax.swing.JDialog {
     private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jButton5ActionPerformed
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        SuggestionLogic.addComment(sug, jTextArea2.getText());
+        JOptionPane.showMessageDialog(this, "Comment successfully added");
+        this.dispose();
+    }//GEN-LAST:event_jButton1ActionPerformed
 
     /**
      * @param args the command line arguments
