@@ -1,3 +1,4 @@
+
 /*
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
@@ -67,6 +68,14 @@ public class ProposalLogic {
             comments.add(comment);
         }
         return comments;
+    }
+    
+    public static void vote(Proposal proposal, int optionId) {
+        Vote vote = new Vote(FOTE.getUser().getId(), optionId, proposal.getId());
+        MongoHelper.save(vote, "votes");
+        vote = (Vote) MongoHelper.fetch(vote, "votes");
+        proposal.getVotes().add(vote);
+        MongoHelper.save(proposal, "proposals");
     }
 }
 
