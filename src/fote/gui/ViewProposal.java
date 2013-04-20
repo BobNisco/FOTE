@@ -23,7 +23,7 @@ import javax.swing.JOptionPane;
 public class ViewProposal extends javax.swing.JDialog {
 
     private Proposal proposal;
-    
+
     public ViewProposal(java.awt.Frame parent, boolean modal, Proposal proposal) {
         super(parent, modal);
         this.setTitle("Proposal");
@@ -363,6 +363,7 @@ public class ViewProposal extends javax.swing.JDialog {
         this.dispose();
     }//GEN-LAST:event_jButton2ActionPerformed
 
+
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
         JFileChooser filechooser = new JFileChooser();
         filechooser.setFileSelectionMode(JFileChooser.FILES_ONLY);
@@ -398,7 +399,6 @@ public class ViewProposal extends javax.swing.JDialog {
         int option = jComboBox1.getSelectedIndex();
         ProposalLogic.vote(proposal, option);
     }//GEN-LAST:event_jButton1ActionPerformed
-
 
     /**
      * @param args the command line arguments
