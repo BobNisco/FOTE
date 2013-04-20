@@ -9,6 +9,7 @@ import fote.entry.Entry;
 import fote.entry.Proposal;
 import fote.entry.Vote;
 import fote.model.UserModel;
+import fote.model.VoteModel;
 import fote.util.MongoHelper;
 import java.util.ArrayList;
 import java.util.Date;
@@ -53,6 +54,14 @@ public class ProposalLogic {
     public static boolean isExpired(Proposal p) {
         Date now = new Date();
         return p.getExpirationDate().before(now);
+    }
+    
+    public static void vote(Proposal proposal, int optionId) {
+        Vote vote = new Vote(FOTE.getUser().getId(), optionId, proposal.getId());
+        MongoHelper.save(vote, "votes");
+        vote = (Vote) MongoHelper.fetch(vote, "votes");
+        proposal.getVotes().add(vote);
+        MongoHelper.save(proposal, "proposals");
     }
 }
 

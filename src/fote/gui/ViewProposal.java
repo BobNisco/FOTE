@@ -4,6 +4,7 @@
  */
 package fote.gui;
 
+import fote.controller.ProposalLogic;
 import fote.entry.Comment;
 import fote.entry.Entry;
 import fote.entry.Proposal;
@@ -21,11 +22,12 @@ import javax.swing.table.DefaultTableModel;
  * @author Evan
  */
 public class ViewProposal extends javax.swing.JDialog {
-    
+    private Proposal proposal;
     public ViewProposal(java.awt.Frame parent, boolean modal, Proposal proposal) {
         super(parent, modal);
         this.setTitle("Proposal");
         initComponents();
+        this.proposal = proposal;
         setViewProposal(proposal);
         this.setLocationRelativeTo(null);
     }
@@ -120,6 +122,11 @@ public class ViewProposal extends javax.swing.JDialog {
         });
 
         jButton1.setText("Vote");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
 
         jButton2.setText("Cancel");
         jButton2.addActionListener(new java.awt.event.ActionListener() {
@@ -326,6 +333,11 @@ public class ViewProposal extends javax.swing.JDialog {
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         this.dispose();
     }//GEN-LAST:event_jButton2ActionPerformed
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        int option = jComboBox1.getSelectedIndex();
+        ProposalLogic.vote(proposal, option);
+    }//GEN-LAST:event_jButton1ActionPerformed
 
     /**
      * @param args the command line arguments
