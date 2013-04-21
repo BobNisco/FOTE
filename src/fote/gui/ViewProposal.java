@@ -374,7 +374,7 @@ public class ViewProposal extends javax.swing.JDialog {
         if (result == JFileChooser.APPROVE_OPTION) {
            String path = filechooser.getCurrentDirectory().toString()
             + File.separatorChar + filechooser.getSelectedFile().getName();
-           String fileName = filechooser.getSelectedFile().getName() + "-" + String.valueOf(getProposal().getId());
+           String fileName = getProposal().getSubject() + "-" + filechooser.getSelectedFile().getName();
            if(MongoHelper.upload(path, fileName)){
                getProposal().getAttachments().add(fileName);
                JOptionPane.showMessageDialog(this,
