@@ -56,8 +56,13 @@ public class ViewSuggestion extends javax.swing.JDialog {
         Iterator<Integer> commentIds = s.getComments().iterator();
         while(commentIds.hasNext()) {
             Iterable<Entry> comment = commentModel.query("{id:"+commentIds.next()+"}");
-            if(comment.iterator().hasNext())
-                jTextArea3.setText(jTextArea2.getText() + "\n" + comment.iterator().next().toString());
+            if(comment.iterator().hasNext()) {
+                Comment c = (Comment) comment.iterator().next();
+                jTextArea3.setText(jTextArea2.getText() + 
+                        c.getText() + "\n-"
+                        + userModel.getUser(c.getAuthor()).getFullName() +
+                        "\n---------------------");
+            }
         }
     }
 
