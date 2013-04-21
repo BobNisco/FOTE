@@ -78,4 +78,14 @@ public class ProposalLogic {
         proposal.getVotes().add(vote);
         MongoHelper.save(proposal, "proposals");
     }
+    
+    public static boolean addComment(Proposal prop, String commentText) {
+        Comment comment = new Comment(commentText, FOTE.getUser().getId());
+        MongoHelper.save(comment, "comments");
+        comment = (Comment) MongoHelper.fetch(comment, "comments");
+        System.out.println(comment.getId());
+        prop.getComments().add(comment.getId());
+        System.out.println("comment added");
+        return MongoHelper.save(prop, "proposals");
+    }
 }

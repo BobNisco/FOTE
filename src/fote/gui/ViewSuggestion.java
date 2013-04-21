@@ -51,7 +51,6 @@ public class ViewSuggestion extends javax.swing.JDialog {
         jTextField2.setText(s.getSubject());
         jTextArea1.setText(s.getDescription());
         
-        System.out.println(jTextArea2.getText());
         CommentModel commentModel = new CommentModel();
         Iterator<Integer> commentIds = s.getComments().iterator();
         while(commentIds.hasNext()) {

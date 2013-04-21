@@ -6,13 +6,16 @@ package fote.gui;
 
 import fote.controller.ProposalLogic;
 import fote.entry.Comment;
+import fote.entry.Entry;
 import fote.entry.Proposal;
+import fote.model.CommentModel;
 import fote.model.UserModel;import fote.util.MongoHelper;
 import java.io.File;
 
 
 import javax.swing.JFileChooser;
 import java.util.ArrayList;
+import java.util.Iterator;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JOptionPane;
 
@@ -53,7 +56,20 @@ public class ViewProposal extends javax.swing.JDialog {
         jTextField3.setText(proposal.getExpirationDate().toString());
         jComboBox1.setModel(new DefaultComboBoxModel(proposal.getOptions().toArray(new String[proposal.getOptions().size()])));
         jComboBox2.setModel(new DefaultComboBoxModel(proposal.getAttachments().toArray(new String[proposal.getAttachments().size()])));
+       
         ArrayList<Comment> comments = ProposalLogic.getComments(proposal);
+        CommentModel commentModel = new CommentModel();
+        Iterator<Integer> commentIds = proposal.getComments().iterator();
+        while(commentIds.hasNext()) {
+            Iterable<Entry> comment = commentModel.query("{id:"+commentIds.next()+"}");
+            if(comment.iterator().hasNext()) {
+                Comment c = (Comment) comment.iterator().next();
+                jTextArea3.setText(jTextArea3.getText() + 
+                        c.getText() + "\n-"
+                        + userModel.getUser(c.getAuthor()).getFullName() +
+                        "\n---------------------\n");
+            }
+        }
     }
 
     /**
@@ -372,7 +388,7 @@ public class ViewProposal extends javax.swing.JDialog {
     }//GEN-LAST:event_jTextField9ActionPerformed
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
-        // TODO add your handling code here:
+        ProposalLogic.addComment(proposal, jTextArea1.getText());
     }//GEN-LAST:event_jButton3ActionPerformed
 
     private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
