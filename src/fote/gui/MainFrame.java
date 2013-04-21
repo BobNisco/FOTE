@@ -13,6 +13,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import javax.swing.JTable;
+import javax.swing.UIManager;
 import javax.swing.table.DefaultTableModel;
 
 /**
@@ -33,6 +34,12 @@ public class MainFrame extends javax.swing.JFrame {
         this.suggestions = new ArrayList<Suggestion>();
         loadProposals();
         loadSuggestions();
+        
+        try {
+            UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
+        } catch(Exception e) {
+            e.printStackTrace();
+        }
 
         this.setLocationRelativeTo(null);
         this.setTitle("FOTE");
