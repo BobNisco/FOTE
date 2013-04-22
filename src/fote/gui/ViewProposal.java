@@ -56,7 +56,11 @@ public class ViewProposal extends javax.swing.JDialog {
         jTextField3.setText(proposal.getExpirationDate().toString());
         jComboBox1.setModel(new DefaultComboBoxModel(proposal.getOptions().toArray(new String[proposal.getOptions().size()])));
         jComboBox2.setModel(new DefaultComboBoxModel(proposal.getAttachments().toArray(new String[proposal.getAttachments().size()])));
-       
+        setComments();
+    }
+    
+    private void setComments() {
+        UserModel userModel = new UserModel();
         ArrayList<Comment> comments = ProposalLogic.getComments(proposal);
         CommentModel commentModel = new CommentModel();
         Iterator<Integer> commentIds = proposal.getComments().iterator();
@@ -386,7 +390,15 @@ public class ViewProposal extends javax.swing.JDialog {
     }//GEN-LAST:event_jTextField9ActionPerformed
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
-        ProposalLogic.addComment(proposal, jTextArea1.getText());
+        boolean success = ProposalLogic.addComment(proposal, jTextArea1.getText());
+        if (success) {
+            JOptionPane.showMessageDialog(this, "Comment successfully added");
+            jTextArea3.setText("");
+            jTextArea1.setText("");
+            setComments();
+        } else {
+            JOptionPane.showMessageDialog(this, "Comment could not be added. Please try again");
+        }
     }//GEN-LAST:event_jButton3ActionPerformed
 
     private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed

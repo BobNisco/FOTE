@@ -9,11 +9,9 @@ import fote.entry.Comment;
 import fote.entry.Entry;
 import fote.entry.Suggestion;
 import fote.model.CommentModel;
-import fote.model.SuggestionModel;
 import fote.model.UserModel;
 import fote.util.MongoHelper;
 import java.io.File;
-import java.util.ArrayList;
 import java.util.Iterator;
 import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
@@ -50,9 +48,13 @@ public class ViewSuggestion extends javax.swing.JDialog {
         jTextField1.setText(userModel.getUser(s.getAuthor()).getFullName());
         jTextField2.setText(s.getSubject());
         jTextArea1.setText(s.getDescription());
-        
+        setComments();
+    }
+    
+    private void setComments() {
+        UserModel userModel = new UserModel();
         CommentModel commentModel = new CommentModel();
-        Iterator<Integer> commentIds = s.getComments().iterator();
+        Iterator<Integer> commentIds = sug.getComments().iterator();
         while(commentIds.hasNext()) {
             Iterable<Entry> comment = commentModel.query("{id:"+commentIds.next()+"}");
             if(comment.iterator().hasNext()) {
@@ -263,9 +265,15 @@ public class ViewSuggestion extends javax.swing.JDialog {
     }//GEN-LAST:event_jButton2ActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        SuggestionLogic.addComment(sug, jTextArea2.getText());
-        JOptionPane.showMessageDialog(this, "Comment successfully added");
-        this.dispose();
+        boolean success = SuggestionLogic.addComment(sug, jTextArea2.getText());
+        if (success) {
+            JOptionPane.showMessageDialog(this, "Comment successfully added");
+            jTextArea2.setText("");
+            jTextArea3.setText("");
+            setComments();
+        } else {
+            JOptionPane.showMessageDialog(this, "Comment could not be added. Please try again");
+        }
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jComboBox2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBox2ActionPerformed
