@@ -1,9 +1,6 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package fote.gui;
 
+import fote.FOTE;
 import fote.controller.SuggestionLogic;
 import fote.entry.Comment;
 import fote.entry.Entry;
@@ -12,7 +9,9 @@ import fote.model.CommentModel;
 import fote.model.UserModel;
 import fote.util.MongoHelper;
 import java.io.File;
+import java.util.ArrayList;
 import java.util.Iterator;
+import javax.swing.DefaultComboBoxModel;
 import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
 
@@ -22,8 +21,8 @@ import javax.swing.JOptionPane;
  */
 public class ViewSuggestion extends javax.swing.JDialog {
 
-    private Suggestion sug;
-    
+    private Suggestion suggestion;
+
     /**
      * Creates new form ViewSuggestion
      */
@@ -33,39 +32,60 @@ public class ViewSuggestion extends javax.swing.JDialog {
         initComponents();
         this.setLocationRelativeTo(null);
     }
-    
-    public ViewSuggestion(java.awt.Frame parent, boolean modal, Suggestion sug) {
+
+    public ViewSuggestion(java.awt.Frame parent, boolean modal, Suggestion suggestion) {
         super(parent, modal);
         this.setTitle("Suggestion");
         initComponents();
-        this.sug = sug;
-        setViewSuggestion(sug);
+        this.suggestion = suggestion;
+        setViewSuggestion(suggestion);
         this.setLocationRelativeTo(null);
     }
-    
+
     private void setViewSuggestion(Suggestion s) {
+        setSuggestion(s);
         UserModel userModel = new UserModel();
         jTextField1.setText(userModel.getUser(s.getAuthor()).getFullName());
         jTextField2.setText(s.getSubject());
         jTextArea1.setText(s.getDescription());
+        jComboBox2.setModel(new DefaultComboBoxModel(s.getAttachments().toArray(new String[s.getAttachments().size()])));
+
+        System.out.println(jTextArea2.getText());
+        ArrayList<Comment> comments = SuggestionLogic.getComments(s);
+
+        for (Comment c : comments)
+
+        jTextArea3.setText(jTextArea3.getText() + " \n" +
+                        c.getText() + "\n-"
+                        + userModel.getUser(c.getAuthor()).getFullName() +
+                        "\n---------------------");
         setComments();
     }
-    
+
     private void setComments() {
         UserModel userModel = new UserModel();
         CommentModel commentModel = new CommentModel();
-        Iterator<Integer> commentIds = sug.getComments().iterator();
+        Iterator<Integer> commentIds = suggestion.getComments().iterator();
         while(commentIds.hasNext()) {
             Iterable<Entry> comment = commentModel.query("{id:"+commentIds.next()+"}");
             if(comment.iterator().hasNext()) {
                 Comment c = (Comment) comment.iterator().next();
-                jTextArea3.setText(jTextArea3.getText() + 
+                jTextArea3.setText(jTextArea3.getText() +
                         c.getText() + "\n-"
                         + userModel.getUser(c.getAuthor()).getFullName() +
                         "\n---------------------\n");
             }
         }
     }
+
+    private Suggestion getSuggestion(){
+        return this.suggestion;
+    }
+
+    private void setSuggestion(Suggestion s){
+        this.suggestion = s;
+    }
+
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -145,6 +165,11 @@ public class ViewSuggestion extends javax.swing.JDialog {
         jLabel5.setText("Attachments:");
 
         jButton4.setText("New Attachment");
+        jButton4.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton4ActionPerformed(evt);
+            }
+        });
 
         jTextArea3.setEditable(false);
         jTextArea3.setColumns(20);
@@ -243,11 +268,11 @@ public class ViewSuggestion extends javax.swing.JDialog {
                         .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(jButton1)
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jLabel4)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jLabel6)))
+                        .addComponent(jLabel6))
+                    .addComponent(jButton1))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jButton2)
                 .addContainerGap())
@@ -265,11 +290,13 @@ public class ViewSuggestion extends javax.swing.JDialog {
     }//GEN-LAST:event_jButton2ActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        boolean success = SuggestionLogic.addComment(sug, jTextArea2.getText());
+
+        boolean success = SuggestionLogic.addComment(getSuggestion(), jTextArea2.getText());
         if (success) {
             JOptionPane.showMessageDialog(this, "Comment successfully added");
             jTextArea2.setText("");
             jTextArea3.setText("");
+            setViewSuggestion(getSuggestion());
             setComments();
         } else {
             JOptionPane.showMessageDialog(this, "Comment could not be added. Please try again");
@@ -299,6 +326,33 @@ public class ViewSuggestion extends javax.swing.JDialog {
         }
     }//GEN-LAST:event_jButton5ActionPerformed
 
+    private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
+        JFileChooser filechooser = new JFileChooser();
+        filechooser.setFileSelectionMode(JFileChooser.FILES_ONLY);
+      //In response to a button click:
+        int result = filechooser.showOpenDialog(null);
+        if (result == JFileChooser.APPROVE_OPTION) {
+           String path = filechooser.getCurrentDirectory().toString()
+            + File.separatorChar + filechooser.getSelectedFile().getName();
+           String fileName = getSuggestion().getSubject() + "-" + filechooser.getSelectedFile().getName();
+           if(MongoHelper.upload(path, fileName)){
+               getSuggestion().getAttachments().add(fileName);
+               JOptionPane.showMessageDialog(this,
+                   "Attachment successfully uploaded");
+               setViewSuggestion(getSuggestion());
+           }
+           else{
+               JOptionPane.showMessageDialog(this,
+                "Attachment failed to upload",
+                "Error",
+                JOptionPane.ERROR_MESSAGE);
+           }
+        if (result == JFileChooser.CANCEL_OPTION) {
+            // Disregard
+            }
+        }
+    }//GEN-LAST:event_jButton4ActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -306,7 +360,7 @@ public class ViewSuggestion extends javax.swing.JDialog {
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
         /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
+         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html
          */
         try {
             for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {

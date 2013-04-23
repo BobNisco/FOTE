@@ -2,10 +2,12 @@ package fote.controller;
 
 import fote.FOTE;
 import fote.entry.Comment;
+import fote.entry.Entry;
 import fote.entry.Suggestion;
+import fote.model.CommentModel;
 import fote.model.UserModel;
 import fote.util.MongoHelper;
-import javax.swing.JOptionPane;
+import java.util.ArrayList;
 
 /**
  *
@@ -41,6 +43,18 @@ public class SuggestionLogic {
         }
         System.out.println("This is a valid suggestion");
         return true;
+    }
+    
+    public static ArrayList<Comment> getComments(Suggestion s){
+        ArrayList<Comment> comments = new ArrayList<Comment>();
+        CommentModel commentModel = new CommentModel();
+        Iterable<Entry> commentsQuery = commentModel.query("{id:{$in:#}}", s.getComments());
+        
+        for (Entry entry : commentsQuery){
+            Comment comment = (Comment) entry;
+            comments.add(comment);
+        }
+        return comments;
     }
     
     public static boolean addComment(Suggestion sug, String commentText) {

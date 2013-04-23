@@ -1,9 +1,3 @@
-
-
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package fote.controller;
 
 import fote.FOTE;
@@ -13,6 +7,7 @@ import fote.entry.Proposal;
 import fote.entry.Vote;
 import fote.model.CommentModel;
 import fote.model.UserModel;
+import fote.model.VoteModel;
 import fote.util.MongoHelper;
 import java.util.ArrayList;
 import java.util.Date;
@@ -62,7 +57,7 @@ public class ProposalLogic {
     public static ArrayList<Comment> getComments(Proposal p){
         ArrayList<Comment> comments = new ArrayList<Comment>();
         CommentModel commentModel = new CommentModel();
-        Iterable<Entry> commentsQuery = commentModel.query("{author:{$in:#}}", p.getComments());
+        Iterable<Entry> commentsQuery = commentModel.query("{id:{$in:#}}", p.getComments());
         
         for (Entry entry : commentsQuery){
             Comment comment = (Comment) entry;
@@ -71,21 +66,41 @@ public class ProposalLogic {
         return comments;
     }
     
-    public static void vote(Proposal proposal, int optionId) {
-        Vote vote = new Vote(FOTE.getUser().getId(), optionId, proposal.getId());
-        MongoHelper.save(vote, "votes");
-        vote = (Vote) MongoHelper.fetch(vote, "votes");
-        proposal.getVotes().add(vote);
-        MongoHelper.save(proposal, "proposals");
-    }
-    
-    public static boolean addComment(Proposal prop, String commentText) {
+     public static boolean addComment(Proposal proposal, String commentText) {
         Comment comment = new Comment(commentText, FOTE.getUser().getId());
         MongoHelper.save(comment, "comments");
         comment = (Comment) MongoHelper.fetch(comment, "comments");
-        System.out.println(comment.getId());
-        prop.getComments().add(comment.getId());
-        System.out.println("comment added");
-        return MongoHelper.save(prop, "proposals");
+        proposal.getComments().add(comment.getId());
+        return MongoHelper.save(proposal, "proposals");
+    }
+    
+    public static boolean vote(Proposal proposal, int optionId) {
+        Vote vote = new Vote(FOTE.getUser().getId(), optionId, proposal.getId());
+        VoteModel voteModel = new VoteModel();
+        
+        // Try to find a vote already made by this user for this proposal
+        Iterable<Entry> voteQuery = voteModel.query("{userID: " + vote.getUserID() + 
+                ",proposalID: " + vote.getProposalID() + "}");
+        // If a vote is found remove it from the DB and the object
+        if(voteQuery.iterator().hasNext()){
+            Vote deleteVote = (Vote) voteQuery.iterator().next();
+            MongoHelper.delete(deleteVote, "votes");
+            System.out.println("PREVIOUS VOTE DELETED!");
+            for (Vote v : proposal.getVotes()){
+                if (v.getProposalID() == deleteVote.getProposalID() && v.getUserID() == deleteVote.getUserID()){
+                    deleteVote = v;
+                }
+            }
+            proposal.getVotes().remove(deleteVote);
+        }
+        // Otherwise we just add the vote to the DB and object
+        if(MongoHelper.save(vote, "votes")){
+            vote = (Vote) MongoHelper.fetch(vote, "votes");
+            proposal.getVotes().add(vote);
+            if(MongoHelper.save(proposal, "proposals")){
+                return true;
+            }
+        }
+        return false;
     }
 }

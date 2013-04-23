@@ -1,7 +1,3 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package fote.gui;
 
 import fote.controller.ProposalLogic;
@@ -9,10 +5,9 @@ import fote.entry.Comment;
 import fote.entry.Entry;
 import fote.entry.Proposal;
 import fote.model.CommentModel;
-import fote.model.UserModel;import fote.util.MongoHelper;
+import fote.model.UserModel;
+import fote.util.MongoHelper;
 import java.io.File;
-
-
 import javax.swing.JFileChooser;
 import java.util.ArrayList;
 import java.util.Iterator;
@@ -35,15 +30,15 @@ public class ViewProposal extends javax.swing.JDialog {
         setViewProposal(proposal);
         this.setLocationRelativeTo(null);
     }
-    
+
     private void setProposal(Proposal p){
         this.proposal = p;
     }
-    
+
     private Proposal getProposal(){
         return this.proposal;
     }
-    
+
     private void setViewProposal(Proposal proposal) {
         setProposal(proposal);
         UserModel userModel = new UserModel();
@@ -58,7 +53,7 @@ public class ViewProposal extends javax.swing.JDialog {
         jComboBox2.setModel(new DefaultComboBoxModel(proposal.getAttachments().toArray(new String[proposal.getAttachments().size()])));
         setComments();
     }
-    
+
     private void setComments() {
         UserModel userModel = new UserModel();
         ArrayList<Comment> comments = ProposalLogic.getComments(proposal);
@@ -68,7 +63,7 @@ public class ViewProposal extends javax.swing.JDialog {
             Iterable<Entry> comment = commentModel.query("{id:"+commentIds.next()+"}");
             if(comment.iterator().hasNext()) {
                 Comment c = (Comment) comment.iterator().next();
-                jTextArea3.setText(jTextArea3.getText() + 
+                jTextArea3.setText(jTextArea3.getText() +
                         c.getText() + "\n-"
                         + userModel.getUser(c.getAuthor()).getFullName() +
                         "\n---------------------\n");
@@ -442,7 +437,7 @@ public class ViewProposal extends javax.swing.JDialog {
                getProposal().getAttachments().add(fileName);
                JOptionPane.showMessageDialog(this,
                    "Attachment successfully uploaded");
-               setViewProposal(getProposal());  
+               setViewProposal(getProposal());
            }
            else{
                JOptionPane.showMessageDialog(this,
@@ -472,7 +467,7 @@ public class ViewProposal extends javax.swing.JDialog {
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
         /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
+         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html
          */
         try {
             for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
