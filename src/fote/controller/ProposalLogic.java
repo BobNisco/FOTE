@@ -10,10 +10,10 @@ import fote.FOTE;
 import fote.entry.Comment;
 import fote.entry.Entry;
 import fote.entry.Proposal;
-import fote.entry.Suggestion;
 import fote.entry.Vote;
 import fote.model.CommentModel;
 import fote.model.UserModel;
+import fote.model.VoteModel;
 import fote.util.MongoHelper;
 import java.util.ArrayList;
 import java.util.Date;
@@ -80,11 +80,33 @@ public class ProposalLogic {
         return MongoHelper.save(proposal, "proposals");
     }
     
-    public static void vote(Proposal proposal, int optionId) {
+    public static boolean vote(Proposal proposal, int optionId) {
         Vote vote = new Vote(FOTE.getUser().getId(), optionId, proposal.getId());
-        MongoHelper.save(vote, "votes");
-        vote = (Vote) MongoHelper.fetch(vote, "votes");
-        proposal.getVotes().add(vote);
-        MongoHelper.save(proposal, "proposals");
+        VoteModel voteModel = new VoteModel();
+        
+        // Try to find a vote already made by this user for this proposal
+        Iterable<Entry> voteQuery = voteModel.query("{userID: " + vote.getUserID() + 
+                ",proposalID: " + vote.getProposalID() + "}");
+        // If a vote is found remove it from the DB and the object
+        if(voteQuery.iterator().hasNext()){
+            Vote deleteVote = (Vote) voteQuery.iterator().next();
+            MongoHelper.delete(deleteVote, "votes");
+            System.out.println("PREVIOUS VOTE DELETED!");
+            for (Vote v : proposal.getVotes()){
+                if (v.getProposalID() == deleteVote.getProposalID() && v.getUserID() == deleteVote.getUserID()){
+                    deleteVote = v;
+                }
+            }
+            proposal.getVotes().remove(deleteVote);
+        }
+        // Otherwise we just add the vote to the DB and object
+        if(MongoHelper.save(vote, "votes")){
+            vote = (Vote) MongoHelper.fetch(vote, "votes");
+            proposal.getVotes().add(vote);
+            if(MongoHelper.save(proposal, "proposals")){
+                return true;
+            }
+        }
+        return false;
     }
 }

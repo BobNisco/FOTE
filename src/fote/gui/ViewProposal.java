@@ -4,7 +4,9 @@
  */
 package fote.gui;
 
+import fote.FOTE;
 import fote.controller.ProposalLogic;
+import fote.controller.SuggestionLogic;
 import fote.entry.Comment;
 import fote.entry.Proposal;
 import fote.model.UserModel;import fote.util.MongoHelper;
@@ -53,7 +55,15 @@ public class ViewProposal extends javax.swing.JDialog {
         jTextField3.setText(proposal.getExpirationDate().toString());
         jComboBox1.setModel(new DefaultComboBoxModel(proposal.getOptions().toArray(new String[proposal.getOptions().size()])));
         jComboBox2.setModel(new DefaultComboBoxModel(proposal.getAttachments().toArray(new String[proposal.getAttachments().size()])));
+        jTextArea4.setText("");
+        
         ArrayList<Comment> comments = ProposalLogic.getComments(proposal);
+        jTextArea3.setText("");
+        for (Comment c : comments)
+        jTextArea3.setText(jTextArea3.getText() + " \n" +
+                        c.getText() + "\n-"
+                        + userModel.getUser(c.getAuthor()).getFullName() +
+                        "\n---------------------");
     }
 
     /**
@@ -89,13 +99,13 @@ public class ViewProposal extends javax.swing.JDialog {
         jButton5 = new javax.swing.JButton();
         jComboBox1 = new javax.swing.JComboBox();
         jComboBox2 = new javax.swing.JComboBox();
-        jScrollPane1 = new javax.swing.JScrollPane();
-        jTextArea1 = new javax.swing.JTextArea();
         jScrollPane2 = new javax.swing.JScrollPane();
         jTextArea2 = new javax.swing.JTextArea();
         jLabel12 = new javax.swing.JLabel();
         jScrollPane3 = new javax.swing.JScrollPane();
         jTextArea3 = new javax.swing.JTextArea();
+        jScrollPane4 = new javax.swing.JScrollPane();
+        jTextArea4 = new javax.swing.JTextArea();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
@@ -198,11 +208,6 @@ public class ViewProposal extends javax.swing.JDialog {
             }
         });
 
-        jTextArea1.setColumns(20);
-        jTextArea1.setLineWrap(true);
-        jTextArea1.setRows(1);
-        jScrollPane1.setViewportView(jTextArea1);
-
         jTextArea2.setColumns(20);
         jTextArea2.setLineWrap(true);
         jTextArea2.setRows(4);
@@ -214,6 +219,11 @@ public class ViewProposal extends javax.swing.JDialog {
         jTextArea3.setColumns(20);
         jTextArea3.setRows(5);
         jScrollPane3.setViewportView(jTextArea3);
+
+        jTextArea4.setColumns(1);
+        jTextArea4.setLineWrap(true);
+        jTextArea4.setRows(1);
+        jScrollPane4.setViewportView(jTextArea4);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -282,8 +292,8 @@ public class ViewProposal extends javax.swing.JDialog {
                                             .addComponent(jLabel5))
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                            .addComponent(jScrollPane1)
-                                            .addComponent(jScrollPane3))
+                                            .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 264, Short.MAX_VALUE)
+                                            .addComponent(jScrollPane4))
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                         .addComponent(jButton3)))
                                 .addGap(0, 0, Short.MAX_VALUE)))
@@ -348,9 +358,12 @@ public class ViewProposal extends javax.swing.JDialog {
                         .addComponent(jButton2))
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel5)
-                            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(jLabel5)
+                                .addGap(8, 8, 8))
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(3, 3, 3)))
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel12)
                             .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))))
@@ -372,7 +385,11 @@ public class ViewProposal extends javax.swing.JDialog {
     }//GEN-LAST:event_jTextField9ActionPerformed
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
-        // TODO add your handling code here:
+        if(!jTextArea4.getText().isEmpty()){
+            ProposalLogic.addComment(getProposal(), jTextArea4.getText());
+            JOptionPane.showMessageDialog(this, "Comment successfully added");
+            setViewProposal(getProposal());
+        }
     }//GEN-LAST:event_jButton3ActionPerformed
 
     private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
@@ -436,7 +453,15 @@ public class ViewProposal extends javax.swing.JDialog {
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         int option = jComboBox1.getSelectedIndex();
-        ProposalLogic.vote(proposal, option);
+        if(ProposalLogic.vote(proposal, option)){
+            JOptionPane.showMessageDialog(this,
+                   "Your vote has been cast!");
+            setViewProposal(getProposal());
+        }
+        else{
+            JOptionPane.showMessageDialog(this,
+                   "Fail!");
+        }
     }//GEN-LAST:event_jButton1ActionPerformed
 
     /**
@@ -493,12 +518,12 @@ public class ViewProposal extends javax.swing.JDialog {
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
-    private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;
-    private javax.swing.JTextArea jTextArea1;
+    private javax.swing.JScrollPane jScrollPane4;
     private javax.swing.JTextArea jTextArea2;
     private javax.swing.JTextArea jTextArea3;
+    private javax.swing.JTextArea jTextArea4;
     private javax.swing.JTextField jTextField1;
     private javax.swing.JTextField jTextField2;
     private javax.swing.JTextField jTextField3;
