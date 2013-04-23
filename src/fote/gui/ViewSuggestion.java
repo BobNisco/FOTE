@@ -13,6 +13,7 @@ import fote.model.CommentModel;
 import fote.model.UserModel;
 import fote.util.MongoHelper;
 import java.io.File;
+import java.util.ArrayList;
 import java.util.Iterator;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JFileChooser;
@@ -51,7 +52,6 @@ public class ViewSuggestion extends javax.swing.JDialog {
         jTextField1.setText(userModel.getUser(s.getAuthor()).getFullName());
         jTextField2.setText(s.getSubject());
         jTextArea1.setText(s.getDescription());
-<<<<<<< HEAD
         jComboBox2.setModel(new DefaultComboBoxModel(s.getAttachments().toArray(new String[s.getAttachments().size()])));
         
         System.out.println(jTextArea2.getText());
@@ -63,14 +63,13 @@ public class ViewSuggestion extends javax.swing.JDialog {
                         c.getText() + "\n-"
                         + userModel.getUser(c.getAuthor()).getFullName() +
                         "\n---------------------");
-=======
         setComments();
     }
     
     private void setComments() {
         UserModel userModel = new UserModel();
         CommentModel commentModel = new CommentModel();
-        Iterator<Integer> commentIds = sug.getComments().iterator();
+        Iterator<Integer> commentIds = suggestion.getComments().iterator();
         while(commentIds.hasNext()) {
             Iterable<Entry> comment = commentModel.query("{id:"+commentIds.next()+"}");
             if(comment.iterator().hasNext()) {
@@ -81,7 +80,6 @@ public class ViewSuggestion extends javax.swing.JDialog {
                         "\n---------------------\n");
             }
         }
->>>>>>> df24a57512a34046501380a4addb35962f449d99
     }
     
     private Suggestion getSuggestion(){
@@ -296,21 +294,14 @@ public class ViewSuggestion extends javax.swing.JDialog {
     }//GEN-LAST:event_jButton2ActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-<<<<<<< HEAD
 
         boolean success = SuggestionLogic.addComment(getSuggestion(), jTextArea2.getText());
-=======
-        boolean success = SuggestionLogic.addComment(sug, jTextArea2.getText());
->>>>>>> df24a57512a34046501380a4addb35962f449d99
         if (success) {
             JOptionPane.showMessageDialog(this, "Comment successfully added");
             jTextArea2.setText("");
             jTextArea3.setText("");
-<<<<<<< HEAD
             setViewSuggestion(getSuggestion());
-=======
             setComments();
->>>>>>> df24a57512a34046501380a4addb35962f449d99
         } else {
             JOptionPane.showMessageDialog(this, "Comment could not be added. Please try again");
         }
