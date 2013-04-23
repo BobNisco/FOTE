@@ -1,7 +1,6 @@
 package fote.util; 
 
 import com.mongodb.DB;
-import com.mongodb.DBCursor;
 import com.mongodb.Mongo;
 import com.mongodb.WriteResult;
 import com.mongodb.gridfs.GridFS;

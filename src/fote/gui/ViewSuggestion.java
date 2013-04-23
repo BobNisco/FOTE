@@ -4,17 +4,18 @@
  */
 package fote.gui;
 
+import fote.FOTE;
 import fote.controller.SuggestionLogic;
 import fote.entry.Comment;
 import fote.entry.Entry;
 import fote.entry.Suggestion;
 import fote.model.CommentModel;
-import fote.model.SuggestionModel;
 import fote.model.UserModel;
 import fote.util.MongoHelper;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.Iterator;
+import javax.swing.DefaultComboBoxModel;
 import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
 
@@ -24,7 +25,7 @@ import javax.swing.JOptionPane;
  */
 public class ViewSuggestion extends javax.swing.JDialog {
 
-    private Suggestion sug;
+    private Suggestion suggestion;
     
     /**
      * Creates new form ViewSuggestion
@@ -36,34 +37,40 @@ public class ViewSuggestion extends javax.swing.JDialog {
         this.setLocationRelativeTo(null);
     }
     
-    public ViewSuggestion(java.awt.Frame parent, boolean modal, Suggestion sug) {
+    public ViewSuggestion(java.awt.Frame parent, boolean modal, Suggestion suggestion) {
         super(parent, modal);
         this.setTitle("Suggestion");
         initComponents();
-        this.sug = sug;
-        setViewSuggestion(sug);
+        this.suggestion = suggestion;
+        setViewSuggestion(suggestion);
         this.setLocationRelativeTo(null);
     }
     
     private void setViewSuggestion(Suggestion s) {
+        setSuggestion(s);
         UserModel userModel = new UserModel();
         jTextField1.setText(userModel.getUser(s.getAuthor()).getFullName());
         jTextField2.setText(s.getSubject());
         jTextArea1.setText(s.getDescription());
+        jComboBox2.setModel(new DefaultComboBoxModel(s.getAttachments().toArray(new String[s.getAttachments().size()])));
         
         System.out.println(jTextArea2.getText());
-        CommentModel commentModel = new CommentModel();
-        Iterator<Integer> commentIds = s.getComments().iterator();
-        while(commentIds.hasNext()) {
-            Iterable<Entry> comment = commentModel.query("{id:"+commentIds.next()+"}");
-            if(comment.iterator().hasNext()) {
-                Comment c = (Comment) comment.iterator().next();
-                jTextArea3.setText(jTextArea2.getText() + 
+        ArrayList<Comment> comments = SuggestionLogic.getComments(s);
+       
+        for (Comment c : comments)
+            
+        jTextArea3.setText(jTextArea3.getText() + " \n" +
                         c.getText() + "\n-"
                         + userModel.getUser(c.getAuthor()).getFullName() +
                         "\n---------------------");
-            }
-        }
+    }
+    
+    private Suggestion getSuggestion(){
+        return this.suggestion;
+    }
+    
+    private void setSuggestion(Suggestion s){
+        this.suggestion = s;
     }
 
     /**
@@ -144,6 +151,11 @@ public class ViewSuggestion extends javax.swing.JDialog {
         jLabel5.setText("Attachments:");
 
         jButton4.setText("New Attachment");
+        jButton4.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton4ActionPerformed(evt);
+            }
+        });
 
         jTextArea3.setEditable(false);
         jTextArea3.setColumns(20);
@@ -264,8 +276,9 @@ public class ViewSuggestion extends javax.swing.JDialog {
     }//GEN-LAST:event_jButton2ActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        SuggestionLogic.addComment(sug, jTextArea2.getText());
+        SuggestionLogic.addComment(getSuggestion(), jTextArea2.getText());
         JOptionPane.showMessageDialog(this, "Comment successfully added");
+        FOTE.getMainFrame().loadSuggestions();
         this.dispose();
     }//GEN-LAST:event_jButton1ActionPerformed
 
@@ -291,6 +304,33 @@ public class ViewSuggestion extends javax.swing.JDialog {
             }
         }
     }//GEN-LAST:event_jButton5ActionPerformed
+
+    private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
+        JFileChooser filechooser = new JFileChooser();
+        filechooser.setFileSelectionMode(JFileChooser.FILES_ONLY);
+      //In response to a button click:
+        int result = filechooser.showOpenDialog(null);
+        if (result == JFileChooser.APPROVE_OPTION) {
+           String path = filechooser.getCurrentDirectory().toString()
+            + File.separatorChar + filechooser.getSelectedFile().getName();
+           String fileName = getSuggestion().getSubject() + "-" + filechooser.getSelectedFile().getName();
+           if(MongoHelper.upload(path, fileName)){
+               getSuggestion().getAttachments().add(fileName);
+               JOptionPane.showMessageDialog(this,
+                   "Attachment successfully uploaded");
+               setViewSuggestion(getSuggestion());  
+           }
+           else{
+               JOptionPane.showMessageDialog(this,
+                "Attachment failed to upload",
+                "Error",
+                JOptionPane.ERROR_MESSAGE);
+           }
+        if (result == JFileChooser.CANCEL_OPTION) {
+            // Disregard
+            }
+        }
+    }//GEN-LAST:event_jButton4ActionPerformed
 
     /**
      * @param args the command line arguments
