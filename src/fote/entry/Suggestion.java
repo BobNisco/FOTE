@@ -9,7 +9,8 @@ import java.util.ArrayList;
 public class Suggestion extends Entry {
     private String subject, description;
     private Integer author;
-    private ArrayList<Integer> comments, attachments;
+    private ArrayList<Integer> comments;
+    private ArrayList<String> attachments;
     
     /**
      *
@@ -20,7 +21,7 @@ public class Suggestion extends Entry {
         this.description = "";
         this.author = -1;
         this.comments = new ArrayList<Integer>();
-        this.attachments = new ArrayList<Integer>();
+        this.attachments = new ArrayList<String>();
     }
     
     /**
@@ -32,7 +33,7 @@ public class Suggestion extends Entry {
      * @param attachments
      */
     public Suggestion(String subject, String description, Integer author,
-            ArrayList<Integer> comments, ArrayList<Integer> attachments) {
+            ArrayList<Integer> comments, ArrayList<String> attachments) {
         super();
         this.subject = subject;
         this.description = description;
@@ -101,7 +102,7 @@ public class Suggestion extends Entry {
      *
      * @return an ArrayList of the attachmentIDs of this suggestion
      */
-    public ArrayList<Integer> getAttachments() {
+    public ArrayList<String> getAttachments() {
         return attachments;
     }
 
@@ -117,7 +118,7 @@ public class Suggestion extends Entry {
      *
      * @param attachments the new attachments value
      */
-    public void setAttachments(ArrayList<Integer> attachments) {
+    public void setAttachments(ArrayList<String> attachments) {
         this.attachments = attachments;
     }
     
@@ -135,7 +136,7 @@ public class Suggestion extends Entry {
             result += comment + ", ";
         }
         result += " AttachmentIDs: ";
-        for (Integer attachment : this.getAttachments()) {
+        for (String attachment : this.getAttachments()) {
             result += attachment + ", ";
         }
         return result;

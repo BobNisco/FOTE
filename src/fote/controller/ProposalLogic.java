@@ -10,6 +10,7 @@ import fote.FOTE;
 import fote.entry.Comment;
 import fote.entry.Entry;
 import fote.entry.Proposal;
+import fote.entry.Suggestion;
 import fote.entry.Vote;
 import fote.model.CommentModel;
 import fote.model.UserModel;
@@ -62,13 +63,21 @@ public class ProposalLogic {
     public static ArrayList<Comment> getComments(Proposal p){
         ArrayList<Comment> comments = new ArrayList<Comment>();
         CommentModel commentModel = new CommentModel();
-        Iterable<Entry> commentsQuery = commentModel.query("{author:{$in:#}}", p.getComments());
+        Iterable<Entry> commentsQuery = commentModel.query("{id:{$in:#}}", p.getComments());
         
         for (Entry entry : commentsQuery){
             Comment comment = (Comment) entry;
             comments.add(comment);
         }
         return comments;
+    }
+    
+     public static boolean addComment(Proposal proposal, String commentText) {
+        Comment comment = new Comment(commentText, FOTE.getUser().getId());
+        MongoHelper.save(comment, "comments");
+        comment = (Comment) MongoHelper.fetch(comment, "comments");
+        proposal.getComments().add(comment.getId());
+        return MongoHelper.save(proposal, "proposals");
     }
     
     public static void vote(Proposal proposal, int optionId) {
