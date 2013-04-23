@@ -60,9 +60,9 @@ public class Test01 {
              TestHelper.failed("description update failed");
          }
          
-         ArrayList<Integer> attachments = new ArrayList<Integer>();
-         attachments.add(1);
-         attachments.add(2);
+         ArrayList<String> attachments = new ArrayList<String>();
+         attachments.add("file1");
+         attachments.add("file2");
          suggestion.setAttachments(attachments);
          if (!MongoHelper.save(suggestion, "suggestions")) {
              TestHelper.failed("attachments update failed");

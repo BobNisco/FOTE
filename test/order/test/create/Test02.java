@@ -17,8 +17,8 @@ import org.junit.Test;
  */
 public class Test02 {
     private Suggestion suggestion = new Suggestion("Test Suggestion", 
-            "Test Description", 0, new ArrayList<Integer>(),  
-            new ArrayList<Integer>());
+            "Test Description", new Integer(0), new ArrayList<Integer>(),  
+            new ArrayList<String>());
     
     public Test02() {
         

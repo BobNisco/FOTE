@@ -23,14 +23,14 @@ public class Test01 {
     };
     private Suggestion[] suggestions = {
         new Suggestion("Test Suggestion1", 
-            "Test Description1", 0, new ArrayList<Integer>(),  
-            new ArrayList<Integer>()),
-        new Suggestion("Test Suggestion2", 
-            "Test Description2", 1, new ArrayList<Integer>(),  
-            new ArrayList<Integer>()),
-        new Suggestion("Test Suggestion3", 
-            "Test Description3", 2, new ArrayList<Integer>(),  
-            new ArrayList<Integer>())
+            "Test Description", new Integer(0), new ArrayList<Integer>(),  
+            new ArrayList<String>()),
+         new Suggestion("Test Suggestion2", 
+            "Test Description", new Integer(0), new ArrayList<Integer>(),  
+            new ArrayList<String>()),
+         new Suggestion("Test Suggestion3", 
+            "Test Description", new Integer(0), new ArrayList<Integer>(),  
+            new ArrayList<String>()),
     };
     
     public Test01() {
