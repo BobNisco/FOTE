@@ -72,6 +72,7 @@ public class ViewSuggestion extends javax.swing.JDialog {
     private void setSuggestion(Suggestion s){
         this.suggestion = s;
     }
+   
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -276,10 +277,16 @@ public class ViewSuggestion extends javax.swing.JDialog {
     }//GEN-LAST:event_jButton2ActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        SuggestionLogic.addComment(getSuggestion(), jTextArea2.getText());
-        JOptionPane.showMessageDialog(this, "Comment successfully added");
-        FOTE.getMainFrame().loadSuggestions();
-        this.dispose();
+
+        boolean success = SuggestionLogic.addComment(getSuggestion(), jTextArea2.getText());
+        if (success) {
+            JOptionPane.showMessageDialog(this, "Comment successfully added");
+            jTextArea2.setText("");
+            jTextArea3.setText("");
+            setViewSuggestion(getSuggestion());
+        } else {
+            JOptionPane.showMessageDialog(this, "Comment could not be added. Please try again");
+        }
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jComboBox2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBox2ActionPerformed
