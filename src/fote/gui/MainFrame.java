@@ -86,11 +86,11 @@ public class MainFrame extends javax.swing.JFrame {
         ));
         jTable2.setColumnSelectionAllowed(true);
         jTable2.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseReleased(java.awt.event.MouseEvent evt) {
-                jTable2MouseReleased(evt);
-            }
             public void mousePressed(java.awt.event.MouseEvent evt) {
                 jTable2MousePressed(evt);
+            }
+            public void mouseReleased(java.awt.event.MouseEvent evt) {
+                jTable2MouseReleased(evt);
             }
         });
         jScrollPane2.setViewportView(jTable2);
@@ -243,8 +243,8 @@ public class MainFrame extends javax.swing.JFrame {
                     .addComponent(jButton4)
                     .addComponent(jLabel1))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 154, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 118, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jButton2)
                     .addComponent(jButton1))

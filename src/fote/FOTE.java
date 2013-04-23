@@ -1,6 +1,5 @@
 package fote;
 
-import fote.entry.Comment;
 import fote.entry.Proposal;
 import fote.entry.Suggestion;
 import fote.entry.User;
@@ -11,7 +10,6 @@ import fote.util.MongoHelper;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Date;
 /**
  *
  * @author Bob Nisco
