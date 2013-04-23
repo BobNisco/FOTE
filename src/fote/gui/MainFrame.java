@@ -307,7 +307,7 @@ public class MainFrame extends javax.swing.JFrame {
     public void loadProposals() {
         this.proposals.clear();
         ProposalModel proposalModel = new ProposalModel();
-        String selectedStatus = jComboBox4.getSelectedItem().toString();
+        String selectedStatus = jComboBox3.getSelectedItem().toString();
         String statusQuery = "";
         if (selectedStatus.equalsIgnoreCase("active")) { 
             statusQuery = ", expirationTime: {$gte:"+new Date().getTime()+"}";
@@ -315,13 +315,14 @@ public class MainFrame extends javax.swing.JFrame {
             statusQuery = ", expirationTime: {$lt:"+new Date().getTime()+"}";
         }
         
-        int selectedPriority = Proposal.getPriorityLevel(jComboBox3.getSelectedItem().toString());
+        int selectedPriority = Proposal.getPriorityLevel(jComboBox4.getSelectedItem().toString());
         String priorityQuery = "";
         if(selectedPriority > 0) {
             priorityQuery = ", priority: " + selectedPriority;
         }
         
         Iterable<Entry> proposalQuery = proposalModel.query("{id:{$gte: 0}"+statusQuery+priorityQuery+"}");
+        System.out.println("{id:{$gte: 0}"+statusQuery+priorityQuery+"}");
         
         DefaultTableModel model = (DefaultTableModel) jTable3.getModel();
         model.setRowCount(0);
