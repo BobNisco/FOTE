@@ -4,6 +4,7 @@
  */
 package fote.gui;
 
+import fote.FOTE;
 import fote.controller.ProposalLogic;
 import fote.entry.Comment;
 import fote.entry.Entry;
@@ -11,6 +12,7 @@ import fote.entry.Proposal;
 import fote.model.CommentModel;
 import fote.model.UserModel;
 import fote.util.MongoHelper;
+import java.awt.Frame;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.Iterator;
@@ -118,6 +120,7 @@ private Proposal proposal;
         jTextArea3 = new javax.swing.JTextArea();
         jButton4 = new javax.swing.JButton();
         jButton5 = new javax.swing.JButton();
+        jButton6 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
@@ -240,6 +243,13 @@ private Proposal proposal;
             }
         });
 
+        jButton6.setText("View Results");
+        jButton6.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton6ActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -292,6 +302,8 @@ private Proposal proposal;
                                 .addGap(0, 0, Short.MAX_VALUE))))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(0, 0, Short.MAX_VALUE)
+                        .addComponent(jButton6)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jButton4))
                     .addComponent(jScrollPane3)
                     .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
@@ -361,7 +373,9 @@ private Proposal proposal;
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 124, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jButton4)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jButton4)
+                    .addComponent(jButton6))
                 .addGap(6, 6, 6))
         );
 
@@ -459,6 +473,15 @@ private Proposal proposal;
         // TODO add your handling code here:
     }//GEN-LAST:event_jTextField6ActionPerformed
 
+    private void jButton6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton6ActionPerformed
+        if(getProposal().getAuthor() == FOTE.getUser().getId()){
+            new ViewResults((Frame) this.getParent(), true).setVisible(true);
+        }
+        else{
+            JOptionPane.showMessageDialog(this, "You are not the author of this proposal, you cannot view the results!");
+        }
+    }//GEN-LAST:event_jButton6ActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -506,6 +529,7 @@ private Proposal proposal;
     private javax.swing.JButton jButton3;
     private javax.swing.JButton jButton4;
     private javax.swing.JButton jButton5;
+    private javax.swing.JButton jButton6;
     private javax.swing.JComboBox jComboBox1;
     private javax.swing.JComboBox jComboBox2;
     private javax.swing.JLabel jLabel1;
