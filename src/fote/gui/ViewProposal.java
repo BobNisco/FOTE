@@ -475,7 +475,7 @@ private Proposal proposal;
 
     private void jButton6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton6ActionPerformed
         if(getProposal().getAuthor() == FOTE.getUser().getId()){
-            new ViewResults((Frame) this.getParent(), true).setVisible(true);
+            new ViewResults((Frame) this.getParent(), true, getProposal()).setVisible(true);
         }
         else{
             JOptionPane.showMessageDialog(this, "You are not the author of this proposal, you cannot view the results!");

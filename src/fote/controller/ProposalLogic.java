@@ -11,6 +11,8 @@ import fote.model.VoteModel;
 import fote.util.MongoHelper;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  *
@@ -102,5 +104,30 @@ public class ProposalLogic {
             }
         }
         return false;
+    }
+    
+    public static String getWinningVote(Proposal proposal){
+        // Create an index of options -> numVotes
+        Map<Integer, Integer> voteCount = new HashMap<Integer, Integer>();
+        
+        for (Vote vote : proposal.getVotes()){
+            if(voteCount.containsKey(vote.getOptionID())){
+                Integer num = voteCount.get(vote.getOptionID());
+                voteCount.put(vote.getOptionID(), new Integer(++num));
+            }
+            else{
+                voteCount.put(vote.getOptionID(), new Integer(1));
+            }
+        }
+        
+        Integer max = new Integer(0);
+        
+        // Loop through the index and find which key has the highest value
+        for (Integer option : voteCount.keySet()){
+            if ((int)voteCount.get(option) > (int) voteCount.get(max)){
+                max = option;
+            }
+        }
+        return proposal.getOptions().get(max);
     }
 }
