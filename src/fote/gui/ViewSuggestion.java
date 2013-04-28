@@ -51,30 +51,18 @@ public class ViewSuggestion extends javax.swing.JDialog {
         jComboBox2.setModel(new DefaultComboBoxModel(s.getAttachments().toArray(new String[s.getAttachments().size()])));
 
         System.out.println(jTextArea2.getText());
-        ArrayList<Comment> comments = SuggestionLogic.getComments(s);
-
-        for (Comment c : comments)
-
-        jTextArea3.setText(jTextArea3.getText() + " \n" +
-                        c.getText() + "\n-"
-                        + userModel.getUser(c.getAuthor()).getFullName() +
-                        "\n---------------------");
         setComments();
     }
 
     private void setComments() {
         UserModel userModel = new UserModel();
-        CommentModel commentModel = new CommentModel();
-        Iterator<Integer> commentIds = suggestion.getComments().iterator();
-        while(commentIds.hasNext()) {
-            Iterable<Entry> comment = commentModel.query("{id:"+commentIds.next()+"}");
-            if(comment.iterator().hasNext()) {
-                Comment c = (Comment) comment.iterator().next();
-                jTextArea3.setText(jTextArea3.getText() +
-                        c.getText() + "\n-"
-                        + userModel.getUser(c.getAuthor()).getFullName() +
-                        "\n---------------------\n");
-            }
+        ArrayList<Comment> comments = SuggestionLogic.getComments(getSuggestion());
+        jTextArea3.setText("");
+        for(Comment c : comments){
+            jTextArea3.setText(jTextArea3.getText() +
+                    c.getText() + "\n-"
+                    + userModel.getUser(c.getAuthor()).getFullName() +
+                    "\n---------------------\n");
         }
     }
 

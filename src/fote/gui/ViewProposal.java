@@ -7,15 +7,12 @@ package fote.gui;
 import fote.FOTE;
 import fote.controller.ProposalLogic;
 import fote.entry.Comment;
-import fote.entry.Entry;
 import fote.entry.Proposal;
-import fote.model.CommentModel;
 import fote.model.UserModel;
 import fote.util.MongoHelper;
 import java.awt.Frame;
 import java.io.File;
 import java.util.ArrayList;
-import java.util.Iterator;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
@@ -68,6 +65,7 @@ private Proposal proposal;
     private void setComments() {
         ArrayList<Comment> comments = ProposalLogic.getComments(proposal);
         UserModel userModel = new UserModel();
+        jTextArea3.setText("");
         for(Comment c : comments){
             jTextArea3.setText(jTextArea3.getText() +
                     c.getText() + "\n-"
