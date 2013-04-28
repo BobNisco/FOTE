@@ -119,15 +119,40 @@ public class ProposalLogic {
                 voteCount.put(vote.getOptionID(), new Integer(1));
             }
         }
+        if(!voteCount.isEmpty()){
+            Integer max = new Integer(voteCount.get(voteCount.keySet().iterator().next()));
+
+            // Loop through the index and find which key has the highest value
+            for (Integer option : voteCount.keySet()){
+                if ((int)voteCount.get(option) > (int) voteCount.get(max)){
+                    max = option;
+                }
+            }
+            return proposal.getOptions().get(max);
+        }
+        return "None";
+    }
+    
+    public static ArrayList<String> getVoteSummary(Proposal proposal){
+        // Create an index of options -> numVotes
+        Map<Integer, Integer> voteCount = new HashMap<Integer, Integer>();
         
-        Integer max = new Integer(0);
+        for (Vote vote : proposal.getVotes()){
+            if(voteCount.containsKey(vote.getOptionID())){
+                Integer num = voteCount.get(vote.getOptionID());
+                voteCount.put(vote.getOptionID(), new Integer(++num));
+            }
+            else{
+                voteCount.put(vote.getOptionID(), new Integer(1));
+            }
+        }
+        
+        ArrayList<String> results = new ArrayList<String>();
         
         // Loop through the index and find which key has the highest value
         for (Integer option : voteCount.keySet()){
-            if ((int)voteCount.get(option) > (int) voteCount.get(max)){
-                max = option;
-            }
+            results.add(proposal.getOptions().get(option) + " had " + voteCount.get(option) + " votes");
         }
-        return proposal.getOptions().get(max);
+        return results;
     }
 }

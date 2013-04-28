@@ -6,6 +6,7 @@ package fote.gui;
 
 import fote.controller.ProposalLogic;
 import fote.entry.Proposal;
+import javax.swing.DefaultComboBoxModel;
 
 /**
  *
@@ -26,6 +27,7 @@ public class ViewResults extends javax.swing.JDialog {
     public void setViewResults(Proposal p){
         jTextField2.setText(String.valueOf(p.getVotes().size()));
         jTextField3.setText(ProposalLogic.getWinningVote(p));
+        jComboBox1.setModel(new DefaultComboBoxModel(ProposalLogic.getVoteSummary(p).toArray(new String[ProposalLogic.getVoteSummary(p).size()])));
     }
     /**
      * This method is called from within the constructor to initialize the form.
@@ -56,6 +58,11 @@ public class ViewResults extends javax.swing.JDialog {
         });
 
         jComboBox1.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "" }));
+        jComboBox1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jComboBox1ActionPerformed(evt);
+            }
+        });
 
         jLabel4.setText("Total Votes Cast: ");
 
@@ -126,7 +133,7 @@ public class ViewResults extends javax.swing.JDialog {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        // TODO add your handling code here:
+        this.dispose();
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jTextField3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField3ActionPerformed
@@ -136,6 +143,10 @@ public class ViewResults extends javax.swing.JDialog {
     private void jTextField2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField2ActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jTextField2ActionPerformed
+
+    private void jComboBox1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBox1ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jComboBox1ActionPerformed
 
     /**
      * @param args the command line arguments
