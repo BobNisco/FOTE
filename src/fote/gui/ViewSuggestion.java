@@ -1,16 +1,12 @@
 package fote.gui;
 
-import fote.FOTE;
 import fote.controller.SuggestionLogic;
 import fote.entry.Comment;
-import fote.entry.Entry;
 import fote.entry.Suggestion;
-import fote.model.CommentModel;
 import fote.model.UserModel;
 import fote.util.MongoHelper;
 import java.io.File;
 import java.util.ArrayList;
-import java.util.Iterator;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
