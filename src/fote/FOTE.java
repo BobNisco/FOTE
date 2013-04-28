@@ -46,6 +46,7 @@ public class FOTE {
         MongoHelper.save(new User("Bob", "Nisco", "robert.nisco1@marist.edu", "password123"), "users");
         MongoHelper.save(new User("Jason", "Parraga", "jason.parraga1@marist.edu", "password123"), "users");
         MongoHelper.save(new User("Evan", "Van Dam", "Evan.VanDam1@marist.edu", "password123"), "users");
+        MongoHelper.save(new User("ADMIN", "ADMIN", "admin", "admin"), "users");
         MongoHelper.getCollection("proposals").drop();
         ArrayList<String> options = new ArrayList<String>();
         options.add("Yes");

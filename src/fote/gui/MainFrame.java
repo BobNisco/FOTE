@@ -104,7 +104,7 @@ public class MainFrame extends javax.swing.JFrame {
                 {null, null, null, null}
             },
             new String [] {
-                "Subject", "Author", "Date", "Status"
+                "Subject", "Author", "Expiration Date", "Status"
             }
         ));
         jTable3.addMouseListener(new java.awt.event.MouseAdapter() {
