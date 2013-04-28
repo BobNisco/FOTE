@@ -66,19 +66,13 @@ private Proposal proposal;
     }
 
     private void setComments() {
-        UserModel userModel = new UserModel();
         ArrayList<Comment> comments = ProposalLogic.getComments(proposal);
-        CommentModel commentModel = new CommentModel();
-        Iterator<Integer> commentIds = proposal.getComments().iterator();
-        while(commentIds.hasNext()) {
-            Iterable<Entry> comment = commentModel.query("{id:"+commentIds.next()+"}");
-            if(comment.iterator().hasNext()) {
-                Comment c = (Comment) comment.iterator().next();
-                jTextArea3.setText(jTextArea3.getText() +
-                        c.getText() + "\n-"
-                        + userModel.getUser(c.getAuthor()).getFullName() +
-                        "\n---------------------\n");
-            }
+        UserModel userModel = new UserModel();
+        for(Comment c : comments){
+            jTextArea3.setText(jTextArea3.getText() +
+                    c.getText() + "\n-"
+                    + userModel.getUser(c.getAuthor()).getFullName() +
+                    "\n---------------------\n");
         }
     }
     /**
@@ -450,7 +444,17 @@ private Proposal proposal;
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
         int option = jComboBox2.getSelectedIndex();
-        ProposalLogic.vote(proposal, option);
+        
+        if(ProposalLogic.vote(proposal, option)){
+            JOptionPane.showMessageDialog(this,
+                   "Vote cast!");
+        }
+        else{
+            JOptionPane.showMessageDialog(this,
+                "Voting failed",
+                "Error",
+                JOptionPane.ERROR_MESSAGE);
+        }
     }//GEN-LAST:event_jButton3ActionPerformed
 
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
@@ -465,7 +469,10 @@ private Proposal proposal;
             jTextArea3.setText("");
             setComments();
         } else {
-            JOptionPane.showMessageDialog(this, "Comment could not be added. Please try again");
+             JOptionPane.showMessageDialog(this,
+                "Comment could not be added, try again",
+                "Error",
+                JOptionPane.ERROR_MESSAGE);
         }
     }//GEN-LAST:event_jButton5ActionPerformed
 
@@ -478,7 +485,10 @@ private Proposal proposal;
             new ViewResults((Frame) this.getParent(), true, getProposal()).setVisible(true);
         }
         else{
-            JOptionPane.showMessageDialog(this, "You are not the author of this proposal, you cannot view the results!");
+             JOptionPane.showMessageDialog(this,
+                "You are not the author of this proposal, you cannot view the results!",
+                "Error",
+                JOptionPane.ERROR_MESSAGE);
         }
     }//GEN-LAST:event_jButton6ActionPerformed
 
