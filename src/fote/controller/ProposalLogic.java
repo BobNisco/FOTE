@@ -69,15 +69,11 @@ public class ProposalLogic {
     }
     
      public static boolean addComment(Proposal proposal, String commentText) {
-        if (commentText.trim().length() > 0) {
-            Comment comment = new Comment(commentText, FOTE.getUser().getId());
-            MongoHelper.save(comment, "comments");
-            comment = (Comment) MongoHelper.fetch(comment, "comments");
-            proposal.getComments().add(comment.getId());
-            return MongoHelper.save(proposal, "proposals");
-        } else {
-            return false;
-        }
+        Comment comment = new Comment(commentText, FOTE.getUser().getId());
+        MongoHelper.save(comment, "comments");
+        comment = (Comment) MongoHelper.fetch(comment, "comments");
+        proposal.getComments().add(comment.getId());
+        return MongoHelper.save(proposal, "proposals");
     }
     
     public static boolean vote(Proposal proposal, int optionId) {

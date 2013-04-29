@@ -58,14 +58,10 @@ public class SuggestionLogic {
     }
     
     public static boolean addComment(Suggestion sug, String commentText) {
-        if (commentText.trim().length() > 0) {
-            Comment comment = new Comment(commentText, FOTE.getUser().getId());
-            MongoHelper.save(comment, "comments");
-            comment = (Comment) MongoHelper.fetch(comment, "comments");
-            sug.getComments().add(comment.getId());
-            return MongoHelper.save(sug, "suggestions");
-        } else {
-            return false;
-        }
+        Comment comment = new Comment(commentText, FOTE.getUser().getId());
+        MongoHelper.save(comment, "comments");
+        comment = (Comment) MongoHelper.fetch(comment, "comments");
+        sug.getComments().add(comment.getId());
+        return MongoHelper.save(sug, "suggestions");
     }
 }
