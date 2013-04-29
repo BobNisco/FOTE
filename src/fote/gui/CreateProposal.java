@@ -7,8 +7,11 @@ package fote.gui;
 import fote.FOTE;
 import java.util.Date;
 import fote.controller.ProposalLogic;
+import fote.entry.Proposal;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Iterator;
 import javax.swing.JOptionPane;
 
 /**
@@ -16,6 +19,8 @@ import javax.swing.JOptionPane;
  * @author Bob Nisco
  */
 public class CreateProposal extends javax.swing.JDialog {
+    
+    private Proposal proposal;
 
     /**
      * Creates new form Logout
@@ -25,6 +30,51 @@ public class CreateProposal extends javax.swing.JDialog {
         initComponents();
         this.setLocationRelativeTo(null);
         this.setTitle("Create Proposal");
+    }
+    
+    /**
+     * Creates a view for editing the proposal
+     * @param parent
+     * @param modal
+     * @param existingProposal 
+     */
+    public CreateProposal(java.awt.Frame parent, boolean modal, Proposal existingProposal) {
+        super(parent,modal);
+        initComponents();
+        this.setLocationRelativeTo(null);
+        this.setTitle("Edit Proposal");
+        this.proposal = existingProposal;
+        this.setFieldsForEditing();
+        jButton1.setText("Save Changes");
+        jButton3.setVisible(false);
+    }
+    
+    private void setFieldsForEditing() {
+        jTextField1.setText(this.proposal.getSubject());
+        jTextArea1.setText(this.proposal.getDescription());
+        String options = "";
+        for (Iterator<String> it = this.proposal.getOptions().iterator(); it.hasNext();) {
+            String o = it.next();
+            options += o + ", ";
+        }
+        jTextField2.setText(options);
+        SimpleDateFormat format = new SimpleDateFormat("MM");
+        jComboBox1.setSelectedIndex(Integer.parseInt(
+                format.format(this.proposal.getExpirationDate())) + 1);
+        jComboBox1.setSelectedIndex(Integer.parseInt(
+                format.format(this.proposal.getExpirationDate())));
+        format = new SimpleDateFormat("dd");
+        jComboBox2.setSelectedIndex(Integer.parseInt(
+                format.format(this.proposal.getExpirationDate())));
+        format = new SimpleDateFormat("yyyy");
+        String thisYear = format.format(this.proposal.getExpirationDate());
+        int numOfOptions = jComboBox3.getItemCount();
+        for (int i = 0; i < numOfOptions; i++) {
+            if (jComboBox3.getItemAt(i).equals(thisYear)) {
+                jComboBox3.setSelectedIndex(i);
+            }
+        }
+        jComboBox4.setSelectedIndex(5 - this.proposal.getPriority());
     }
 
     /**
@@ -230,9 +280,20 @@ public class CreateProposal extends javax.swing.JDialog {
             int day = Integer.valueOf(jComboBox2.getSelectedItem().toString());
             int year = Integer.valueOf(jComboBox3.getSelectedItem().toString());
             Date expiration = new Date(year, month, day);
-
-            boolean success = ProposalLogic.createProposal(expiration, subject, description, priority, options);
-
+            
+            boolean success = false;
+            if (this.proposal.getId() > -1) {
+                this.proposal.setDescription(description);
+                this.proposal.setSubject(subject);
+                this.proposal.setOptions(options);
+                this.proposal.setExpirationDate(expiration);
+                this.proposal.setOptions(options);
+                this.proposal.setPriority(Proposal.getPriorityLevel(priority));
+                success = ProposalLogic.updateProposal(this.proposal);
+            } else {
+                success = ProposalLogic.createProposal(expiration, subject, description, priority, options);
+            }
+            
             if (success){
                 JOptionPane.showMessageDialog(this,
                    "Proposal successfully created!");

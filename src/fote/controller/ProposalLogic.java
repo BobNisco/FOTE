@@ -38,6 +38,15 @@ public class ProposalLogic {
         }
     }
     
+    public static boolean updateProposal(Proposal p) {
+        if (MongoHelper.query("{id:" + p.getId() + "}", Proposal.class, "proposals").iterator().hasNext()) {
+            if (MongoHelper.save(p, "proposals")) {
+                return true;
+            }
+        }
+        return false;
+    }
+    
     public static boolean isValidProposal(Proposal p) {
         if (p.getSubject().isEmpty()) {
             return false;
