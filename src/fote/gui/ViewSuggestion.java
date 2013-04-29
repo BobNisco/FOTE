@@ -1,5 +1,6 @@
 package fote.gui;
 
+import fote.FOTE;
 import fote.controller.SuggestionLogic;
 import fote.entry.Comment;
 import fote.entry.Suggestion;
@@ -282,6 +283,7 @@ public class ViewSuggestion extends javax.swing.JDialog {
             jTextArea3.setText("");
             setViewSuggestion(getSuggestion());
             setComments();
+            FOTE.getMainFrame().loadSuggestions();
         } else {
             JOptionPane.showMessageDialog(this, "Comment could not be added. Please try again");
         }

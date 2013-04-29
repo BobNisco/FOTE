@@ -441,17 +441,22 @@ private Proposal proposal;
     }//GEN-LAST:event_jButton2ActionPerformed
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
-        int option = jComboBox2.getSelectedIndex();
-        
-        if(ProposalLogic.vote(proposal, option)){
-            JOptionPane.showMessageDialog(this,
-                   "Vote cast!");
+        if(!ProposalLogic.isExpired(getProposal())) {
+            int option = jComboBox2.getSelectedIndex();
+
+            if(ProposalLogic.vote(proposal, option)){
+                JOptionPane.showMessageDialog(this,
+                       "Vote cast!");
+            }
+            else{
+                JOptionPane.showMessageDialog(this,
+                    "Voting failed",
+                    "Error",
+                    JOptionPane.ERROR_MESSAGE);
+            }
         }
-        else{
-            JOptionPane.showMessageDialog(this,
-                "Voting failed",
-                "Error",
-                JOptionPane.ERROR_MESSAGE);
+        else {
+            JOptionPane.showMessageDialog(this, "This proposal is already expired!");
         }
     }//GEN-LAST:event_jButton3ActionPerformed
 
@@ -479,12 +484,13 @@ private Proposal proposal;
     }//GEN-LAST:event_jTextField6ActionPerformed
 
     private void jButton6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton6ActionPerformed
-        if(getProposal().getAuthor() == FOTE.getUser().getId()){
+        if(getProposal().getAuthor() == FOTE.getUser().getId() || ProposalLogic.isExpired(getProposal())){
             new ViewResults((Frame) this.getParent(), true, getProposal()).setVisible(true);
         }
         else{
              JOptionPane.showMessageDialog(this,
-                "You are not the author of this proposal, you cannot view the results!",
+                "You are not the author of this proposal, you cannot view the results!\n" +
+                     "Please wait until the proposal is expired.",
                 "Error",
                 JOptionPane.ERROR_MESSAGE);
         }
