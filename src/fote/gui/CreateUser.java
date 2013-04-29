@@ -5,6 +5,7 @@
 package fote.gui;
 
 import fote.entry.User;
+import fote.model.UserModel;
 import fote.util.MongoHelper;
 import javax.swing.JOptionPane;
 
@@ -149,10 +150,14 @@ public class CreateUser extends javax.swing.JDialog {
         String pw1 = new String(jPasswordField1.getPassword());
         String pw2 = new String(jPasswordField2.getPassword());
         if(pw1.equals(pw2)) {
+            UserModel userModel = new UserModel();
             User user = new User(first, last, maristID, pw1);
             MongoHelper.save(user, "users");
-            user = (User) MongoHelper.fetch(user, "users");
-            System.out.println(user.getId());
+            user = (User) MongoHelper.fetch(user, "users");   
+            if(UserModel.isValidUser(user)) {
+                JOptionPane.showMessageDialog(this, "User created successfully!");
+                this.dispose();
+            }
         }
         else
             JOptionPane.showMessageDialog(this, "You entered different passwords!");

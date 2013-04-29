@@ -19,7 +19,7 @@ import javax.swing.JOptionPane;
  * @author Bob Nisco
  */
 public class CreateProposal extends javax.swing.JDialog {
-    
+
     private Proposal proposal;
 
     /**
@@ -31,12 +31,12 @@ public class CreateProposal extends javax.swing.JDialog {
         this.setLocationRelativeTo(null);
         this.setTitle("Create Proposal");
     }
-    
+
     /**
      * Creates a view for editing the proposal
      * @param parent
      * @param modal
-     * @param existingProposal 
+     * @param existingProposal
      */
     public CreateProposal(java.awt.Frame parent, boolean modal, Proposal existingProposal) {
         super(parent,modal);
@@ -48,7 +48,7 @@ public class CreateProposal extends javax.swing.JDialog {
         jButton1.setText("Save Changes");
         jButton3.setVisible(false);
     }
-    
+
     private void setFieldsForEditing() {
         jTextField1.setText(this.proposal.getSubject());
         jTextArea1.setText(this.proposal.getDescription());
@@ -256,7 +256,7 @@ public class CreateProposal extends javax.swing.JDialog {
         jComboBox2.setSelectedIndex(0);
         jComboBox3.setSelectedIndex(0);
         jComboBox4.setSelectedIndex(0);
-        
+
     }//GEN-LAST:event_jButton3ActionPerformed
 
     private void jComboBox1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBox1ActionPerformed
@@ -280,7 +280,7 @@ public class CreateProposal extends javax.swing.JDialog {
             int day = Integer.valueOf(jComboBox2.getSelectedItem().toString());
             int year = Integer.valueOf(jComboBox3.getSelectedItem().toString());
             Date expiration = new Date(year, month, day);
-            
+
             boolean success = false;
             if (this.proposal.getId() > -1) {
                 this.proposal.setDescription(description);
@@ -293,7 +293,7 @@ public class CreateProposal extends javax.swing.JDialog {
             } else {
                 success = ProposalLogic.createProposal(expiration, subject, description, priority, options);
             }
-            
+
             if (success){
                 JOptionPane.showMessageDialog(this,
                    "Proposal successfully created!");
@@ -307,8 +307,8 @@ public class CreateProposal extends javax.swing.JDialog {
         } catch (java.lang.NumberFormatException e) {
             // TODO : Show error on input
         }
-        
-        
+
+
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jComboBox3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBox3ActionPerformed

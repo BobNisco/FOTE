@@ -163,6 +163,7 @@ public class Login extends javax.swing.JDialog {
                 System.out.println(user.getMaristID());
                 FOTE.setUser(user);
                 FOTE.getMainFrame().setVisible(true);
+                FOTE.getMainFrame().setTitle("FOTE - " + FOTE.getUser().getFullName());
                 this.setVisible(false);
             }
         } else {
