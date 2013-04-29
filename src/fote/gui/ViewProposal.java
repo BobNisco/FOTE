@@ -61,6 +61,9 @@ private Proposal proposal;
         jComboBox2.setModel(new DefaultComboBoxModel(proposal.getOptions().toArray(new String[proposal.getOptions().size()])));
         jComboBox1.setModel(new DefaultComboBoxModel(proposal.getAttachments().toArray(new String[proposal.getAttachments().size()])));
         setComments();
+        if (this.proposal.getAuthor() != FOTE.getUser().getId()) {
+            editButton.setVisible(false);
+        }
     }
 
     private void setComments() {
