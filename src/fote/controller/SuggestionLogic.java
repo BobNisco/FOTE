@@ -74,4 +74,12 @@ public class SuggestionLogic {
         suggestion.setDescription(description);
         return MongoHelper.save(suggestion, "suggestions");
     }
+    
+    public static boolean deleteSuggestion(Suggestion s) {
+        if (FOTE.getUser().getId() != s.getAuthor()) {
+            return false;
+        } else {
+            return MongoHelper.delete(s, "suggestions");
+        }
+    }
 }

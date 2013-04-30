@@ -47,8 +47,10 @@ public class ViewSuggestion extends javax.swing.JDialog {
         jTextArea1.setText(s.getDescription());
         jComboBox2.setModel(new DefaultComboBoxModel(s.getAttachments().toArray(new String[s.getAttachments().size()])));
 
-        if(getSuggestion().getAuthor() != FOTE.getUser().getId())
+        if(getSuggestion().getAuthor() != FOTE.getUser().getId()) {
             jButton3.setVisible(false);
+            deleteButton.setVisible(false);
+        }
         setComments();
     }
 
@@ -102,6 +104,7 @@ public class ViewSuggestion extends javax.swing.JDialog {
         jComboBox2 = new javax.swing.JComboBox();
         jButton5 = new javax.swing.JButton();
         jButton3 = new javax.swing.JButton();
+        deleteButton = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
@@ -185,6 +188,13 @@ public class ViewSuggestion extends javax.swing.JDialog {
             }
         });
 
+        deleteButton.setText("Delete");
+        deleteButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                deleteButtonActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -193,6 +203,8 @@ public class ViewSuggestion extends javax.swing.JDialog {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addGap(0, 0, Short.MAX_VALUE)
+                        .addComponent(deleteButton)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jButton3)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jButton2))
@@ -267,7 +279,8 @@ public class ViewSuggestion extends javax.swing.JDialog {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jButton2)
-                    .addComponent(jButton3))
+                    .addComponent(jButton3)
+                    .addComponent(deleteButton))
                 .addContainerGap())
         );
 
@@ -351,6 +364,20 @@ public class ViewSuggestion extends javax.swing.JDialog {
         new CreateSuggestion(FOTE.getMainFrame(), true, getSuggestion()).setVisible(true);
     }//GEN-LAST:event_jButton3ActionPerformed
 
+    private void deleteButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_deleteButtonActionPerformed
+        boolean success = SuggestionLogic.deleteSuggestion(this.getSuggestion());
+        if (success) {
+            FOTE.getMainFrame().loadSuggestions();
+            this.dispose();
+        } else {
+            System.err.println("Could not delete suggestion");
+            JOptionPane.showMessageDialog(this,
+                "Error while deleting suggestion. Please try again",
+                "Error",
+                JOptionPane.ERROR_MESSAGE);
+        }
+    }//GEN-LAST:event_deleteButtonActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -386,6 +413,7 @@ public class ViewSuggestion extends javax.swing.JDialog {
         });
     }
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton deleteButton;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;

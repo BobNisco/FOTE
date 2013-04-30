@@ -34,7 +34,7 @@ private Proposal proposal;
         super(parent, modal);
         this.setTitle("Proposal");
         initComponents();
-        this.proposal = proposal;
+        this.setProposal(proposal);
         setViewProposal(proposal);
         this.setLocationRelativeTo(null);
     }
@@ -62,6 +62,7 @@ private Proposal proposal;
         setComments();
         if (this.proposal.getAuthor() != FOTE.getUser().getId()) {
             editButton.setVisible(false);
+            deleteButton.setVisible(false);
         }
     }
 
@@ -117,26 +118,17 @@ private Proposal proposal;
         jButton5 = new javax.swing.JButton();
         jButton6 = new javax.swing.JButton();
         editButton = new javax.swing.JButton();
+        deleteButton = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
         jLabel1.setText("Author:");
 
         jTextField1.setEditable(false);
-        jTextField1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextField1ActionPerformed(evt);
-            }
-        });
 
         jLabel2.setText("Date Created: ");
 
         jTextField2.setEditable(false);
-        jTextField2.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextField2ActionPerformed(evt);
-            }
-        });
 
         jLabel3.setText("Date Updated: ");
 
@@ -145,29 +137,14 @@ private Proposal proposal;
         jLabel4.setText("Expiration Date: ");
 
         jTextField4.setEditable(false);
-        jTextField4.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextField4ActionPerformed(evt);
-            }
-        });
 
         jLabel5.setText("Priority: ");
 
         jTextField5.setEditable(false);
-        jTextField5.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextField5ActionPerformed(evt);
-            }
-        });
 
         jLabel6.setText("Subject: ");
 
         jTextField6.setEditable(false);
-        jTextField6.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextField6ActionPerformed(evt);
-            }
-        });
 
         jLabel7.setText("Description: ");
 
@@ -181,11 +158,6 @@ private Proposal proposal;
         jLabel8.setText("Attachments: ");
 
         jComboBox1.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "" }));
-        jComboBox1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jComboBox1ActionPerformed(evt);
-            }
-        });
 
         jButton1.setText("Download");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
@@ -253,6 +225,13 @@ private Proposal proposal;
             }
         });
 
+        deleteButton.setText("Delete");
+        deleteButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                deleteButtonActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -266,6 +245,8 @@ private Proposal proposal;
                         .addComponent(jTextField4))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(0, 0, Short.MAX_VALUE)
+                        .addComponent(deleteButton)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(editButton)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jButton6)
@@ -389,16 +370,13 @@ private Proposal proposal;
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jButton4)
                     .addComponent(jButton6)
-                    .addComponent(editButton))
+                    .addComponent(editButton)
+                    .addComponent(deleteButton))
                 .addGap(6, 6, 6))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-
-    private void jTextField2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField2ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jTextField2ActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         if (jComboBox1.getSelectedItem() != null){
@@ -418,22 +396,6 @@ private Proposal proposal;
                 }
         }
     }//GEN-LAST:event_jButton1ActionPerformed
-
-    private void jTextField1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField1ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jTextField1ActionPerformed
-
-    private void jTextField4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField4ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jTextField4ActionPerformed
-
-    private void jTextField5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField5ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jTextField5ActionPerformed
-
-    private void jComboBox1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBox1ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jComboBox1ActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         JFileChooser filechooser = new JFileChooser();
@@ -501,10 +463,6 @@ private Proposal proposal;
         }
     }//GEN-LAST:event_jButton5ActionPerformed
 
-    private void jTextField6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField6ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jTextField6ActionPerformed
-
     private void jButton6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton6ActionPerformed
         if(getProposal().getAuthor() == FOTE.getUser().getId() || ProposalLogic.isExpired(getProposal())){
             new ViewResults((Frame) this.getParent(), true, getProposal()).setVisible(true);
@@ -522,6 +480,20 @@ private Proposal proposal;
         this.dispose();
         new CreateProposal(FOTE.getMainFrame(), true, this.proposal).setVisible(true);
     }//GEN-LAST:event_editButtonActionPerformed
+
+    private void deleteButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_deleteButtonActionPerformed
+        boolean success = ProposalLogic.deleteProposal(this.getProposal());
+        if (success) {
+            FOTE.getMainFrame().loadSuggestions();
+            this.dispose();
+        } else {
+            System.err.println("Could not delete proposal");
+            JOptionPane.showMessageDialog(this,
+                "Error while deleting proposal. Please try again",
+                "Error",
+                JOptionPane.ERROR_MESSAGE);
+        }
+    }//GEN-LAST:event_deleteButtonActionPerformed
 
     /**
      * @param args the command line arguments
@@ -565,6 +537,7 @@ private Proposal proposal;
         });
     }
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton deleteButton;
     private javax.swing.JButton editButton;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;

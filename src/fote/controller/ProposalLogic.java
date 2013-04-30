@@ -168,4 +168,12 @@ public class ProposalLogic {
         }
         return results;
     }
+    
+    public static boolean deleteProposal(Proposal p) {
+        if (FOTE.getUser().getId() != p.getAuthor()) {
+            return false;
+        } else {
+            return MongoHelper.delete(p, "proposals");
+        }
+    }
 }
