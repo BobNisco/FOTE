@@ -6,6 +6,8 @@ package fote.gui;
 
 import fote.FOTE;
 import fote.controller.SuggestionLogic;
+import fote.entry.Suggestion;
+import fote.util.MongoHelper;
 
 /**
  *
@@ -13,6 +15,8 @@ import fote.controller.SuggestionLogic;
  */
 public class CreateSuggestion extends javax.swing.JDialog {
 
+    private Suggestion suggestion;
+    
     /**
      * Creates new form Logout
      */
@@ -21,6 +25,21 @@ public class CreateSuggestion extends javax.swing.JDialog {
         initComponents();
         this.setLocationRelativeTo(null);
         this.setTitle("Create Suggestion");
+    }
+    
+    public CreateSuggestion(java.awt.Frame parent, boolean modal, Suggestion sug) {
+        super(parent,modal);
+        initComponents();
+        this.setLocationRelativeTo(null);
+        this.setTitle("Edit Suggestion");
+        this.suggestion = sug;
+        setForEditing();
+    }
+    
+    private void setForEditing() {
+        jButton1.setText("Edit Suggestion");
+        jTextField1.setText(suggestion.getSubject());
+        jTextArea1.setText(suggestion.getDescription());
     }
 
     /**
@@ -134,7 +153,12 @@ public class CreateSuggestion extends javax.swing.JDialog {
         String subject = jTextField1.getText();
         String description = jTextArea1.getText();
 
-        boolean success = SuggestionLogic.createSuggestion(subject, description);
+        boolean success; 
+        if(suggestion != null && suggestion.getId() > -1) {
+            success = SuggestionLogic.updateSuggestion(suggestion, subject, description);
+        }
+        else
+            success = SuggestionLogic.createSuggestion(subject, description);
 
         if (success) {
             System.out.println("Successfully added a suggestion.");

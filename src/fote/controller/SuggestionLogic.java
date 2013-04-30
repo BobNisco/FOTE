@@ -68,4 +68,10 @@ public class SuggestionLogic {
             return false;
         }
     }
+
+    public static boolean updateSuggestion(Suggestion suggestion, String subject, String description) {
+        suggestion.setSubject(subject);
+        suggestion.setDescription(description);
+        return MongoHelper.save(suggestion, "suggestions");
+    }
 }
