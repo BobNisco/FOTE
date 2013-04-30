@@ -8,7 +8,6 @@ import fote.FOTE;
 import fote.controller.ProposalLogic;
 import fote.entry.Comment;
 import fote.entry.Proposal;
-import fote.entry.Suggestion;
 import fote.model.UserModel;
 import fote.util.MongoHelper;
 import java.awt.Frame;

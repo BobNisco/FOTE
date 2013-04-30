@@ -282,7 +282,7 @@ public class CreateProposal extends javax.swing.JDialog {
             Date expiration = new Date(year, month, day);
 
             boolean success = false;
-            if (this.proposal.getId() > -1) {
+            if (this.proposal != null && this.proposal.getId() > -1) {
                 this.proposal.setDescription(description);
                 this.proposal.setSubject(subject);
                 this.proposal.setOptions(options);
