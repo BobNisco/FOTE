@@ -117,11 +117,6 @@ public class ViewSuggestion extends javax.swing.JDialog {
         jLabel3.setText("Description:");
 
         jTextField2.setEditable(false);
-        jTextField2.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextField2ActionPerformed(evt);
-            }
-        });
 
         jLabel4.setText("Add Comment:");
 
@@ -168,11 +163,6 @@ public class ViewSuggestion extends javax.swing.JDialog {
         jLabel6.setText("Comments:");
 
         jComboBox2.setModel(new javax.swing.DefaultComboBoxModel(new String[] { ""}));
-        jComboBox2.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jComboBox2ActionPerformed(evt);
-            }
-        });
 
         jButton5.setText("Download");
         jButton5.addActionListener(new java.awt.event.ActionListener() {
@@ -287,10 +277,6 @@ public class ViewSuggestion extends javax.swing.JDialog {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jTextField2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField2ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jTextField2ActionPerformed
-
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         this.dispose();
     }//GEN-LAST:event_jButton2ActionPerformed
@@ -309,10 +295,6 @@ public class ViewSuggestion extends javax.swing.JDialog {
             JOptionPane.showMessageDialog(this, "Comment could not be added. Please try again");
         }
     }//GEN-LAST:event_jButton1ActionPerformed
-
-    private void jComboBox2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBox2ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jComboBox2ActionPerformed
 
     private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
         if (jComboBox2.getSelectedItem() != null){
