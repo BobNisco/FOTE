@@ -310,6 +310,7 @@ public class ViewSuggestion extends javax.swing.JDialog {
                 if(!newName.endsWith(ext))
                     newName += ext;
                 MongoHelper.download(fileName, path, newName);
+                JOptionPane.showMessageDialog(this, "File downloaded!");
 
                 if (result == JFileChooser.CANCEL_OPTION) {
                     // Disregard
