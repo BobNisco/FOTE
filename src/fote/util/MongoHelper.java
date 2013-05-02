@@ -81,13 +81,13 @@ public class MongoHelper {
         return false;
     }
     
-    public static Boolean download(String fileName, String path){
+    public static Boolean download(String fileName, String path, String newName){
          GridFS gfs = new GridFS(getDB(), "attachments");
 	 // get image file by it's filename
         GridFSDBFile imageForOutput = gfs.findOne(fileName);
         try {
             // save it into a new image file
-            imageForOutput.writeTo(path + "\\" + fileName);
+            imageForOutput.writeTo(path + "\\" + newName);
             return true;
         } catch (IOException ex) {
             Logger.getLogger(MongoHelper.class.getName()).log(Level.SEVERE, null, ex);

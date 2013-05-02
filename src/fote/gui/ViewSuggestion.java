@@ -303,10 +303,13 @@ public class ViewSuggestion extends javax.swing.JDialog {
             //In response to a button click:
             int result = filechooser.showOpenDialog(null);
             if (result == JFileChooser.APPROVE_OPTION) {
-                String path = filechooser.getCurrentDirectory().toString()
-                + File.separatorChar + filechooser.getSelectedFile().getName();
+                String path = filechooser.getCurrentDirectory().toString();
                 String fileName = jComboBox2.getSelectedItem().toString();
-                MongoHelper.download(fileName, path);
+                String newName = filechooser.getSelectedFile().getName();
+                String ext = fileName.substring(fileName.indexOf('.'));
+                if(!newName.endsWith(ext))
+                    newName += ext;
+                MongoHelper.download(fileName, path, newName);
 
                 if (result == JFileChooser.CANCEL_OPTION) {
                     // Disregard
