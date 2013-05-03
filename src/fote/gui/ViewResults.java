@@ -21,6 +21,7 @@ public class ViewResults extends javax.swing.JDialog {
         super(parent, modal);
         this.setTitle("Proposal Results");
         initComponents();
+        this.setLocationRelativeTo(null);
         setViewResults(p);
     }
 

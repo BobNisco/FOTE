@@ -137,7 +137,10 @@ public class ProposalLogic {
 
             // Loop through the index and find which key has the highest value
             for (Integer option : voteCount.keySet()){
-                if ((int)voteCount.get(option) > (int) voteCount.get(max)){
+                System.out.println("option: " + option + " max: " + max);
+                System.out.println(voteCount.get(option));
+                System.out.println(voteCount.get(max));
+                if (voteCount.get(max) == null || (int)voteCount.get(option) > (int) voteCount.get(max)){
                     max = option;
                 }
             }
