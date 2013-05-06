@@ -34,7 +34,6 @@ public class FOTE {
      * @return the current user logged in
      */
     public static User getUser() {
-        System.out.println(FOTE.user.toString());
         return FOTE.user;
     }
     
