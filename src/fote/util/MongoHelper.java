@@ -56,11 +56,18 @@ public class MongoHelper {
      * Gets the jongo, for internal use only.
      * @return Jongo
      */
-    private static Jongo getJongo() {
+    public static Jongo getJongo() {
         if(jongo == null) 
             jongo = new Jongo(getDB());
                     
         return jongo;
+    }
+    
+    /**
+     * Drop the current database
+     */
+    public static void dropDatabase() {
+        getJongo().getDatabase().dropDatabase();
     }
     
     
