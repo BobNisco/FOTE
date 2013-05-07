@@ -45,36 +45,36 @@ public class CreateProposal extends javax.swing.JDialog {
         this.setTitle("Edit Proposal");
         this.proposal = existingProposal;
         this.setFieldsForEditing();
-        jButton1.setText("Save Changes");
-        jButton3.setVisible(false);
+        createButton.setText("Save Changes");
+        clearButton.setVisible(false);
     }
 
     private void setFieldsForEditing() {
-        jTextField1.setText(this.proposal.getSubject());
-        jTextArea1.setText(this.proposal.getDescription());
+        subjectTextField.setText(this.proposal.getSubject());
+        descriptionTextField.setText(this.proposal.getDescription());
         String options = "";
         for (Iterator<String> it = this.proposal.getOptions().iterator(); it.hasNext();) {
             String o = it.next();
             options += o + ", ";
         }
-        jTextField2.setText(options);
+        optionTextField.setText(options);
         SimpleDateFormat format = new SimpleDateFormat("MM");
-        jComboBox1.setSelectedIndex(Integer.parseInt(
+        monthComboBox.setSelectedIndex(Integer.parseInt(
                 format.format(this.proposal.getExpirationDate())) + 1);
-        jComboBox1.setSelectedIndex(Integer.parseInt(
+        monthComboBox.setSelectedIndex(Integer.parseInt(
                 format.format(this.proposal.getExpirationDate())));
         format = new SimpleDateFormat("dd");
-        jComboBox2.setSelectedIndex(Integer.parseInt(
+        dayComboBox.setSelectedIndex(Integer.parseInt(
                 format.format(this.proposal.getExpirationDate())));
         format = new SimpleDateFormat("yyyy");
         String thisYear = format.format(this.proposal.getExpirationDate());
-        int numOfOptions = jComboBox3.getItemCount();
+        int numOfOptions = yearComboBox.getItemCount();
         for (int i = 0; i < numOfOptions; i++) {
-            if (jComboBox3.getItemAt(i).equals(thisYear)) {
-                jComboBox3.setSelectedIndex(i);
+            if (yearComboBox.getItemAt(i).equals(thisYear)) {
+                yearComboBox.setSelectedIndex(i);
             }
         }
-        jComboBox4.setSelectedIndex(5 - this.proposal.getPriority());
+        priorityComboBox.setSelectedIndex(5 - this.proposal.getPriority());
     }
 
     /**
@@ -86,71 +86,71 @@ public class CreateProposal extends javax.swing.JDialog {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jLabel1 = new javax.swing.JLabel();
-        jTextField1 = new javax.swing.JTextField();
-        jLabel3 = new javax.swing.JLabel();
+        subjectLabel = new javax.swing.JLabel();
+        subjectTextField = new javax.swing.JTextField();
+        descriptionLabel = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTextArea1 = new javax.swing.JTextArea();
-        jLabel4 = new javax.swing.JLabel();
-        jTextField2 = new javax.swing.JTextField();
-        jLabel5 = new javax.swing.JLabel();
-        jButton1 = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
-        jButton3 = new javax.swing.JButton();
-        jLabel6 = new javax.swing.JLabel();
-        jComboBox1 = new javax.swing.JComboBox();
-        jComboBox2 = new javax.swing.JComboBox();
-        jComboBox3 = new javax.swing.JComboBox();
-        jLabel7 = new javax.swing.JLabel();
-        jComboBox4 = new javax.swing.JComboBox();
+        descriptionTextField = new javax.swing.JTextArea();
+        optionLabel = new javax.swing.JLabel();
+        optionTextField = new javax.swing.JTextField();
+        optionsSubText = new javax.swing.JLabel();
+        createButton = new javax.swing.JButton();
+        cancelButton = new javax.swing.JButton();
+        clearButton = new javax.swing.JButton();
+        expirationLabel = new javax.swing.JLabel();
+        monthComboBox = new javax.swing.JComboBox();
+        dayComboBox = new javax.swing.JComboBox();
+        yearComboBox = new javax.swing.JComboBox();
+        priorityLabel = new javax.swing.JLabel();
+        priorityComboBox = new javax.swing.JComboBox();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
-        jLabel1.setText("Subject:");
+        subjectLabel.setText("Subject:");
 
-        jLabel3.setText("Description:");
+        descriptionLabel.setText("Description:");
 
-        jTextArea1.setColumns(20);
-        jTextArea1.setRows(5);
-        jScrollPane1.setViewportView(jTextArea1);
+        descriptionTextField.setColumns(20);
+        descriptionTextField.setRows(5);
+        jScrollPane1.setViewportView(descriptionTextField);
 
-        jLabel4.setText("Options:");
+        optionLabel.setText("Options:");
 
-        jLabel5.setFont(new java.awt.Font("Lucida Grande", 0, 12)); // NOI18N
-        jLabel5.setText("Enter options separated by a comma");
+        optionsSubText.setFont(new java.awt.Font("Lucida Grande", 0, 12)); // NOI18N
+        optionsSubText.setText("Enter options separated by a comma");
 
-        jButton1.setText("Create Proposal");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
+        createButton.setText("Create Proposal");
+        createButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                createButtonActionPerformed(evt);
             }
         });
 
-        jButton2.setText("Cancel");
-        jButton2.addActionListener(new java.awt.event.ActionListener() {
+        cancelButton.setText("Cancel");
+        cancelButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton2ActionPerformed(evt);
+                cancelButtonActionPerformed(evt);
             }
         });
 
-        jButton3.setText("Clear");
-        jButton3.addActionListener(new java.awt.event.ActionListener() {
+        clearButton.setText("Clear");
+        clearButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton3ActionPerformed(evt);
+                clearButtonActionPerformed(evt);
             }
         });
 
-        jLabel6.setText("Expiration:");
+        expirationLabel.setText("Expiration:");
 
-        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Month", "01", "02", "03", "04", "05", "06", "07", "08", "09", "10", "11", "12" }));
+        monthComboBox.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Month", "01", "02", "03", "04", "05", "06", "07", "08", "09", "10", "11", "12" }));
 
-        jComboBox2.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Day", "01", "02", "03", "04", "05", "06", "07", "08", "09", "10", "11", "12", "13", "14", "15", "16", "17", "18", "19", "20", "21", "22", "23", "24", "25", "26", "27", "28", "29", "30", "31" }));
+        dayComboBox.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Day", "01", "02", "03", "04", "05", "06", "07", "08", "09", "10", "11", "12", "13", "14", "15", "16", "17", "18", "19", "20", "21", "22", "23", "24", "25", "26", "27", "28", "29", "30", "31" }));
 
-        jComboBox3.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Year", "2013", "2014", "2015", "2016", "2017", "2018", "2019", "2020", "2021", "2022", "2023" }));
+        yearComboBox.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Year", "2013", "2014", "2015", "2016", "2017", "2018", "2019", "2020", "2021", "2022", "2023" }));
 
-        jLabel7.setText("Priority:");
+        priorityLabel.setText("Priority:");
 
-        jComboBox4.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Urgent", "Important", "Moderate", "Low", "Backlog" }));
+        priorityComboBox.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Urgent", "Important", "Moderate", "Low", "Backlog" }));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -161,36 +161,36 @@ public class CreateProposal extends javax.swing.JDialog {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(jLabel3)
-                            .addComponent(jLabel1)
-                            .addComponent(jLabel4)
-                            .addComponent(jLabel6)
-                            .addComponent(jLabel7))
+                            .addComponent(descriptionLabel)
+                            .addComponent(subjectLabel)
+                            .addComponent(optionLabel)
+                            .addComponent(expirationLabel)
+                            .addComponent(priorityLabel))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jTextField1)
+                            .addComponent(subjectTextField)
                             .addComponent(jScrollPane1)
-                            .addComponent(jTextField2)
+                            .addComponent(optionTextField)
                             .addGroup(layout.createSequentialGroup()
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addGroup(layout.createSequentialGroup()
                                         .addGap(6, 6, 6)
-                                        .addComponent(jLabel5))
+                                        .addComponent(optionsSubText))
                                     .addGroup(layout.createSequentialGroup()
-                                        .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addComponent(monthComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(jComboBox2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addComponent(dayComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(jComboBox3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                    .addComponent(jComboBox4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                        .addComponent(yearComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addComponent(priorityComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                                 .addGap(0, 0, Short.MAX_VALUE))))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addGap(0, 0, Short.MAX_VALUE)
-                        .addComponent(jButton3)
+                        .addComponent(clearButton)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jButton2)
+                        .addComponent(cancelButton)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jButton1)))
+                        .addComponent(createButton)))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -198,68 +198,68 @@ public class CreateProposal extends javax.swing.JDialog {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel1))
+                    .addComponent(subjectTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(subjectLabel))
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addGap(18, 18, 18)
-                        .addComponent(jLabel3))
+                        .addComponent(descriptionLabel))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(12, 12, 12)
                         .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 101, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel4)
-                    .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(optionLabel)
+                    .addComponent(optionTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jLabel5)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jComboBox2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jComboBox3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel6))
+                .addComponent(optionsSubText)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel7)
-                    .addComponent(jComboBox4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(monthComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(dayComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(yearComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(expirationLabel))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(priorityLabel)
+                    .addComponent(priorityComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButton1)
-                    .addComponent(jButton2)
-                    .addComponent(jButton3)))
+                    .addComponent(createButton)
+                    .addComponent(cancelButton)
+                    .addComponent(clearButton)))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
-        jTextArea1.setText("");
-        jTextField1.setText("");
-        jTextField2.setText("");
-        jComboBox1.setSelectedIndex(0);
-        jComboBox2.setSelectedIndex(0);
-        jComboBox3.setSelectedIndex(0);
-        jComboBox4.setSelectedIndex(0);
+    private void clearButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_clearButtonActionPerformed
+        descriptionTextField.setText("");
+        subjectTextField.setText("");
+        optionTextField.setText("");
+        monthComboBox.setSelectedIndex(0);
+        dayComboBox.setSelectedIndex(0);
+        yearComboBox.setSelectedIndex(0);
+        priorityComboBox.setSelectedIndex(0);
 
-    }//GEN-LAST:event_jButton3ActionPerformed
+    }//GEN-LAST:event_clearButtonActionPerformed
 
-    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+    private void cancelButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cancelButtonActionPerformed
         this.dispose();
-    }//GEN-LAST:event_jButton2ActionPerformed
+    }//GEN-LAST:event_cancelButtonActionPerformed
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+    private void createButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_createButtonActionPerformed
         try {
-            String subject = jTextField1.getText();
-            String description = jTextArea1.getText();
-            ArrayList<String> options = new ArrayList(Arrays.asList(jTextField2.getText().split(",")));
+            String subject = subjectTextField.getText();
+            String description = descriptionTextField.getText();
+            ArrayList<String> options = new ArrayList(Arrays.asList(optionTextField.getText().split(",")));
             for(String option : options) {
                 option = option.trim();
             }
-            String priority = jComboBox4.getSelectedItem().toString();
-            int month = Integer.valueOf(jComboBox1.getSelectedItem().toString());
-            int day = Integer.valueOf(jComboBox2.getSelectedItem().toString());
-            int year = Integer.valueOf(jComboBox3.getSelectedItem().toString());
+            String priority = priorityComboBox.getSelectedItem().toString();
+            int month = Integer.valueOf(monthComboBox.getSelectedItem().toString());
+            int day = Integer.valueOf(dayComboBox.getSelectedItem().toString());
+            int year = Integer.valueOf(yearComboBox.getSelectedItem().toString());
             Date expiration = new Date(year, month, day);
 
             boolean success = false;
@@ -290,25 +290,25 @@ public class CreateProposal extends javax.swing.JDialog {
         }
 
 
-    }//GEN-LAST:event_jButton1ActionPerformed
+    }//GEN-LAST:event_createButtonActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
-    private javax.swing.JButton jButton3;
-    private javax.swing.JComboBox jComboBox1;
-    private javax.swing.JComboBox jComboBox2;
-    private javax.swing.JComboBox jComboBox3;
-    private javax.swing.JComboBox jComboBox4;
-    private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel3;
-    private javax.swing.JLabel jLabel4;
-    private javax.swing.JLabel jLabel5;
-    private javax.swing.JLabel jLabel6;
-    private javax.swing.JLabel jLabel7;
+    private javax.swing.JButton cancelButton;
+    private javax.swing.JButton clearButton;
+    private javax.swing.JButton createButton;
+    private javax.swing.JComboBox dayComboBox;
+    private javax.swing.JLabel descriptionLabel;
+    private javax.swing.JTextArea descriptionTextField;
+    private javax.swing.JLabel expirationLabel;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTextArea jTextArea1;
-    private javax.swing.JTextField jTextField1;
-    private javax.swing.JTextField jTextField2;
+    private javax.swing.JComboBox monthComboBox;
+    private javax.swing.JLabel optionLabel;
+    private javax.swing.JTextField optionTextField;
+    private javax.swing.JLabel optionsSubText;
+    private javax.swing.JComboBox priorityComboBox;
+    private javax.swing.JLabel priorityLabel;
+    private javax.swing.JLabel subjectLabel;
+    private javax.swing.JTextField subjectTextField;
+    private javax.swing.JComboBox yearComboBox;
     // End of variables declaration//GEN-END:variables
 }

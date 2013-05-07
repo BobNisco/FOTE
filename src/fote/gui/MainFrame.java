@@ -52,20 +52,20 @@ public class MainFrame extends javax.swing.JFrame {
     private void initComponents() {
 
         jScrollPane2 = new javax.swing.JScrollPane();
-        jTable2 = new javax.swing.JTable();
+        suggestionTable = new javax.swing.JTable();
         jScrollPane3 = new javax.swing.JScrollPane();
-        jTable3 = new javax.swing.JTable();
-        jLabel1 = new javax.swing.JLabel();
-        jLabel2 = new javax.swing.JLabel();
-        jButton1 = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
-        jButton3 = new javax.swing.JButton();
-        jButton4 = new javax.swing.JButton();
-        jLabel6 = new javax.swing.JLabel();
-        jLabel7 = new javax.swing.JLabel();
-        jComboBox3 = new javax.swing.JComboBox();
-        jLabel8 = new javax.swing.JLabel();
-        jComboBox4 = new javax.swing.JComboBox();
+        proposalTable = new javax.swing.JTable();
+        suggestionHeaderLabel = new javax.swing.JLabel();
+        proposalHeaderLabel = new javax.swing.JLabel();
+        exitButton = new javax.swing.JButton();
+        refreshButton = new javax.swing.JButton();
+        addProposalButton = new javax.swing.JButton();
+        addSuggestionButton = new javax.swing.JButton();
+        filterLabel = new javax.swing.JLabel();
+        statusLabel = new javax.swing.JLabel();
+        statusComboBox = new javax.swing.JComboBox();
+        priorityLabel = new javax.swing.JLabel();
+        priorityComboBox = new javax.swing.JComboBox();
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu1 = new javax.swing.JMenu();
         jMenu2 = new javax.swing.JMenu();
@@ -73,7 +73,7 @@ public class MainFrame extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        jTable2.setModel(new javax.swing.table.DefaultTableModel(
+        suggestionTable.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null},
                 {null, null, null, null},
@@ -84,19 +84,19 @@ public class MainFrame extends javax.swing.JFrame {
                 "Subject", "Author", "Date Created", "Comment Count"
             }
         ));
-        jTable2.setColumnSelectionAllowed(true);
-        jTable2.addMouseListener(new java.awt.event.MouseAdapter() {
+        suggestionTable.setColumnSelectionAllowed(true);
+        suggestionTable.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mousePressed(java.awt.event.MouseEvent evt) {
-                jTable2MousePressed(evt);
+                suggestionTableMousePressed(evt);
             }
             public void mouseReleased(java.awt.event.MouseEvent evt) {
-                jTable2MouseReleased(evt);
+                suggestionTableMouseReleased(evt);
             }
         });
-        jScrollPane2.setViewportView(jTable2);
-        jTable2.getColumnModel().getSelectionModel().setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
+        jScrollPane2.setViewportView(suggestionTable);
+        suggestionTable.getColumnModel().getSelectionModel().setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
 
-        jTable3.setModel(new javax.swing.table.DefaultTableModel(
+        proposalTable.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null},
                 {null, null, null, null},
@@ -107,71 +107,71 @@ public class MainFrame extends javax.swing.JFrame {
                 "Subject", "Author", "Expiration Date", "Status"
             }
         ));
-        jTable3.addMouseListener(new java.awt.event.MouseAdapter() {
+        proposalTable.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mousePressed(java.awt.event.MouseEvent evt) {
-                jTable3MousePressed(evt);
+                proposalTableMousePressed(evt);
             }
             public void mouseReleased(java.awt.event.MouseEvent evt) {
-                jTable3MouseReleased(evt);
+                proposalTableMouseReleased(evt);
             }
         });
-        jScrollPane3.setViewportView(jTable3);
-        jTable3.getColumnModel().getSelectionModel().setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
+        jScrollPane3.setViewportView(proposalTable);
+        proposalTable.getColumnModel().getSelectionModel().setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
 
-        jLabel1.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
-        jLabel1.setText("Suggestions");
+        suggestionHeaderLabel.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
+        suggestionHeaderLabel.setText("Suggestions");
 
-        jLabel2.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
-        jLabel2.setText("Proposals");
+        proposalHeaderLabel.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
+        proposalHeaderLabel.setText("Proposals");
 
-        jButton1.setText("Exit");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
+        exitButton.setText("Exit");
+        exitButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
-            }
-        });
-
-        jButton2.setText("Refresh");
-        jButton2.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton2ActionPerformed(evt);
+                exitButtonActionPerformed(evt);
             }
         });
 
-        jButton3.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
-        jButton3.setText("+");
-        jButton3.addActionListener(new java.awt.event.ActionListener() {
+        refreshButton.setText("Refresh");
+        refreshButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton3ActionPerformed(evt);
+                refreshButtonActionPerformed(evt);
             }
         });
 
-        jButton4.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
-        jButton4.setText("+");
-        jButton4.addActionListener(new java.awt.event.ActionListener() {
+        addProposalButton.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        addProposalButton.setText("+");
+        addProposalButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton4ActionPerformed(evt);
+                addProposalButtonActionPerformed(evt);
             }
         });
 
-        jLabel6.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
-        jLabel6.setText("Filters:");
-
-        jLabel7.setText("Status:");
-
-        jComboBox3.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "All", "Active", "Expired" }));
-        jComboBox3.addActionListener(new java.awt.event.ActionListener() {
+        addSuggestionButton.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        addSuggestionButton.setText("+");
+        addSuggestionButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jComboBox3ActionPerformed(evt);
+                addSuggestionButtonActionPerformed(evt);
             }
         });
 
-        jLabel8.setText("Priority:");
+        filterLabel.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        filterLabel.setText("Filters:");
 
-        jComboBox4.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "All", "Urgent", "Important", "Moderate", "Low", "Backlog" }));
-        jComboBox4.addActionListener(new java.awt.event.ActionListener() {
+        statusLabel.setText("Status:");
+
+        statusComboBox.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "All", "Active", "Expired" }));
+        statusComboBox.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jComboBox4ActionPerformed(evt);
+                statusComboBoxActionPerformed(evt);
+            }
+        });
+
+        priorityLabel.setText("Priority:");
+
+        priorityComboBox.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "All", "Urgent", "Important", "Moderate", "Low", "Backlog" }));
+        priorityComboBox.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                priorityComboBoxActionPerformed(evt);
             }
         });
 
@@ -194,150 +194,150 @@ public class MainFrame extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(layout.createSequentialGroup()
                         .addGap(0, 0, Short.MAX_VALUE)
-                        .addComponent(jButton2)
+                        .addComponent(refreshButton)
                         .addGap(5, 5, 5)
-                        .addComponent(jButton1))
+                        .addComponent(exitButton))
                     .addGroup(layout.createSequentialGroup()
                         .addContainerGap()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 561, Short.MAX_VALUE)
                             .addComponent(jScrollPane3)
                             .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
-                                .addComponent(jLabel6)
+                                .addComponent(filterLabel)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jLabel8)
+                                .addComponent(priorityLabel)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jComboBox4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(priorityComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(jLabel7)
+                                .addComponent(statusLabel)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jComboBox3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(statusComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(jButton3))
+                                .addComponent(addProposalButton))
                             .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
-                                .addComponent(jLabel2)
+                                .addComponent(proposalHeaderLabel)
                                 .addGap(0, 0, Short.MAX_VALUE))
                             .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
-                                .addComponent(jLabel1)
+                                .addComponent(suggestionHeaderLabel)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(jButton4)))))
+                                .addComponent(addSuggestionButton)))))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addGap(7, 7, 7)
-                .addComponent(jLabel2)
+                .addComponent(proposalHeaderLabel)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel8)
-                    .addComponent(jComboBox4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel7)
-                    .addComponent(jComboBox3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButton3)
-                    .addComponent(jLabel6))
+                    .addComponent(priorityLabel)
+                    .addComponent(priorityComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(statusLabel)
+                    .addComponent(statusComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(addProposalButton)
+                    .addComponent(filterLabel))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 109, Short.MAX_VALUE)
                 .addGap(26, 26, 26)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButton4)
-                    .addComponent(jLabel1))
+                    .addComponent(addSuggestionButton)
+                    .addComponent(suggestionHeaderLabel))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 118, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButton2)
-                    .addComponent(jButton1))
+                    .addComponent(refreshButton)
+                    .addComponent(exitButton))
                 .addContainerGap())
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
+    private void addProposalButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addProposalButtonActionPerformed
         new CreateProposal(this, true).setVisible(true);
-    }//GEN-LAST:event_jButton3ActionPerformed
+    }//GEN-LAST:event_addProposalButtonActionPerformed
 
-    private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
+    private void addSuggestionButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addSuggestionButtonActionPerformed
         new CreateSuggestion(this, true).setVisible(true);
-    }//GEN-LAST:event_jButton4ActionPerformed
+    }//GEN-LAST:event_addSuggestionButtonActionPerformed
 
     /**
      * Event listener for the logout button
      * @param evt 
      */
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+    private void exitButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_exitButtonActionPerformed
         new Logout(this,true).setVisible(true);
-    }//GEN-LAST:event_jButton1ActionPerformed
+    }//GEN-LAST:event_exitButtonActionPerformed
 
     /**
      * Event listener for the refresh button
      * @param evt 
      */
-    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+    private void refreshButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_refreshButtonActionPerformed
         loadProposals();
         loadSuggestions();
-    }//GEN-LAST:event_jButton2ActionPerformed
+    }//GEN-LAST:event_refreshButtonActionPerformed
 
     /**
      * Event listener for Proposals table mouse down
      * @param evt 
      */
-    private void jTable3MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTable3MousePressed
+    private void proposalTableMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_proposalTableMousePressed
         JTable jtable = (JTable) evt.getSource();
         selection = jtable.getSelectedRow();
         jtable.clearSelection();
-    }//GEN-LAST:event_jTable3MousePressed
+    }//GEN-LAST:event_proposalTableMousePressed
 
     /**
      * Event listener for Proposals table mouse release,
      * Creating a proposal view dialog for the selected proposal.
      * @param evt 
      */
-    private void jTable3MouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTable3MouseReleased
+    private void proposalTableMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_proposalTableMouseReleased
         JTable jtable = (JTable) evt.getSource();
         System.out.println("Selection: " + selection);
         System.out.println(proposals.get(selection).toString());
         new ViewProposal(this, true, (Proposal) proposals.get(selection)).setVisible(true);
-    }//GEN-LAST:event_jTable3MouseReleased
+    }//GEN-LAST:event_proposalTableMouseReleased
 
     /**
      * Event listener for Suggestions table mouse down
      * @param evt 
      */
-    private void jTable2MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTable2MousePressed
+    private void suggestionTableMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_suggestionTableMousePressed
         JTable jtable = (JTable) evt.getSource();
         selection = jtable.getSelectedRow();
         jtable.clearSelection();
-    }//GEN-LAST:event_jTable2MousePressed
+    }//GEN-LAST:event_suggestionTableMousePressed
 
     /**
      * Event listener for Suggestions table mouse release,
      * creating a new suggestion view dialog for the selected suggestion.
      * @param evt 
      */
-    private void jTable2MouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTable2MouseReleased
+    private void suggestionTableMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_suggestionTableMouseReleased
         JTable jtable = (JTable) evt.getSource();
         System.out.println("Selection: " + selection);
         System.out.println(suggestions.get(selection).toString());
         new ViewSuggestion(this, true, (Suggestion) suggestions.get(selection)).setVisible(true);
-    }//GEN-LAST:event_jTable2MouseReleased
+    }//GEN-LAST:event_suggestionTableMouseReleased
 
     /**
      * Event listener for proposal status filter, which triggers a refresh
      * @param evt 
      */
-    private void jComboBox3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBox3ActionPerformed
+    private void statusComboBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_statusComboBoxActionPerformed
         loadProposals();
-    }//GEN-LAST:event_jComboBox3ActionPerformed
+    }//GEN-LAST:event_statusComboBoxActionPerformed
 
     /**
      * Event listener for proposal priority filter, which triggers a refresh
      * @param evt 
      */
-    private void jComboBox4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBox4ActionPerformed
+    private void priorityComboBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_priorityComboBoxActionPerformed
         loadProposals();
-    }//GEN-LAST:event_jComboBox4ActionPerformed
+    }//GEN-LAST:event_priorityComboBoxActionPerformed
 
     /**
      * Query the database for proposals using the specified filters,
@@ -346,7 +346,7 @@ public class MainFrame extends javax.swing.JFrame {
     public void loadProposals() {
         this.proposals.clear();
         ProposalModel proposalModel = new ProposalModel();
-        String selectedStatus = jComboBox3.getSelectedItem().toString();
+        String selectedStatus = statusComboBox.getSelectedItem().toString();
         String statusQuery = "";
         if (selectedStatus.equalsIgnoreCase("active")) { 
             statusQuery = ", expirationTime: {$gte:"+new Date().getTime()+"}";
@@ -354,7 +354,7 @@ public class MainFrame extends javax.swing.JFrame {
             statusQuery = ", expirationTime: {$lt:"+new Date().getTime()+"}";
         }
         
-        int selectedPriority = Proposal.getPriorityLevel(jComboBox4.getSelectedItem().toString());
+        int selectedPriority = Proposal.getPriorityLevel(priorityComboBox.getSelectedItem().toString());
         String priorityQuery = "";
         if(selectedPriority > 0) {
             priorityQuery = ", priority: " + selectedPriority;
@@ -363,7 +363,7 @@ public class MainFrame extends javax.swing.JFrame {
         Iterable<Entry> proposalQuery = proposalModel.query("{id:{$gte: 0}"+statusQuery+priorityQuery+"}");
         System.out.println("{id:{$gte: 0}"+statusQuery+priorityQuery+"}");
         
-        DefaultTableModel model = (DefaultTableModel) jTable3.getModel();
+        DefaultTableModel model = (DefaultTableModel) proposalTable.getModel();
         model.setRowCount(0);
 
         UserModel userModel = new UserModel();
@@ -394,7 +394,7 @@ public class MainFrame extends javax.swing.JFrame {
         SuggestionModel suggestionModel = new SuggestionModel();
         Iterable<Entry> suggestionQuery = suggestionModel.query("{id:{$gte: 0}}");
 
-        DefaultTableModel model = (DefaultTableModel) jTable2.getModel();
+        DefaultTableModel model = (DefaultTableModel) suggestionTable.getModel();
         model.setRowCount(0);
 
         UserModel userModel = new UserModel();
@@ -413,24 +413,24 @@ public class MainFrame extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
-    private javax.swing.JButton jButton3;
-    private javax.swing.JButton jButton4;
-    private javax.swing.JComboBox jComboBox3;
-    private javax.swing.JComboBox jComboBox4;
-    private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel6;
-    private javax.swing.JLabel jLabel7;
-    private javax.swing.JLabel jLabel8;
+    private javax.swing.JButton addProposalButton;
+    private javax.swing.JButton addSuggestionButton;
+    private javax.swing.JButton exitButton;
+    private javax.swing.JLabel filterLabel;
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenu jMenu2;
     private javax.swing.JMenu jMenu3;
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;
-    private javax.swing.JTable jTable2;
-    private javax.swing.JTable jTable3;
+    private javax.swing.JComboBox priorityComboBox;
+    private javax.swing.JLabel priorityLabel;
+    private javax.swing.JLabel proposalHeaderLabel;
+    private javax.swing.JTable proposalTable;
+    private javax.swing.JButton refreshButton;
+    private javax.swing.JComboBox statusComboBox;
+    private javax.swing.JLabel statusLabel;
+    private javax.swing.JLabel suggestionHeaderLabel;
+    private javax.swing.JTable suggestionTable;
     // End of variables declaration//GEN-END:variables
 }

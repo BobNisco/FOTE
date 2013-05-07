@@ -69,15 +69,15 @@ private Proposal proposal;
     private void setViewProposal(Proposal proposal) {
         setProposal(proposal);
         UserModel userModel = new UserModel();
-        jTextField1.setText(userModel.getUser(proposal.getAuthor()).getFullName());
-        jTextField2.setText(proposal.getCreateDate().toString());
-        jTextField5.setText(Proposal.getPriorityLevel(proposal.getPriority()));
-        jTextField3.setText(proposal.getUpdateDate().toString());
-        jTextField6.setText(proposal.getSubject());
-        jTextArea1.setText(proposal.getDescription());
-        jTextField4.setText(proposal.getExpirationDate().toString());
-        jComboBox2.setModel(new DefaultComboBoxModel(proposal.getOptions().toArray(new String[proposal.getOptions().size()])));
-        jComboBox1.setModel(new DefaultComboBoxModel(proposal.getAttachments().toArray(new String[proposal.getAttachments().size()])));
+        authorLabelTextField.setText(userModel.getUser(proposal.getAuthor()).getFullName());
+        dateCreatedTextField.setText(proposal.getCreateDate().toString());
+        priorityTextField.setText(Proposal.getPriorityLevel(proposal.getPriority()));
+        dateUpdatedTextField.setText(proposal.getUpdateDate().toString());
+        subjectTextField.setText(proposal.getSubject());
+        descriptionTextArea.setText(proposal.getDescription());
+        expirationDateTextField.setText(proposal.getExpirationDate().toString());
+        optionComboBox.setModel(new DefaultComboBoxModel(proposal.getOptions().toArray(new String[proposal.getOptions().size()])));
+        attachmentsComboBox.setModel(new DefaultComboBoxModel(proposal.getAttachments().toArray(new String[proposal.getAttachments().size()])));
         setComments();
         if (this.proposal.getAuthor() != FOTE.getUser().getId()) {
             editButton.setVisible(false);
@@ -91,9 +91,9 @@ private Proposal proposal;
     private void setComments() {
         ArrayList<Comment> comments = ProposalLogic.getComments(proposal);
         UserModel userModel = new UserModel();
-        jTextArea3.setText("");
+        commentTextArea.setText("");
         for(Comment c : comments){
-            jTextArea3.setText(jTextArea3.getText() +
+            commentTextArea.setText(commentTextArea.getText() +
                     c.getText() + "\n-"
                     + userModel.getUser(c.getAuthor()).getFullName() +
                     "\n---------------------\n");
@@ -108,140 +108,140 @@ private Proposal proposal;
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jLabel1 = new javax.swing.JLabel();
-        jTextField1 = new javax.swing.JTextField();
-        jLabel2 = new javax.swing.JLabel();
-        jTextField2 = new javax.swing.JTextField();
-        jLabel3 = new javax.swing.JLabel();
-        jTextField3 = new javax.swing.JTextField();
-        jLabel4 = new javax.swing.JLabel();
-        jTextField4 = new javax.swing.JTextField();
-        jLabel5 = new javax.swing.JLabel();
-        jTextField5 = new javax.swing.JTextField();
-        jLabel6 = new javax.swing.JLabel();
-        jTextField6 = new javax.swing.JTextField();
-        jLabel7 = new javax.swing.JLabel();
+        authorLabel = new javax.swing.JLabel();
+        authorLabelTextField = new javax.swing.JTextField();
+        dateCreatedLabel = new javax.swing.JLabel();
+        dateCreatedTextField = new javax.swing.JTextField();
+        dateUpdatedLabel = new javax.swing.JLabel();
+        dateUpdatedTextField = new javax.swing.JTextField();
+        expirationDateLabel = new javax.swing.JLabel();
+        expirationDateTextField = new javax.swing.JTextField();
+        priorityLabel = new javax.swing.JLabel();
+        priorityTextField = new javax.swing.JTextField();
+        subjectLabel = new javax.swing.JLabel();
+        subjectTextField = new javax.swing.JTextField();
+        descriptionLabel = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTextArea1 = new javax.swing.JTextArea();
-        jLabel8 = new javax.swing.JLabel();
-        jComboBox1 = new javax.swing.JComboBox();
-        jButton1 = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
-        jLabel9 = new javax.swing.JLabel();
-        jComboBox2 = new javax.swing.JComboBox();
-        jButton3 = new javax.swing.JButton();
-        jLabel10 = new javax.swing.JLabel();
+        descriptionTextArea = new javax.swing.JTextArea();
+        attachmentsLabel = new javax.swing.JLabel();
+        attachmentsComboBox = new javax.swing.JComboBox();
+        downloadAttachmentButton = new javax.swing.JButton();
+        newAttachmentButton = new javax.swing.JButton();
+        optionLabel = new javax.swing.JLabel();
+        optionComboBox = new javax.swing.JComboBox();
+        voteButton = new javax.swing.JButton();
+        addCommentLabel = new javax.swing.JLabel();
         jScrollPane2 = new javax.swing.JScrollPane();
-        jTextArea2 = new javax.swing.JTextArea();
-        jLabel11 = new javax.swing.JLabel();
+        addCommentTextArea = new javax.swing.JTextArea();
+        commentLabel = new javax.swing.JLabel();
         jScrollPane3 = new javax.swing.JScrollPane();
-        jTextArea3 = new javax.swing.JTextArea();
-        jButton4 = new javax.swing.JButton();
-        jButton5 = new javax.swing.JButton();
-        jButton6 = new javax.swing.JButton();
+        commentTextArea = new javax.swing.JTextArea();
+        closeButton = new javax.swing.JButton();
+        postCommentButto = new javax.swing.JButton();
+        viewResultsButton = new javax.swing.JButton();
         editButton = new javax.swing.JButton();
         deleteButton = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
-        jLabel1.setText("Author:");
+        authorLabel.setText("Author:");
 
-        jTextField1.setEditable(false);
+        authorLabelTextField.setEditable(false);
 
-        jLabel2.setText("Date Created: ");
+        dateCreatedLabel.setText("Date Created: ");
 
-        jTextField2.setEditable(false);
+        dateCreatedTextField.setEditable(false);
 
-        jLabel3.setText("Date Updated: ");
+        dateUpdatedLabel.setText("Date Updated: ");
 
-        jTextField3.setEditable(false);
+        dateUpdatedTextField.setEditable(false);
 
-        jLabel4.setText("Expiration Date: ");
+        expirationDateLabel.setText("Expiration Date: ");
 
-        jTextField4.setEditable(false);
+        expirationDateTextField.setEditable(false);
 
-        jLabel5.setText("Priority: ");
+        priorityLabel.setText("Priority: ");
 
-        jTextField5.setEditable(false);
+        priorityTextField.setEditable(false);
 
-        jLabel6.setText("Subject: ");
+        subjectLabel.setText("Subject: ");
 
-        jTextField6.setEditable(false);
+        subjectTextField.setEditable(false);
 
-        jLabel7.setText("Description: ");
+        descriptionLabel.setText("Description: ");
 
-        jTextArea1.setEditable(false);
-        jTextArea1.setColumns(20);
-        jTextArea1.setLineWrap(true);
-        jTextArea1.setRows(5);
-        jTextArea1.setWrapStyleWord(true);
-        jScrollPane1.setViewportView(jTextArea1);
+        descriptionTextArea.setEditable(false);
+        descriptionTextArea.setColumns(20);
+        descriptionTextArea.setLineWrap(true);
+        descriptionTextArea.setRows(5);
+        descriptionTextArea.setWrapStyleWord(true);
+        jScrollPane1.setViewportView(descriptionTextArea);
 
-        jLabel8.setText("Attachments: ");
+        attachmentsLabel.setText("Attachments: ");
 
-        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "" }));
-        jComboBox1.addActionListener(new java.awt.event.ActionListener() {
+        attachmentsComboBox.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "" }));
+        attachmentsComboBox.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jComboBox1ActionPerformed(evt);
+                attachmentsComboBoxActionPerformed(evt);
             }
         });
 
-        jButton1.setText("Download");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
+        downloadAttachmentButton.setText("Download");
+        downloadAttachmentButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                downloadAttachmentButtonActionPerformed(evt);
             }
         });
 
-        jButton2.setText("New Attachment");
-        jButton2.addActionListener(new java.awt.event.ActionListener() {
+        newAttachmentButton.setText("New Attachment");
+        newAttachmentButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton2ActionPerformed(evt);
+                newAttachmentButtonActionPerformed(evt);
             }
         });
 
-        jLabel9.setText("Options: ");
+        optionLabel.setText("Options: ");
 
-        jComboBox2.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "" }));
+        optionComboBox.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "" }));
 
-        jButton3.setText("Vote");
-        jButton3.addActionListener(new java.awt.event.ActionListener() {
+        voteButton.setText("Vote");
+        voteButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton3ActionPerformed(evt);
+                voteButtonActionPerformed(evt);
             }
         });
 
-        jLabel10.setText("Add Comment: ");
+        addCommentLabel.setText("Add Comment: ");
 
-        jTextArea2.setColumns(20);
-        jTextArea2.setRows(1);
-        jScrollPane2.setViewportView(jTextArea2);
+        addCommentTextArea.setColumns(20);
+        addCommentTextArea.setRows(1);
+        jScrollPane2.setViewportView(addCommentTextArea);
 
-        jLabel11.setText("Comments: ");
+        commentLabel.setText("Comments: ");
 
-        jTextArea3.setEditable(false);
-        jTextArea3.setColumns(20);
-        jTextArea3.setRows(5);
-        jScrollPane3.setViewportView(jTextArea3);
+        commentTextArea.setEditable(false);
+        commentTextArea.setColumns(20);
+        commentTextArea.setRows(5);
+        jScrollPane3.setViewportView(commentTextArea);
 
-        jButton4.setText("Close");
-        jButton4.addActionListener(new java.awt.event.ActionListener() {
+        closeButton.setText("Close");
+        closeButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton4ActionPerformed(evt);
+                closeButtonActionPerformed(evt);
             }
         });
 
-        jButton5.setText("Post");
-        jButton5.addActionListener(new java.awt.event.ActionListener() {
+        postCommentButto.setText("Post");
+        postCommentButto.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton5ActionPerformed(evt);
+                postCommentButtoActionPerformed(evt);
             }
         });
 
-        jButton6.setText("View Results");
-        jButton6.addActionListener(new java.awt.event.ActionListener() {
+        viewResultsButton.setText("View Results");
+        viewResultsButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton6ActionPerformed(evt);
+                viewResultsButtonActionPerformed(evt);
             }
         });
 
@@ -267,81 +267,81 @@ private Proposal proposal;
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
-                        .addComponent(jLabel4)
+                        .addComponent(expirationDateLabel)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jTextField4))
+                        .addComponent(expirationDateTextField))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(0, 0, Short.MAX_VALUE)
                         .addComponent(deleteButton)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(editButton)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jButton6)
+                        .addComponent(viewResultsButton)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jButton4))
+                        .addComponent(closeButton))
                     .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
                         .addGap(12, 12, 12)
-                        .addComponent(jLabel3)
+                        .addComponent(dateUpdatedLabel)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jTextField3))
+                        .addComponent(dateUpdatedTextField))
                     .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
                         .addGap(29, 29, 29)
-                        .addComponent(jLabel11)
+                        .addComponent(commentLabel)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jScrollPane3))
                     .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
                         .addGap(7, 7, 7)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(jLabel8)
-                            .addComponent(jLabel9)
-                            .addComponent(jLabel10))
+                            .addComponent(attachmentsLabel)
+                            .addComponent(optionLabel)
+                            .addComponent(addCommentLabel))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(jScrollPane2)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jButton5, javax.swing.GroupLayout.PREFERRED_SIZE, 84, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addComponent(postCommentButto, javax.swing.GroupLayout.PREFERRED_SIZE, 84, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGroup(layout.createSequentialGroup()
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addGroup(layout.createSequentialGroup()
-                                        .addComponent(jComboBox2, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addComponent(optionComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE)
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(jButton3))
+                                        .addComponent(voteButton))
                                     .addGroup(layout.createSequentialGroup()
-                                        .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addComponent(attachmentsComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE)
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(jButton1)
+                                        .addComponent(downloadAttachmentButton)
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(jButton2)))
+                                        .addComponent(newAttachmentButton)))
                                 .addGap(0, 0, Short.MAX_VALUE))))
                     .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
                                 .addGap(51, 51, 51)
-                                .addComponent(jLabel6))
+                                .addComponent(subjectLabel))
                             .addGroup(layout.createSequentialGroup()
                                 .addGap(24, 24, 24)
-                                .addComponent(jLabel7)))
+                                .addComponent(descriptionLabel)))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
                                 .addGap(6, 6, 6)
                                 .addComponent(jScrollPane1))
-                            .addComponent(jTextField6)))
+                            .addComponent(subjectTextField)))
                     .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
                         .addGap(16, 16, 16)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(jLabel2)
-                            .addComponent(jLabel1))
+                            .addComponent(dateCreatedLabel)
+                            .addComponent(authorLabel))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
-                                .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 189, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(authorLabelTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 189, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jLabel5)
+                                .addComponent(priorityLabel)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jTextField5))
-                            .addComponent(jTextField2))))
+                                .addComponent(priorityTextField))
+                            .addComponent(dateCreatedTextField))))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -349,54 +349,54 @@ private Proposal proposal;
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel1)
-                    .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel5)
-                    .addComponent(jTextField5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(authorLabel)
+                    .addComponent(authorLabelTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(priorityLabel)
+                    .addComponent(priorityTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel2)
-                    .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(dateCreatedLabel)
+                    .addComponent(dateCreatedTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel3)
-                    .addComponent(jTextField3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(dateUpdatedLabel)
+                    .addComponent(dateUpdatedTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel4)
-                    .addComponent(jTextField4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(expirationDateLabel)
+                    .addComponent(expirationDateTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel6)
-                    .addComponent(jTextField6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                    .addComponent(subjectLabel)
+                    .addComponent(subjectTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel7)
+                    .addComponent(descriptionLabel)
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(10, 10, 10)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel8)
-                    .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButton1)
-                    .addComponent(jButton2))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                    .addComponent(attachmentsLabel)
+                    .addComponent(attachmentsComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(downloadAttachmentButton)
+                    .addComponent(newAttachmentButton))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel9)
-                    .addComponent(jComboBox2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButton3))
+                    .addComponent(optionLabel)
+                    .addComponent(optionComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(voteButton))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel10)
-                    .addComponent(jButton5)
+                    .addComponent(addCommentLabel)
+                    .addComponent(postCommentButto)
                     .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel11)
+                    .addComponent(commentLabel)
                     .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 124, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButton4)
-                    .addComponent(jButton6)
+                    .addComponent(closeButton)
+                    .addComponent(viewResultsButton)
                     .addComponent(editButton)
                     .addComponent(deleteButton))
                 .addGap(6, 6, 6))
@@ -405,8 +405,8 @@ private Proposal proposal;
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        if (jComboBox1.getSelectedItem() != null){
+    private void downloadAttachmentButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_downloadAttachmentButtonActionPerformed
+        if (attachmentsComboBox.getSelectedItem() != null){
             JFileChooser filechooser = new JFileChooser();
                 filechooser.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
 
@@ -414,8 +414,8 @@ private Proposal proposal;
                 if (result == JFileChooser.APPROVE_OPTION) {
                    String path = filechooser.getCurrentDirectory().toString()
             + File.separatorChar + filechooser.getSelectedFile().getName();
-                  String fileNameDB = getProposal().getSubject() + "-" + jComboBox1.getSelectedItem().toString();
-                  String fileName = jComboBox1.getSelectedItem().toString();
+                  String fileNameDB = getProposal().getSubject() + "-" + attachmentsComboBox.getSelectedItem().toString();
+                  String fileName = attachmentsComboBox.getSelectedItem().toString();
                    if(MongoHelper.download(fileNameDB, path, fileName)){
                    JOptionPane.showMessageDialog(this, "File downloaded!");
                    }
@@ -431,9 +431,9 @@ private Proposal proposal;
                     }
                 }
         }
-    }//GEN-LAST:event_jButton1ActionPerformed
+    }//GEN-LAST:event_downloadAttachmentButtonActionPerformed
 
-    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+    private void newAttachmentButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_newAttachmentButtonActionPerformed
         JFileChooser filechooser = new JFileChooser();
         filechooser.setFileSelectionMode(JFileChooser.FILES_ONLY);
 
@@ -458,11 +458,11 @@ private Proposal proposal;
             // Disregard
             }
         }
-    }//GEN-LAST:event_jButton2ActionPerformed
+    }//GEN-LAST:event_newAttachmentButtonActionPerformed
 
-    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
+    private void voteButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_voteButtonActionPerformed
         if(!ProposalLogic.isExpired(getProposal())) {
-            int option = jComboBox2.getSelectedIndex();
+            int option = optionComboBox.getSelectedIndex();
 
             if(ProposalLogic.vote(proposal, option)){
                 JOptionPane.showMessageDialog(this,
@@ -478,18 +478,18 @@ private Proposal proposal;
         else {
             JOptionPane.showMessageDialog(this, "This proposal is already expired!");
         }
-    }//GEN-LAST:event_jButton3ActionPerformed
+    }//GEN-LAST:event_voteButtonActionPerformed
 
-    private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
+    private void closeButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_closeButtonActionPerformed
         this.dispose();
-    }//GEN-LAST:event_jButton4ActionPerformed
+    }//GEN-LAST:event_closeButtonActionPerformed
 
-    private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
-        boolean success = ProposalLogic.addComment(proposal, jTextArea2.getText());
+    private void postCommentButtoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_postCommentButtoActionPerformed
+        boolean success = ProposalLogic.addComment(proposal, addCommentTextArea.getText());
         if (success) {
             JOptionPane.showMessageDialog(this, "Comment successfully added");
-            jTextArea2.setText("");
-            jTextArea3.setText("");
+            addCommentTextArea.setText("");
+            commentTextArea.setText("");
             setComments();
         } else {
              JOptionPane.showMessageDialog(this,
@@ -497,9 +497,9 @@ private Proposal proposal;
                 "Error",
                 JOptionPane.ERROR_MESSAGE);
         }
-    }//GEN-LAST:event_jButton5ActionPerformed
+    }//GEN-LAST:event_postCommentButtoActionPerformed
 
-    private void jButton6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton6ActionPerformed
+    private void viewResultsButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_viewResultsButtonActionPerformed
         if(getProposal().getAuthor() == FOTE.getUser().getId() || ProposalLogic.isExpired(getProposal())){
             new ViewResults((Frame) this.getParent(), true, getProposal()).setVisible(true);
         }
@@ -510,7 +510,7 @@ private Proposal proposal;
                 "Error",
                 JOptionPane.ERROR_MESSAGE);
         }
-    }//GEN-LAST:event_jButton6ActionPerformed
+    }//GEN-LAST:event_viewResultsButtonActionPerformed
 
     private void editButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_editButtonActionPerformed
         this.dispose();
@@ -531,9 +531,9 @@ private Proposal proposal;
         }
     }//GEN-LAST:event_deleteButtonActionPerformed
 
-    private void jComboBox1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBox1ActionPerformed
+    private void attachmentsComboBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_attachmentsComboBoxActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jComboBox1ActionPerformed
+    }//GEN-LAST:event_attachmentsComboBoxActionPerformed
 
     /**
      * @param args the command line arguments
@@ -564,6 +564,7 @@ private Proposal proposal;
 
         /* Create and display the dialog */
         java.awt.EventQueue.invokeLater(new Runnable() {
+            @Override
             public void run() {
                 ViewProposal dialog = new ViewProposal(new javax.swing.JFrame(), true);
                 dialog.addWindowListener(new java.awt.event.WindowAdapter() {
@@ -577,38 +578,38 @@ private Proposal proposal;
         });
     }
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JLabel addCommentLabel;
+    private javax.swing.JTextArea addCommentTextArea;
+    private javax.swing.JComboBox attachmentsComboBox;
+    private javax.swing.JLabel attachmentsLabel;
+    private javax.swing.JLabel authorLabel;
+    private javax.swing.JTextField authorLabelTextField;
+    private javax.swing.JButton closeButton;
+    private javax.swing.JLabel commentLabel;
+    private javax.swing.JTextArea commentTextArea;
+    private javax.swing.JLabel dateCreatedLabel;
+    private javax.swing.JTextField dateCreatedTextField;
+    private javax.swing.JLabel dateUpdatedLabel;
+    private javax.swing.JTextField dateUpdatedTextField;
     private javax.swing.JButton deleteButton;
+    private javax.swing.JLabel descriptionLabel;
+    private javax.swing.JTextArea descriptionTextArea;
+    private javax.swing.JButton downloadAttachmentButton;
     private javax.swing.JButton editButton;
-    private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
-    private javax.swing.JButton jButton3;
-    private javax.swing.JButton jButton4;
-    private javax.swing.JButton jButton5;
-    private javax.swing.JButton jButton6;
-    private javax.swing.JComboBox jComboBox1;
-    private javax.swing.JComboBox jComboBox2;
-    private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel10;
-    private javax.swing.JLabel jLabel11;
-    private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel3;
-    private javax.swing.JLabel jLabel4;
-    private javax.swing.JLabel jLabel5;
-    private javax.swing.JLabel jLabel6;
-    private javax.swing.JLabel jLabel7;
-    private javax.swing.JLabel jLabel8;
-    private javax.swing.JLabel jLabel9;
+    private javax.swing.JLabel expirationDateLabel;
+    private javax.swing.JTextField expirationDateTextField;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;
-    private javax.swing.JTextArea jTextArea1;
-    private javax.swing.JTextArea jTextArea2;
-    private javax.swing.JTextArea jTextArea3;
-    private javax.swing.JTextField jTextField1;
-    private javax.swing.JTextField jTextField2;
-    private javax.swing.JTextField jTextField3;
-    private javax.swing.JTextField jTextField4;
-    private javax.swing.JTextField jTextField5;
-    private javax.swing.JTextField jTextField6;
+    private javax.swing.JButton newAttachmentButton;
+    private javax.swing.JComboBox optionComboBox;
+    private javax.swing.JLabel optionLabel;
+    private javax.swing.JButton postCommentButto;
+    private javax.swing.JLabel priorityLabel;
+    private javax.swing.JTextField priorityTextField;
+    private javax.swing.JLabel subjectLabel;
+    private javax.swing.JTextField subjectTextField;
+    private javax.swing.JButton viewResultsButton;
+    private javax.swing.JButton voteButton;
     // End of variables declaration//GEN-END:variables
 }
