@@ -70,8 +70,6 @@ public class FOTE {
         ArrayList<Integer> comments = new ArrayList<Integer>();
         options.add("Yes");
         options.add("No");
-        comments.add(new Integer(0));
-        comments.add(new Integer(1));
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy/MM/dd");
         
         // add some starter proposals
