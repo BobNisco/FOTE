@@ -70,7 +70,12 @@ public class MongoHelper {
         getJongo().getDatabase().dropDatabase();
     }
     
-    
+    /**
+     * Uploads a file to the gfs
+     * @param fileLocation the location of the file on the user's computer
+     * @param fileNameDB the name we wish to give the file in the database
+     * @return whether or not the upload was successful
+     */
     public static Boolean upload(String fileLocation, String fileNameDB){
  
         GridFS gfs = new GridFS(getDB(), "attachments");
@@ -88,6 +93,13 @@ public class MongoHelper {
         return false;
     }
     
+    /**
+     * Downloads a file from the gfs
+     * @param fileNameDB the name of the file in the database
+     * @param path the location that we wish the download the file to
+     * @param fileName the name of the file that will be downloaded
+     * @return whether or not the download was successful
+     */
     public static Boolean download(String fileNameDB, String path, String fileName){
          GridFS gfs = new GridFS(getDB(), "attachments");
          

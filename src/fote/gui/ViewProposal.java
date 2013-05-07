@@ -409,15 +409,22 @@ private Proposal proposal;
         if (jComboBox1.getSelectedItem() != null){
             JFileChooser filechooser = new JFileChooser();
                 filechooser.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
-              //In response to a button click:
+
                 int result = filechooser.showOpenDialog(null);
                 if (result == JFileChooser.APPROVE_OPTION) {
                    String path = filechooser.getCurrentDirectory().toString()
             + File.separatorChar + filechooser.getSelectedFile().getName();
                   String fileNameDB = getProposal().getSubject() + "-" + jComboBox1.getSelectedItem().toString();
                   String fileName = jComboBox1.getSelectedItem().toString();
-                   MongoHelper.download(fileNameDB, path, fileName);
+                   if(MongoHelper.download(fileNameDB, path, fileName)){
                    JOptionPane.showMessageDialog(this, "File downloaded!");
+                   }
+                   else{
+                       JOptionPane.showMessageDialog(this,
+                "Attachment failed to download",
+                "Error",
+                JOptionPane.ERROR_MESSAGE);
+                   }
 
                 if (result == JFileChooser.CANCEL_OPTION) {
                     // Disregard
@@ -429,7 +436,7 @@ private Proposal proposal;
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         JFileChooser filechooser = new JFileChooser();
         filechooser.setFileSelectionMode(JFileChooser.FILES_ONLY);
-      //In response to a button click:
+
         int result = filechooser.showOpenDialog(null);
         if (result == JFileChooser.APPROVE_OPTION) {
            String path = filechooser.getCurrentDirectory().toString()
