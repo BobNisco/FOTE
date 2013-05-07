@@ -1,7 +1,3 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package fote.gui;
 
 import fote.FOTE;
@@ -25,11 +21,22 @@ public class ViewProposal extends javax.swing.JDialog {
 
 private Proposal proposal;
 
+    /**
+     * Constructor
+     * @param parent the MainFrame
+     * @param modal whether we want this to be modal in regards to the parent frame
+     */
     public ViewProposal(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
     }
 
+    /**
+     * Constructor
+     * @param parent the MainFrame
+     * @param modal whether we want this to be modal in regards to the parent frame
+     * @param proposal the proposal the user is requesting to view
+     */
     public ViewProposal(java.awt.Frame parent, boolean modal, Proposal proposal) {
         super(parent, modal);
         this.setTitle("Proposal");
@@ -39,14 +46,26 @@ private Proposal proposal;
         this.setLocationRelativeTo(null);
     }
 
+    /**
+     * 
+     * @param p The proposal the user is viewing
+     */
     private void setProposal(Proposal p){
         this.proposal = p;
     }
 
+    /**
+     * 
+     * @return The proposal the user is viewing
+     */
     private Proposal getProposal(){
         return this.proposal;
     }
 
+    /**
+     * Loads the proposal's values into the view 
+     * @param proposal The proposal the user is viewing
+     */
     private void setViewProposal(Proposal proposal) {
         setProposal(proposal);
         UserModel userModel = new UserModel();
@@ -66,6 +85,9 @@ private Proposal proposal;
         }
     }
 
+    /**
+     * Separate method that sets the comments in the comment view
+     */
     private void setComments() {
         ArrayList<Comment> comments = ProposalLogic.getComments(proposal);
         UserModel userModel = new UserModel();
