@@ -158,6 +158,11 @@ private Proposal proposal;
         jLabel8.setText("Attachments: ");
 
         jComboBox1.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "" }));
+        jComboBox1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jComboBox1ActionPerformed(evt);
+            }
+        });
 
         jButton1.setText("Download");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
@@ -385,13 +390,11 @@ private Proposal proposal;
               //In response to a button click:
                 int result = filechooser.showOpenDialog(null);
                 if (result == JFileChooser.APPROVE_OPTION) {
-                   String path = filechooser.getCurrentDirectory().toString();
-                   String fileName = jComboBox1.getSelectedItem().toString();
-                   String newName = filechooser.getSelectedFile().getName();
-                   String ext = fileName.substring(fileName.indexOf('.'));
-                   if(!newName.endsWith(ext))
-                       newName += ext;
-                   MongoHelper.download(fileName, path, newName);
+                   String path = filechooser.getCurrentDirectory().toString()
+            + File.separatorChar + filechooser.getSelectedFile().getName();
+                  String fileNameDB = getProposal().getSubject() + "-" + jComboBox1.getSelectedItem().toString();
+                  String fileName = jComboBox1.getSelectedItem().toString();
+                   MongoHelper.download(fileNameDB, path, fileName);
                    JOptionPane.showMessageDialog(this, "File downloaded!");
 
                 if (result == JFileChooser.CANCEL_OPTION) {
@@ -409,9 +412,9 @@ private Proposal proposal;
         if (result == JFileChooser.APPROVE_OPTION) {
            String path = filechooser.getCurrentDirectory().toString()
             + File.separatorChar + filechooser.getSelectedFile().getName();
-           String fileName = getProposal().getSubject() + "-" + filechooser.getSelectedFile().getName();
-           if(MongoHelper.upload(path, fileName)){
-               getProposal().getAttachments().add(fileName);
+           String fileNameDB = getProposal().getSubject() + "-" + filechooser.getSelectedFile().getName();
+           if(MongoHelper.upload(path, fileNameDB)){
+               getProposal().getAttachments().add(filechooser.getSelectedFile().getName());
                JOptionPane.showMessageDialog(this,
                    "Attachment successfully uploaded");
                setViewProposal(getProposal());
@@ -498,6 +501,10 @@ private Proposal proposal;
                 JOptionPane.ERROR_MESSAGE);
         }
     }//GEN-LAST:event_deleteButtonActionPerformed
+
+    private void jComboBox1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBox1ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jComboBox1ActionPerformed
 
     /**
      * @param args the command line arguments

@@ -71,15 +71,15 @@ public class MongoHelper {
     }
     
     
-    public static Boolean upload(String fileLocation, String fileName){
+    public static Boolean upload(String fileLocation, String fileNameDB){
  
         GridFS gfs = new GridFS(getDB(), "attachments");
-	File imageFile = new File(fileLocation);
+	File file = new File(fileLocation);
                         
         GridFSInputFile gfsFile;
         try {
-            gfsFile = gfs.createFile(imageFile);
-            gfsFile.setFilename(fileName);
+            gfsFile = gfs.createFile(file);
+            gfsFile.setFilename(fileNameDB);
             gfsFile.save();
             return true;
         } catch (IOException ex) {
@@ -88,13 +88,13 @@ public class MongoHelper {
         return false;
     }
     
-    public static Boolean download(String fileName, String path, String newName){
+    public static Boolean download(String fileNameDB, String path, String fileName){
          GridFS gfs = new GridFS(getDB(), "attachments");
-	 // get image file by it's filename
-        GridFSDBFile imageForOutput = gfs.findOne(fileName);
+         
+        GridFSDBFile file = gfs.findOne(fileNameDB);
         try {
             // save it into a new image file
-            imageForOutput.writeTo(path + "\\" + newName);
+            file.writeTo(path + "\\" + fileName);
             return true;
         } catch (IOException ex) {
             Logger.getLogger(MongoHelper.class.getName()).log(Level.SEVERE, null, ex);
