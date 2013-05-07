@@ -19,7 +19,16 @@ import java.util.Map;
  * @author Jason
  */
 public class ProposalLogic {
-    //TODO Make this accept all the date shit too so that we can tell people they suck if they dont enter valid info
+    
+    /**
+     * 
+     * @param expiration the expiration date of the proposal
+     * @param subject the subject of the proposal
+     * @param description the description of the proposal
+     * @param priority the priority of the proposal
+     * @param options the voting options for the proposal
+     * @return whether or not the proposal was successfully created or not
+     */
     public static boolean createProposal(Date expiration, String subject, String description, String priority, ArrayList<String> options){
         Integer priorityNum = Proposal.getPriorityLevel(priority);
         ArrayList<Vote> votes = new ArrayList<Vote>();
@@ -38,6 +47,11 @@ public class ProposalLogic {
         }
     }
     
+    /**
+     * 
+     * @param p The proposal we wish to update
+     * @return whether or not updating the proposal was successful
+     */
     public static boolean updateProposal(Proposal p) {
         if (MongoHelper.query("{id:" + p.getId() + "}", Proposal.class, "proposals").iterator().hasNext()) {
             if (MongoHelper.save(p, "proposals")) {
@@ -47,6 +61,11 @@ public class ProposalLogic {
         return false;
     }
     
+    /**
+     * 
+     * @param p The proposal we wish to see if is valid
+     * @return whether the proposal is valid
+     */
     public static boolean isValidProposal(Proposal p) {
         if (p.getSubject().isEmpty()) {
             return false;
@@ -60,11 +79,21 @@ public class ProposalLogic {
         return true;
     }
     
+    /**
+     * 
+     * @param p The proposal we wish to see if is expired
+     * @return whether the proposal is expired or not
+     */
     public static boolean isExpired(Proposal p) {
         Date now = new Date();
         return p.getExpirationDate().before(now);
     }
     
+    /***
+     * 
+     * @param p The proposal we wish to get comments from
+     * @return an arraylist of comments that belongs to the proposal
+     */
     public static ArrayList<Comment> getComments(Proposal p){
         ArrayList<Comment> comments = new ArrayList<Comment>();
         CommentModel commentModel = new CommentModel();
@@ -77,6 +106,12 @@ public class ProposalLogic {
         return comments;
     }
     
+    /**
+     * 
+     * @param proposal The proposal we wish to get add comments to
+     * @param commentText The comment text
+     * @return whether or not adding the comment was successful
+     */
      public static boolean addComment(Proposal proposal, String commentText) {
         if (commentText.trim().length() > 0) {
             Comment comment = new Comment(commentText, FOTE.getUser().getId());
@@ -89,6 +124,12 @@ public class ProposalLogic {
         }
     }
     
+     /**
+      * 
+      * @param proposal The proposal we wish to vote on
+      * @param optionId The option selected for the vote
+      * @return whether or not the vote was successful
+      */
     public static boolean vote(Proposal proposal, int optionId) {
         Vote vote = new Vote(FOTE.getUser().getId(), optionId, proposal.getId());
         VoteModel voteModel = new VoteModel();
@@ -119,6 +160,11 @@ public class ProposalLogic {
         return false;
     }
     
+    /**
+     * 
+     * @param proposal The proposal we wish generate the winning vote from
+     * @return The string option of the winning vote
+     */
     public static String getWinningVote(Proposal proposal){
         // Create an index of options -> numVotes
         Map<Integer, Integer> voteCount = new HashMap<Integer, Integer>();
@@ -149,6 +195,11 @@ public class ProposalLogic {
         return "None";
     }
     
+    /**
+     * 
+     * @param proposal The proposal we wish to get the vote summary of
+     * @return An arraylist of strings that represents voting options and their count 
+     */
     public static ArrayList<String> getVoteSummary(Proposal proposal){
         // Create an index of options -> numVotes
         Map<Integer, Integer> voteCount = new HashMap<Integer, Integer>();
@@ -172,6 +223,11 @@ public class ProposalLogic {
         return results;
     }
     
+    /**
+     * 
+     * @param p The proposal we wish to delete
+     * @return whether or not the deletion of the proposal was successful
+     */
     public static boolean deleteProposal(Proposal p) {
         if (FOTE.getUser().getId() != p.getAuthor()) {
             return false;
