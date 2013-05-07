@@ -262,20 +262,38 @@ public class MainFrame extends javax.swing.JFrame {
         new CreateSuggestion(this, true).setVisible(true);
     }//GEN-LAST:event_jButton4ActionPerformed
 
+    /**
+     * Event listener for the logout button
+     * @param evt 
+     */
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         new Logout(this,true).setVisible(true);
     }//GEN-LAST:event_jButton1ActionPerformed
 
+    /**
+     * Event listener for the refresh button
+     * @param evt 
+     */
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-       loadSuggestions();
+        loadProposals();
+        loadSuggestions();
     }//GEN-LAST:event_jButton2ActionPerformed
 
+    /**
+     * Event listener for Proposals table mouse down
+     * @param evt 
+     */
     private void jTable3MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTable3MousePressed
         JTable jtable = (JTable) evt.getSource();
         selection = jtable.getSelectedRow();
         jtable.clearSelection();
     }//GEN-LAST:event_jTable3MousePressed
 
+    /**
+     * Event listener for Proposals table mouse release,
+     * Creating a proposal view dialog for the selected proposal.
+     * @param evt 
+     */
     private void jTable3MouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTable3MouseReleased
         JTable jtable = (JTable) evt.getSource();
         System.out.println("Selection: " + selection);
@@ -283,12 +301,21 @@ public class MainFrame extends javax.swing.JFrame {
         new ViewProposal(this, true, (Proposal) proposals.get(selection)).setVisible(true);
     }//GEN-LAST:event_jTable3MouseReleased
 
+    /**
+     * Event listener for Suggestions table mouse down
+     * @param evt 
+     */
     private void jTable2MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTable2MousePressed
         JTable jtable = (JTable) evt.getSource();
         selection = jtable.getSelectedRow();
         jtable.clearSelection();
     }//GEN-LAST:event_jTable2MousePressed
 
+    /**
+     * Event listener for Suggestions table mouse release,
+     * creating a new suggestion view dialog for the selected suggestion.
+     * @param evt 
+     */
     private void jTable2MouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTable2MouseReleased
         JTable jtable = (JTable) evt.getSource();
         System.out.println("Selection: " + selection);
@@ -296,14 +323,26 @@ public class MainFrame extends javax.swing.JFrame {
         new ViewSuggestion(this, true, (Suggestion) suggestions.get(selection)).setVisible(true);
     }//GEN-LAST:event_jTable2MouseReleased
 
+    /**
+     * Event listener for proposal status filter, which triggers a refresh
+     * @param evt 
+     */
     private void jComboBox3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBox3ActionPerformed
         loadProposals();
     }//GEN-LAST:event_jComboBox3ActionPerformed
 
+    /**
+     * Event listener for proposal priority filter, which triggers a refresh
+     * @param evt 
+     */
     private void jComboBox4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBox4ActionPerformed
         loadProposals();
     }//GEN-LAST:event_jComboBox4ActionPerformed
 
+    /**
+     * Query the database for proposals using the specified filters,
+     * and display them in the table.
+     */
     public void loadProposals() {
         this.proposals.clear();
         ProposalModel proposalModel = new ProposalModel();
@@ -347,6 +386,9 @@ public class MainFrame extends javax.swing.JFrame {
         }
     }
 
+    /**
+     * Query the database for suggestions and display them in the table
+     */
     public void loadSuggestions() {
         this.suggestions.clear();
         SuggestionModel suggestionModel = new SuggestionModel();
