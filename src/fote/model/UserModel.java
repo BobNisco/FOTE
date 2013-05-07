@@ -3,6 +3,8 @@ package fote.model;
 import fote.entry.Entry;
 import fote.entry.User;
 
+import sun.misc.BASE64Encoder;
+
 /**
  *
  * @author Bob Nisco
@@ -45,5 +47,10 @@ public class UserModel extends BaseModel {
             }
         }
         return result;
+    }
+    
+    public static String encodePassword(String p) {
+        BASE64Encoder encoder = new BASE64Encoder();
+        return encoder.encodeBuffer(p.getBytes());
     }
 }

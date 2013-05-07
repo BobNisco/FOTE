@@ -6,6 +6,7 @@ import fote.entry.User;
 import fote.entry.Vote;
 import fote.gui.Login;
 import fote.gui.MainFrame;
+import fote.model.UserModel;
 import fote.util.MongoHelper;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -59,10 +60,10 @@ public class FOTE {
         MongoHelper.setDB("fote");
         MongoHelper.dropDatabase();
         // add some users
-        MongoHelper.save(new User("Bob", "Nisco", "robert.nisco1@marist.edu", "password123"), "users");
-        MongoHelper.save(new User("Jason", "Parraga", "jason.parraga1@marist.edu", "password123"), "users");
-        MongoHelper.save(new User("Evan", "Van Dam", "Evan.VanDam1@marist.edu", "password123"), "users");
-        MongoHelper.save(new User("ADMIN", "ADMIN", "admin", "admin"), "users");
+        MongoHelper.save(new User("Bob", "Nisco", "robert.nisco1@marist.edu", UserModel.encodePassword("password123")), "users");
+        MongoHelper.save(new User("Jason", "Parraga", "jason.parraga1@marist.edu", UserModel.encodePassword("password123")), "users");
+        MongoHelper.save(new User("Evan", "Van Dam", "Evan.VanDam1@marist.edu", UserModel.encodePassword("password123")), "users");
+        MongoHelper.save(new User("ADMIN", "ADMIN", "admin", UserModel.encodePassword("admin")), "users");
         
         // setup for adding proposals
         ArrayList<String> options = new ArrayList<String>();
