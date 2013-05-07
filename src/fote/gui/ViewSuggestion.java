@@ -53,7 +53,9 @@ public class ViewSuggestion extends javax.swing.JDialog {
         }
         setComments();
     }
-
+    /**
+     * Separate method that sets the comments in the comment view
+     */
     private void setComments() {
         UserModel userModel = new UserModel();
         ArrayList<Comment> comments = SuggestionLogic.getComments(getSuggestion());
@@ -66,10 +68,18 @@ public class ViewSuggestion extends javax.swing.JDialog {
         }
     }
 
+   /**
+     * 
+     * @return The suggestion the user is viewing
+     */
     private Suggestion getSuggestion(){
         return this.suggestion;
     }
 
+    /**
+     * 
+     * @param s The suggestion we are viewing
+     */
     private void setSuggestion(Suggestion s){
         this.suggestion = s;
     }
@@ -300,17 +310,22 @@ public class ViewSuggestion extends javax.swing.JDialog {
         if (jComboBox2.getSelectedItem() != null){
             JFileChooser filechooser = new JFileChooser();
             filechooser.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
-            //In response to a button click:
+
             int result = filechooser.showOpenDialog(null);
             if (result == JFileChooser.APPROVE_OPTION) {
-                String path = filechooser.getCurrentDirectory().toString();
-                String fileName = jComboBox2.getSelectedItem().toString();
-                String newName = filechooser.getSelectedFile().getName();
-                String ext = fileName.substring(fileName.indexOf('.'));
-                if(!newName.endsWith(ext))
-                    newName += ext;
-                MongoHelper.download(fileName, path, newName);
+               String path = filechooser.getCurrentDirectory().toString()
+            + File.separatorChar + filechooser.getSelectedFile().getName();
+                  String fileNameDB = getSuggestion().getSubject() + "-" + jComboBox2.getSelectedItem().toString();
+                  String fileName = jComboBox2.getSelectedItem().toString();
+                if(MongoHelper.download(fileNameDB, path, fileName)){
                 JOptionPane.showMessageDialog(this, "File downloaded!");
+                }
+                else{
+                    JOptionPane.showMessageDialog(this,
+                "Attachment failed to download",
+                "Error",
+                JOptionPane.ERROR_MESSAGE);
+                }
 
                 if (result == JFileChooser.CANCEL_OPTION) {
                     // Disregard
@@ -322,14 +337,14 @@ public class ViewSuggestion extends javax.swing.JDialog {
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
         JFileChooser filechooser = new JFileChooser();
         filechooser.setFileSelectionMode(JFileChooser.FILES_ONLY);
-      //In response to a button click:
+
         int result = filechooser.showOpenDialog(null);
         if (result == JFileChooser.APPROVE_OPTION) {
-           String path = filechooser.getCurrentDirectory().toString()
+         String path = filechooser.getCurrentDirectory().toString()
             + File.separatorChar + filechooser.getSelectedFile().getName();
-           String fileName = getSuggestion().getSubject() + "-" + filechooser.getSelectedFile().getName();
-           if(MongoHelper.upload(path, fileName)){
-               getSuggestion().getAttachments().add(fileName);
+           String fileNameDB = getSuggestion().getSubject() + "-" + filechooser.getSelectedFile().getName();
+           if(MongoHelper.upload(path, fileNameDB)){
+               getSuggestion().getAttachments().add(fileNameDB);
                JOptionPane.showMessageDialog(this,
                    "Attachment successfully uploaded");
                setViewSuggestion(getSuggestion());
