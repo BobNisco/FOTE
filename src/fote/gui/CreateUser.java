@@ -147,8 +147,8 @@ public class CreateUser extends javax.swing.JDialog {
         String first = firstNameTextField.getText();
         String last = lastNameTextField.getText();
         String maristID = maristUsernameTextField.getText();
-        String pw1 = new String(passwordTextField.getPassword());
-        String pw2 = new String(confirmPasswordTextFIeld.getPassword());
+        String pw1 = UserModel.encodePassword(new String(passwordTextField.getPassword()));
+        String pw2 = UserModel.encodePassword(new String(confirmPasswordTextFIeld.getPassword()));
         if(pw1.equals(pw2)) {
             User user = new User(first, last, maristID, pw1);
             MongoHelper.save(user, "users");
