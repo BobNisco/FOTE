@@ -520,7 +520,7 @@ private Proposal proposal;
     private void deleteButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_deleteButtonActionPerformed
         boolean success = ProposalLogic.deleteProposal(this.getProposal());
         if (success) {
-            FOTE.getMainFrame().loadSuggestions();
+            FOTE.getMainFrame().loadProposals();
             this.dispose();
         } else {
             System.err.println("Could not delete proposal");
