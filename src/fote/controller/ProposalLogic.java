@@ -31,7 +31,7 @@ public class ProposalLogic {
      */
     public static boolean createProposal(Date expiration, String subject, String description, String priority, ArrayList<String> options){
         Integer priorityNum = Proposal.getPriorityLevel(priority);
-        ArrayList<Vote> votes = new ArrayList<Vote>();
+        ArrayList<Integer> votes = new ArrayList<Integer>();
         ArrayList<Integer> comments = new ArrayList<Integer>();
         ArrayList<String> attachments = new ArrayList<String>();
         int userID = FOTE.getUser().getId();
@@ -142,7 +142,8 @@ public class ProposalLogic {
             Vote deleteVote = (Vote) voteQuery.iterator().next();
             MongoHelper.delete(deleteVote, "votes");
             System.out.println("PREVIOUS VOTE DELETED!");
-            for (Vote v : proposal.getVotes()){
+            for (Integer i : proposal.getVotes()){
+                Vote v = (Vote) voteModel.get(i);
                 if (v.getProposalID() == deleteVote.getProposalID() && v.getUserID() == deleteVote.getUserID()){
                     deleteVote = v;
                 }
@@ -152,7 +153,7 @@ public class ProposalLogic {
         // Otherwise we just add the vote to the DB and object
         if(MongoHelper.save(vote, "votes")){
             vote = (Vote) MongoHelper.fetch(vote, "votes");
-            proposal.getVotes().add(vote);
+            proposal.getVotes().add(vote.getId());
             if(MongoHelper.save(proposal, "proposals")){
                 return true;
             }
@@ -168,8 +169,11 @@ public class ProposalLogic {
     public static String getWinningVote(Proposal proposal){
         // Create an index of options -> numVotes
         Map<Integer, Integer> voteCount = new HashMap<Integer, Integer>();
-        
-        for (Vote vote : proposal.getVotes()){
+        System.out.println(proposal);
+        VoteModel voteModel = new VoteModel();
+        for (Integer i : proposal.getVotes()){
+            Vote vote = (Vote) voteModel.get(i);
+            System.out.println(vote.toString());
             if(voteCount.containsKey(vote.getOptionID())){
                 Integer num = voteCount.get(vote.getOptionID());
                 voteCount.put(vote.getOptionID(), new Integer(++num));
@@ -179,6 +183,7 @@ public class ProposalLogic {
             }
         }
         if(!voteCount.isEmpty()){
+            System.out.println("Vote count is empty");
             Integer max = new Integer(voteCount.get(voteCount.keySet().iterator().next()));
 
             // Loop through the index and find which key has the highest value
@@ -203,8 +208,10 @@ public class ProposalLogic {
     public static ArrayList<String> getVoteSummary(Proposal proposal){
         // Create an index of options -> numVotes
         Map<Integer, Integer> voteCount = new HashMap<Integer, Integer>();
+        VoteModel voteModel = new VoteModel();
         
-        for (Vote vote : proposal.getVotes()){
+        for (Integer i : proposal.getVotes()){
+            Vote vote = (Vote) voteModel.get(i);
             if(voteCount.containsKey(vote.getOptionID())){
                 Integer num = voteCount.get(vote.getOptionID());
                 voteCount.put(vote.getOptionID(), new Integer(++num));

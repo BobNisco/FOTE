@@ -13,7 +13,8 @@ import javax.swing.DefaultComboBoxModel;
  * @author Evan
  */
 public class ViewResults extends javax.swing.JDialog {
-
+    
+    private Proposal proposal;
     /**
      * Creates new form ViewResults
      */
@@ -22,14 +23,18 @@ public class ViewResults extends javax.swing.JDialog {
         this.setTitle("Proposal Results");
         initComponents();
         this.setLocationRelativeTo(null);
-        setViewResults(p);
+        this.setProposal(p);
+        setViewResults();
     }
 
-    public void setViewResults(Proposal p){
-        totalVotesCastTextField.setText(String.valueOf(p.getVotes().size()));
-        winningVoteTextField.setText(ProposalLogic.getWinningVote(p));
-        detailedResultsComboBox.setModel(new DefaultComboBoxModel(ProposalLogic.getVoteSummary(p).toArray(new String[ProposalLogic.getVoteSummary(p).size()])));
+    public void setViewResults(){
+        totalVotesCastTextField.setText(String.valueOf(this.getProposal().getVotes().size()));
+        System.out.println(ProposalLogic.getWinningVote(this.getProposal()));
+        winningVoteTextField.setText(ProposalLogic.getWinningVote(this.getProposal()));
+        detailedResultsComboBox.setModel(new DefaultComboBoxModel(ProposalLogic.getVoteSummary(this.getProposal()).toArray(new String[ProposalLogic.getVoteSummary(this.getProposal()).size()])));
     }
+    
+    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -166,4 +171,13 @@ public class ViewResults extends javax.swing.JDialog {
     private javax.swing.JLabel winningVoteLabel;
     private javax.swing.JTextField winningVoteTextField;
     // End of variables declaration//GEN-END:variables
+
+    public Proposal getProposal() {
+        return proposal;
+    }
+
+    public void setProposal(Proposal proposal) {
+        this.proposal = proposal;
+    }
+    
 }

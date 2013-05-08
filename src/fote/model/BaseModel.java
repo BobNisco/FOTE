@@ -45,4 +45,12 @@ public abstract class BaseModel {
         Iterable<Entry> resultSet = MongoHelper.query(queryString, numbers, clss, document);
         return resultSet;
     }
+    
+    public Entry get(Integer id) {
+        Iterable<Entry> resultSet = MongoHelper.query("{id:" + id + "}", clss, document);
+        if (resultSet.iterator().hasNext()) {
+            return resultSet.iterator().next();
+        }
+        return null;
+    }
 }

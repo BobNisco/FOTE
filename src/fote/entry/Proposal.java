@@ -1,5 +1,6 @@
 package fote.entry;
 
+import fote.model.VoteModel;
 import java.util.ArrayList;
 import java.util.Date;
 
@@ -13,7 +14,7 @@ public class Proposal extends Entry {
     private ArrayList<String> options;
     private ArrayList<Integer> comments; 
     private ArrayList<String> attachments;
-    private ArrayList<Vote> votes;
+    private ArrayList<Integer> votes;
     private Date expirationDate;
     private long expirationTime;
     
@@ -27,7 +28,7 @@ public class Proposal extends Entry {
         this.priority = -1;
         this.author = -1;
         this.options = new ArrayList<String>();
-        this.votes = new ArrayList<Vote>();
+        this.votes = new ArrayList<Integer>();
         this.comments = new ArrayList<Integer>();
         this.attachments = new ArrayList<String>();
         this.expirationTime = this.expirationDate.getTime();
@@ -47,7 +48,7 @@ public class Proposal extends Entry {
      */
     public Proposal(Date expirationDate, String subject, String description, 
             Integer priority, Integer author, ArrayList<String> options, 
-            ArrayList<Vote> votes, ArrayList<Integer> comments, 
+            ArrayList<Integer> votes, ArrayList<Integer> comments, 
             ArrayList<String> attachments) {
         this.expirationDate = expirationDate;
         this.subject = subject;
@@ -146,7 +147,7 @@ public class Proposal extends Entry {
      *
      * @return an ArrayList of the votes of this proposal
      */
-    public ArrayList<Vote> getVotes() {
+    public ArrayList<Integer> getVotes() {
         return votes;
     }
 
@@ -195,7 +196,7 @@ public class Proposal extends Entry {
      *
      * @param voteCount the new votes
      */
-    public void setVotes(ArrayList<Vote> voteCount) {
+    public void setVotes(ArrayList<Integer> voteCount) {
         this.votes = voteCount;
     }
 
@@ -263,7 +264,9 @@ public class Proposal extends Entry {
             result += option + ", ";
         }
         result += " VoteCountIDs: ";
-        for (Vote vote : this.getVotes()) {
+        VoteModel voteModel = new VoteModel();
+        for (Integer i : this.getVotes()) {
+            Vote vote = (Vote) voteModel.get(i);
             result += vote.toString() + ", ";
         }
         result += " CommentIDs: ";
