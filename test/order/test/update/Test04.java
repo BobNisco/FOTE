@@ -1,6 +1,5 @@
 package order.test.update;
 
-import fote.entry.Comment;
 import fote.entry.Proposal;
 import fote.entry.Vote;
 import fote.util.MongoHelper;
@@ -18,7 +17,7 @@ import org.junit.Test;
  * @author Jason
  */
 public class Test04 {
-    Proposal proposal = new Proposal(new Date(), "Test subject", "Test description", new Integer(5), new Integer(0), new ArrayList<String>(), new ArrayList<Vote>(), new ArrayList<Integer>(), new ArrayList<String>());
+    Proposal proposal = new Proposal(new Date(), "Test subject", "Test description", new Integer(5), new Integer(0), new ArrayList<String>(), new ArrayList<Integer>(), new ArrayList<Integer>(), new ArrayList<String>());
     
     public Test04() {
     }
@@ -84,9 +83,10 @@ public class Test04 {
              TestHelper.failed("options update failed");
          }
          
-         ArrayList<Vote> votes = new ArrayList<Vote>();
+         ArrayList<Integer> votes = new ArrayList<Integer>();
          Vote vote = new Vote(new Integer(0), new Integer(0), new Integer(0));
-         votes.add(vote);
+         MongoHelper.save(vote, "votes");
+         votes.add(0);
          fetchedProposal.setVotes(votes);
          if(!MongoHelper.save(fetchedProposal, "proposals")){
              TestHelper.failed("votes update failed");

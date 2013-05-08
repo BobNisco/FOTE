@@ -22,7 +22,7 @@ import org.junit.Test;
  */
 public class Test04 {
     
-    Proposal proposal = new Proposal(new Date(), "Test subject", "Test description", new Integer(5), new Integer(0), new ArrayList<String>(), new ArrayList<Vote>(), new ArrayList<Integer>(), new ArrayList<String>());
+    Proposal proposal = new Proposal(new Date(), "Test subject", "Test description", new Integer(5), new Integer(0), new ArrayList<String>(), new ArrayList<Integer>(), new ArrayList<Integer>(), new ArrayList<String>());
     
     public Test04() {
         
