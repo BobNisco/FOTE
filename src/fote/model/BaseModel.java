@@ -46,6 +46,11 @@ public abstract class BaseModel {
         return resultSet;
     }
     
+    /**
+     * Gets a single "row" from the MongDB with the given id
+     * @param id the id of the "row" you want to get
+     * @return an instance of Entry class if it was found, else it will return null
+     */
     public Entry get(Integer id) {
         Iterable<Entry> resultSet = MongoHelper.query("{id:" + id + "}", clss, document);
         if (resultSet.iterator().hasNext()) {
